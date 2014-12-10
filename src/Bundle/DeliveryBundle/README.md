@@ -1,4 +1,0 @@
-DeliveryBundle
-==============
-
-Orkestro Delivery Bundle

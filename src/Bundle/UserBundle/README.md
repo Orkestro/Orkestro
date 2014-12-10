@@ -1,4 +1,0 @@
-UserBundle
-==========
-
-Orkestro User Bundle

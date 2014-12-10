@@ -1,4 +1,0 @@
-OrderBundle
-===========
-
-Orkestro Order Bundle

@@ -1,0 +1,4 @@
+CoreBundle
+=============
+
+Orkestro Core Bundle
