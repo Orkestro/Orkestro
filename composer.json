@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "orkestro/orkestro",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Smart eCommerce for Symfony2",
     "autoload": {
         "psr-0": { "": "src/" }
     },
