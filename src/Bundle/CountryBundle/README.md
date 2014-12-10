@@ -1,4 +1,4 @@
 OrkestroCountryBundle
 =====================
 
-[READ-ONLY] Country list bundle for Orkestro
+Country list bundle for Orkestro
