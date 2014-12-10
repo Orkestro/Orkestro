@@ -1,4 +1,0 @@
-ManufacturerBundle
-==================
-
-Orkestro Manufacturer Bundle

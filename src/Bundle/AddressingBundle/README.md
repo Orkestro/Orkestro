@@ -1,4 +1,0 @@
-AddressingBundle
-================
-
-Orkestro Addressing Bundle
