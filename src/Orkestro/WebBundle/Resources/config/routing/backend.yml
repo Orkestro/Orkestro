@@ -1,0 +1,10 @@
+orkestro_backend_index:
+  path: /
+  defaults:
+    _controller: FrameworkBundle:Redirect:redirect
+    route: orkestro_backend_dashboard
+    permanent: true
+
+orkestro_backend_dashboard:
+  resource: @OrkestroWebBundle/Controller/Backend/DashboardController.php
+  type: annotation
