@@ -29,15 +29,17 @@ abstract class Kernel extends BaseKernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
+            new Orkestro\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\AddressingBundle\OrkestroAddressingBundle(),
+            new Orkestro\ApiBundle\OrkestroApiBundle(),
+            new Orkestro\CartBundle\OrkestroCartBundle(),
             new Orkestro\CountryBundle\OrkestroCountryBundle(),
             new Orkestro\DeliveryBundle\OrkestroDeliveryBundle(),
             new Orkestro\ManufacturerBundle\OrkestroManufacturerBundle(),
             new Orkestro\OrderBundle\OrkestroOrderBundle(),
-            new Orkestro\CartBundle\OrkestroCartBundle(),
             new Orkestro\ProductBundle\OrkestroProductBundle(),
             new Orkestro\UserBundle\OrkestroUserBundle(),
-            new Orkestro\CoreBundle\OrkestroCoreBundle(),
+            new Orkestro\WebBundle\OrkestroWebBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
