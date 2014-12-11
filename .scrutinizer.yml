@@ -1,4 +1,7 @@
 checks:
-    php:
-        code_rating: true
-        duplication: true
+  php:
+    code_rating: true
+    duplication: true
+filter:
+  excluded_paths:
+    - app/SymfonyRequirements.php
