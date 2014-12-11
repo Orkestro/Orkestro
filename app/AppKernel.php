@@ -1,6 +1,6 @@
 <?php
 
-use Orkestro\CoreBundle\Kernel\Kernel;
+use Orkestro\Bundle\CoreBundle\Kernel\Kernel;
 
 class AppKernel extends Kernel
 {
