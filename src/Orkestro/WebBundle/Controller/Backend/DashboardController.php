@@ -1,19 +1,19 @@
 <?php
 
-namespace Orkestro\WebBundle\Controller;
+namespace Orkestro\WebBundle\Controller\Backend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/dashboard", name="orkestro_backend_dashboard")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array();
     }
 }

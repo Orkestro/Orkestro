@@ -1,0 +1,6 @@
+orkestro_frontend:
+  resource: @OrkestroWebBundle/Resources/config/routing/frontend.yml
+
+orkestro_backend:
+  resource: @OrkestroWebBundle/Resources/config/routing/backend.yml
+  prefix: /admin

@@ -1,0 +1,3 @@
+orkestro_frontend_homepage:
+  resource: @OrkestroWebBundle/Controller/Frontend/HomepageController.php
+  type: annotation
