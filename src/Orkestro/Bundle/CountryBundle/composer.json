@@ -1,0 +1,37 @@
+{
+    "name": "orkestro/country-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Orkestro Country Bundle",
+    "keywords": ["shop", "ecommerce", "store", "webshop", "orkestro", "symfony", "symfony2"],
+    "homepage": "http://orkestro.github.io/Orkestro/",
+    "authors": [
+        {
+            "name":     "Orkestro project",
+            "homepage": "http://orkestro.github.io/Orkestro/"
+        },
+        {
+            "name":     "Community contributions",
+            "homepage": "http://github.com/Orkestro/Orkestro/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "2.3.*",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "orkestro/core-bundle": "0.1.*@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": { "Orkestro\\Bundle\\CountryBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

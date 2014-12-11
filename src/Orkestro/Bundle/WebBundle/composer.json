@@ -1,0 +1,35 @@
+{
+    "name": "orkestro/web-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Orkestro Web Bundle",
+    "keywords": ["shop", "ecommerce", "store", "webshop", "orkestro", "symfony", "symfony2"],
+    "homepage": "http://orkestro.github.io/Orkestro/",
+    "authors": [
+        {
+            "name":     "Orkestro project",
+            "homepage": "http://orkestro.github.io/Orkestro/"
+        },
+        {
+            "name":     "Community contributions",
+            "homepage": "http://github.com/Orkestro/Orkestro/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "2.3.*",
+        "orkestro/core-bundle": "0.1.*@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": { "Orkestro\\Bundle\\WebBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

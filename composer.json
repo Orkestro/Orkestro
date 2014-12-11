@@ -3,9 +3,18 @@
     "license": "MIT",
     "type": "project",
     "description": "Smart eCommerce for Symfony2",
-    "autoload": {
-        "psr-0": { "": "src/" }
-    },
+    "keywords": ["shop", "ecommerce", "store", "webshop", "orkestro", "symfony", "symfony2"],
+    "homepage": "http://orkestro.github.io/Orkestro/",
+    "authors": [
+        {
+            "name":     "Orkestro project",
+            "homepage": "http://orkestro.github.io/Orkestro/"
+        },
+        {
+            "name":     "Community contributions",
+            "homepage": "http://github.com/Orkestro/Orkestro/contributors"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
@@ -39,7 +48,9 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": { "Orkestro\\": "src/" }
+    },
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
