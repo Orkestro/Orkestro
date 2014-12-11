@@ -29,6 +29,11 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0"
     },
+    "replace": {
+        "orkestro/core-bundle": "self.version",
+        "orkestro/country-bundle": "self.version",
+        "orkestro/web-bundle": "self.version"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
