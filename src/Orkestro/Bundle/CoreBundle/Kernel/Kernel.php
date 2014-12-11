@@ -11,7 +11,10 @@
 
 namespace Orkestro\Bundle\CoreBundle\Kernel;
 
-use Symfony, Doctrine, Sensio, Orkestro;
+use Symfony;
+use Doctrine;
+use Sensio;
+use Orkestro;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
