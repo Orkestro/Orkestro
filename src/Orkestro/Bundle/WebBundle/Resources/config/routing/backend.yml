@@ -8,3 +8,7 @@ orkestro_backend_index:
 orkestro_backend_dashboard:
   resource: @OrkestroWebBundle/Controller/Backend/DashboardController.php
   type: annotation
+
+orkestro_backend_country:
+  resource: @OrkestroCountryBundle/Controller/DefaultController.php
+  type: annotation

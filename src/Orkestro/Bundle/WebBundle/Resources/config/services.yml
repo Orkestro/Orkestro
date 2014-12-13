@@ -1,0 +1,13 @@
+services:
+  orkestro.menu_builder.backend:
+    class: Orkestro\Bundle\WebBundle\Menu\BackendMenuBuilder
+    arguments: ["@knp_menu.factory", "@translator", "@event_dispatcher"]
+
+  orkestro.menu.backend:
+    class: Knp\Menu\MenuItem
+    factory_service: orkestro.menu_builder.backend
+    factory_method: createMainMenu
+    arguments: ["@request"]
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: backend_main }

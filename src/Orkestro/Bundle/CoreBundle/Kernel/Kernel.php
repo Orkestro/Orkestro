@@ -15,6 +15,7 @@ use Symfony;
 use Doctrine;
 use Sensio;
 use Orkestro;
+use Knp;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
@@ -31,6 +32,7 @@ abstract class Kernel extends BaseKernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             new Orkestro\Bundle\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\Bundle\AddressingBundle\OrkestroAddressingBundle(),
