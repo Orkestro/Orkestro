@@ -1,0 +1,7 @@
+parameters:
+  orkestro_oauth_user_provider.class: Orkestro\Bundle\UserBundle\Security\Core\User\FOSUBUserProvider
+
+services:
+  orkestro_oauth_user_provider:
+    class: "%orkestro_oauth_user_provider.class%"
+    arguments: [@fos_user.user_manager, { facebook: facebook_id, google: google_id }]

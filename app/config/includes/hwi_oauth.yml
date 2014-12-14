@@ -1,0 +1,20 @@
+hwi_oauth:
+  connect:
+    account_connector: orkestro_oauth_user_provider
+  firewall_name: main
+  fosub:
+    username_iterations: 30
+    properties:
+      facebook: facebookId
+      google: googleId
+  resource_owners:
+    facebook:
+      type: facebook
+      client_id: "%orkestro.oauth.facebook.app_id%"
+      client_secret: "%orkestro.oauth.facebook.app_secret%"
+      scope: "%orkestro.oauth.facebook.scope%"
+    google:
+      type: google
+      client_id: "%orkestro.oauth.google.app_id%"
+      client_secret: "%orkestro.oauth.google.app_secret%"
+      scope: "%orkestro.oauth.google.scope%"

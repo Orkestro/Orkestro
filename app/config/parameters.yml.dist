@@ -17,4 +17,12 @@ parameters:
     locale:            en
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            your_secret_token
+    secret:            ~
+
+    # Socials
+    orkestro.oauth.facebook.app_id: none
+    orkestro.oauth.facebook.app_secret: none
+    orkestro.oauth.facebook.scope: none
+    orkestro.oauth.google.app_id: none
+    orkestro.oauth.google.app_secret: none
+    orkestro.oauth.google.scope: none
