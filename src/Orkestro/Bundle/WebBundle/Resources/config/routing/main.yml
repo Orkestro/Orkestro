@@ -4,3 +4,6 @@ orkestro_frontend:
 orkestro_backend:
   resource: @OrkestroWebBundle/Resources/config/routing/backend.yml
   prefix: /admin
+
+fos_user:
+  resource: @FOSUserBundle/Resources/config/routing/all.xml

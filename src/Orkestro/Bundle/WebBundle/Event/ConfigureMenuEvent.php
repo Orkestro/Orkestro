@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\Event;
 class ConfigureMenuEvent extends Event
 {
     const BACKEND_MAIN = 'orkestro.menu_builder.backend.main.configure';
+    const FRONTEND_MAIN = 'orkestro.menu_builder.frontend.main.configure';
 
     private $factory;
     private $menu;
