@@ -22,7 +22,7 @@
     </form>
 
     {% for social in socials %}
-        asd
+        {{ dump(social) }}
     {% endfor %}
 
     <a href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">Connect with Facebook</a>

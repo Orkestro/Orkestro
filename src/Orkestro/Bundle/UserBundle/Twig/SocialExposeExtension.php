@@ -13,7 +13,7 @@ class SocialExposeExtension extends \Twig_Extension
         $this->container = $container;
     }
 
-    public function getGlobal()
+    public function getGlobals()
     {
         return array(
             'socials' => $this->container->getParameter('hwi_oauth.resource_owners'),
