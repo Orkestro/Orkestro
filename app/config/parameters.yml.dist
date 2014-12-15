@@ -22,7 +22,7 @@ parameters:
     # OAuth
     orkestro.oauth.facebook.app_id: none
     orkestro.oauth.facebook.app_secret: none
-    orkestro.oauth.facebook.scope: none
+    orkestro.oauth.facebook.scope: "email, public_profile, user_friends"
     orkestro.oauth.google.app_id: none
     orkestro.oauth.google.app_secret: none
     orkestro.oauth.google.scope: none
