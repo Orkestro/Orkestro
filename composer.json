@@ -35,6 +35,7 @@
     "replace": {
         "orkestro/core-bundle": "self.version",
         "orkestro/country-bundle": "self.version",
+        "orkestro/user-bundle": "self.version",
         "orkestro/web-bundle": "self.version"
     },
     "scripts": {
