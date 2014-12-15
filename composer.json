@@ -30,7 +30,9 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "knplabs/knp-menu-bundle": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "hwi/oauth-bundle": "0.4.*@dev"
+        "hwi/oauth-bundle": "0.4.*@dev",
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "knplabs/knp-paginator-bundle": "~2.4"
     },
     "replace": {
         "orkestro/core-bundle": "self.version",

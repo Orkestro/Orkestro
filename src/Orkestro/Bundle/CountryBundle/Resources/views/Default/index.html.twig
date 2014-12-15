@@ -1,5 +1,30 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 
 {% block body -%}
-    Admin Countries
+    <h3>Countries</h3>
+
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+
+    <table>
+        <tr>
+            <th>
+                {{ knp_pagination_sortable(pagination, 'ID', 'c.id') }}
+            </th>
+            <th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Title', 'c.title') }}
+            </th>
+        </tr>
+        {% for article in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ article.id }}</td>
+                <td>{{ article.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

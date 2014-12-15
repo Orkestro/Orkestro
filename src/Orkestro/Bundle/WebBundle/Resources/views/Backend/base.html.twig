@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %} | Orkestro eCommerce</title>
+    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-{{ knp_menu_render('backend_main') }}
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+    {{ knp_menu_render('backend_main') }}
+    {% block body %}{% endblock %}
+    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/jquery/js/jquery-2.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/bootstrap/js/bootstrap.min.js') }}"></script>
+    {% block javascripts %}{% endblock %}
 </body>
 </html>
