@@ -18,3 +18,13 @@ hwi_oauth:
       client_id: "%orkestro.oauth.google.app_id%"
       client_secret: "%orkestro.oauth.google.app_secret%"
       scope: "%orkestro.oauth.google.scope%"
+    vkontakte:
+      type: vkontakte
+      client_id: "%orkestro.oauth.vkontakte.app_id%"
+      client_secret: "%orkestro.oauth.vkontakte.app_secret%"
+      scope: "%orkestro.oauth.vkontakte.scope%"
+    odnoklassniki:
+      type: odnoklassniki
+      client_id: "%orkestro.oauth.odnoklassniki.app_id%"
+      client_secret: "%orkestro.oauth.odnoklassniki.app_secret%"
+      scope: "%orkestro.oauth.odnoklassniki.scope%"

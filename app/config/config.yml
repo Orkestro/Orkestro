@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+
     - { resource: includes/framework.yml }
     - { resource: includes/twig.yml }
     - { resource: includes/assetic.yml }

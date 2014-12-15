@@ -19,10 +19,20 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ~
 
-    # Socials
+    # OAuth
     orkestro.oauth.facebook.app_id: none
     orkestro.oauth.facebook.app_secret: none
     orkestro.oauth.facebook.scope: none
     orkestro.oauth.google.app_id: none
     orkestro.oauth.google.app_secret: none
     orkestro.oauth.google.scope: none
+    orkestro.oauth.vkontakte.app_id: none
+    orkestro.oauth.vkontakte.app_secret: none
+    orkestro.oauth.vkontakte.scope: none
+    orkestro.oauth.odnoklassniki.app_id: none
+    orkestro.oauth.odnoklassniki.app_secret: none
+    orkestro.oauth.odnoklassniki.scope: none
+
+    # Analytics
+    orkestro.analytics.google_id: null
+    orkestro.analytics.yandex_id: null
