@@ -1,5 +1,4 @@
-Orkestro
-========
+![Orkestro](https://cloud.githubusercontent.com/assets/4798469/5443009/2f6147c2-84af-11e4-8f1e-f64de2e5d56f.png)
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Orkestro/Orkestro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/Orkestro/Orkestro.svg?branch=master)](https://travis-ci.org/Orkestro/Orkestro)
