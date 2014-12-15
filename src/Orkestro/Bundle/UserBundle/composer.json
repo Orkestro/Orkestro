@@ -1,8 +1,8 @@
 {
-    "name": "orkestro/country-bundle",
+    "name": "orkestro/user-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
-    "description": "Orkestro Country Bundle",
+    "description": "Orkestro User Bundle",
     "keywords": ["shop", "ecommerce", "store", "webshop", "orkestro", "symfony", "symfony2"],
     "homepage": "http://orkestro.github.io/Orkestro/",
     "authors": [

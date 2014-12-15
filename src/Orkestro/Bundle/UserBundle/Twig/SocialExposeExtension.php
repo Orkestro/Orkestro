@@ -15,8 +15,18 @@ class SocialExposeExtension extends \Twig_Extension
 
     public function getGlobals()
     {
+        $availabeSocials = $this->container->getParameter('hwi_oauth.resource_owners');
+
+        foreach ($availabeSocials as $socialKey => $social) {
+            $appId = $this->container->getParameter(sprintf('orkestro.oauth.%s.app_id', $social));
+
+            if (empty($appId) || 'none' == $appId) {
+                unset($availabeSocials[$socialKey]);
+            }
+        }
+
         return array(
-            'socials' => $this->container->getParameter('hwi_oauth.resource_owners'),
+            'availableSocials' => $availabeSocials,
         );
     }
 

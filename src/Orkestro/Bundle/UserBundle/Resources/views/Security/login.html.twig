@@ -21,10 +21,7 @@
         <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </form>
 
-    {% for social in socials %}
-        {{ dump(social) }}
+    {% for social in availableSocials %}
+        <a href="{{ url("hwi_oauth_service_redirect", {service: social}) }}">{{ social|trans({}, 'social') }}</a>
     {% endfor %}
-
-    <a href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">Connect with Facebook</a>
-    <a href="{{ url("hwi_oauth_service_redirect", {service: "google"}) }}">Connect with Google</a>
 {% endblock fos_user_content %}
