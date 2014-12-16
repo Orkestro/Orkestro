@@ -1,0 +1,9 @@
+orkestro:
+  locale:
+    headers:
+      locales: Языки
+      new: Добавить язык
+      code: Код
+      title: Наименование
+      enabled: Включен
+      actions: Действия

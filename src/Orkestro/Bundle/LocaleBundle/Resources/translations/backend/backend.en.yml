@@ -1,0 +1,9 @@
+orkestro:
+  locale:
+    headers:
+      locales: Locales
+      new: Create Locale
+      code: Code
+      title: Title
+      enabled: Enabled
+      actions: Actions

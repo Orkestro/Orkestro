@@ -15,15 +15,6 @@ use Gedmo\Translatable\Translatable;
 class Country
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=128)
@@ -35,6 +26,7 @@ class Country
      * @var string
      *
      * @ORM\Column(name="iso_code", type="string", length=2)
+     * @ORM\Id
      */
     private $isoCode;
 
@@ -43,16 +35,6 @@ class Country
      */
     private $locale;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set title

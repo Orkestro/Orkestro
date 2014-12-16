@@ -10,5 +10,11 @@ orkestro_backend_dashboard:
   type: annotation
 
 orkestro_backend_country:
-  resource: @OrkestroCountryBundle/Controller/DefaultController.php
+  resource: @OrkestroCountryBundle/Controller/Backend/CountryController.php
   type: annotation
+  prefix: /country
+
+orkestro_backend_locale:
+  resource: @OrkestroLocaleBundle/Controller/Backend/LocaleController.php
+  type: annotation
+  prefix: /locale

@@ -1,0 +1,7 @@
+orkestro:
+  country:
+    headers:
+      countries: Countries
+      new: Create Country
+      iso_code: ISO Code
+      title: Title

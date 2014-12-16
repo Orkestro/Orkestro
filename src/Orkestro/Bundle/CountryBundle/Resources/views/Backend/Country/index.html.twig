@@ -1,0 +1,80 @@
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
+
+{% block body -%}
+    <h3>{{ "orkestro.country.headers.countries"|trans }}</h3>
+
+    <ul>
+        <li>
+            <a href="{{ path('orkestro_backend_country_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+
+    <table class="table table-condensed">
+        <tr>
+            <th{% if pagination.isSorted('c.isoCode') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'orkestro.country.headers.iso_code'|trans, 'c.isoCode') }}
+            </th>
+            <th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'orkestro.country.headers.title'|trans, 'c.title') }}
+            </th>
+        </tr>
+        {% for country in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ country.isoCode }}</td>
+                <td>{{ country.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+
+    {#<h1>Country list</h1>#}
+
+    {#<table class="records_list">#}
+        {#<thead>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<th>Title</th>#}
+                {#<th>Isocode</th>#}
+                {#<th>Actions</th>#}
+            {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for entity in entities %}#}
+            {#<tr>#}
+                {#<td><a href="{{ path('country_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                {#<td>{{ entity.title }}</td>#}
+                {#<td>{{ entity.isoCode }}</td>#}
+                {#<td>#}
+                {#<ul>#}
+                    {#<li>#}
+                        {#<a href="{{ path('country_show', { 'id': entity.id }) }}">show</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#<a href="{{ path('country_edit', { 'id': entity.id }) }}">edit</a>#}
+                    {#</li>#}
+                {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+        {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('country_new') }}">#}
+                {#Create a new entry#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
+    {% endblock %}

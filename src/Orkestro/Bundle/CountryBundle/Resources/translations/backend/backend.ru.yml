@@ -1,0 +1,7 @@
+orkestro:
+  country:
+    headers:
+      countries: Страны
+      new: Добавить страну
+      iso_code: Код ISO
+      title: Наименование

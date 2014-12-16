@@ -1,0 +1,37 @@
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
+
+{% block body -%}
+    <h1>Locale</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ entity.code }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+    <li>
+        <a href="{{ path('orkestro_backend_locale_list') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('orkestro_backend_locale_edit', { 'code': entity.code }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

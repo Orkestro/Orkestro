@@ -28,8 +28,12 @@ class ConfigureMenuEvent extends Event
     /**
      * @return \Knp\Menu\ItemInterface
      */
-    public function getMenu()
+    public function getMenu($sectionName = null)
     {
-        return $this->menu;
+        if (empty($sectionName)) {
+            return $this->menu;
+        } else {
+            return $this->menu->getChild($sectionName);
+        }
     }
 }

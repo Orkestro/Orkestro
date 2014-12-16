@@ -14,6 +14,8 @@ class BackendMenuBuilder extends AbstractMenuBuilder
         $menu->addChild('dashboard', array(
                 'route' => 'orkestro_backend_dashboard',
             ))->setLabel($this->translate('orkestro.backend.dashboard'));
+        $menu->addChild('assortment');
+        $menu->addChild('configuration');
 
         $this->eventDispatcher->dispatch(ConfigureMenuEvent::BACKEND_MAIN, new ConfigureMenuEvent($this->factory, $menu));
 
