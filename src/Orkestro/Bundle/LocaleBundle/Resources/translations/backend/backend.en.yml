@@ -7,3 +7,4 @@ orkestro:
       title: Title
       enabled: Enabled
       actions: Actions
+      fallback: Fallback

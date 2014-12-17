@@ -27,6 +27,9 @@
             <th{% if pagination.isSorted('l.enabled') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.enabled'|trans, 'l.enabled') }}
             </th>
+            <th{% if pagination.isSorted('l.fallback') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.fallback'|trans, 'l.fallback') }}
+            </th>
             <th>
                 {{ "orkestro.locale.headers.actions"|trans }}
             </th>
@@ -36,6 +39,7 @@
                 <td>{{ locale.code }}</td>
                 <td>{{ locale.title }}</td>
                 <td>{{ locale.enabled }}</td>
+                <td>{{ locale.fallback }}</td>
                 <td>
                     <ul>
                         <li>
@@ -53,45 +57,4 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
-    {#<h1>Locale list</h1>#}
-
-    {#<table class="records_list">#}
-        {#<thead>#}
-            {#<tr>#}
-                {#<th>Id</th>#}
-                {#<th>Code</th>#}
-                {#<th>Title</th>#}
-                {#<th>Enabled</th>#}
-                {#<th>Actions</th>#}
-            {#</tr>#}
-        {#</thead>#}
-        {#<tbody>#}
-        {#{% for entity in entities %}#}
-            {#<tr>#}
-                {#<td><a href="{{ path('locale_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
-                {#<td>{{ entity.code }}</td>#}
-                {#<td>{{ entity.title }}</td>#}
-                {#<td>{{ entity.enabled }}</td>#}
-                {#<td>#}
-                {#<ul>#}
-                    {#<li>#}
-                        {#<a href="{{ path('locale_show', { 'id': entity.id }) }}">show</a>#}
-                    {#</li>#}
-                    {#<li>#}
-                        {#<a href="{{ path('locale_edit', { 'id': entity.id }) }}">edit</a>#}
-                    {#</li>#}
-                {#</ul>#}
-                {#</td>#}
-            {#</tr>#}
-        {#{% endfor %}#}
-        {#</tbody>#}
-    {#</table>#}
-
-        {#<ul>#}
-        {#<li>#}
-            {#<a href="{{ path('locale_new') }}">#}
-                {#Create a new entry#}
-            {#</a>#}
-        {#</li>#}
-    {#</ul>#}
-    {% endblock %}
+{% endblock %}

@@ -13,7 +13,6 @@ use Symfony\Component\Intl\Intl;
 
 class LocaleController extends Controller
 {
-
     /**
      * Lists all Locale entities.
      *
@@ -24,7 +23,7 @@ class LocaleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l ORDER BY l.enabled DESC, l.code ASC';
+        $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l ORDER BY l.enabled DESC, l.fallback DESC, l.code ASC';
         $query = $em->createQuery($dql);
 
         $paginator = $this->get('knp_paginator');
@@ -174,6 +173,7 @@ class LocaleController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Locale entity.
      *
@@ -207,6 +207,7 @@ class LocaleController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Locale entity.
      *

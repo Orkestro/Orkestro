@@ -18,20 +18,24 @@
                 <th>Enabled</th>
                 <td>{{ entity.enabled }}</td>
             </tr>
+            <tr>
+                <th>Fallback</th>
+                <td>{{ entity.fallback }}</td>
+            </tr>
         </tbody>
     </table>
 
     <ul class="record_actions">
-    <li>
-        <a href="{{ path('orkestro_backend_locale_list') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('orkestro_backend_locale_edit', { 'code': entity.code }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <li>
+            <a href="{{ path('orkestro_backend_locale_list') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('orkestro_backend_locale_edit', { 'code': entity.code }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

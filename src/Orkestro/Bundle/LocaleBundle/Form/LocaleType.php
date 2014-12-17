@@ -45,6 +45,10 @@ class LocaleType extends AbstractType
             ->add('enabled', 'checkbox', array(
                     'required' => false,
                 ))
+            ->add('fallback', 'checkbox', array(
+                    'required' => false,
+                    'data' => false,
+                ))
         ;
     }
     

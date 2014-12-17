@@ -34,6 +34,13 @@ class Locale
      */
     private $enabled = true;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="fallback", type="boolean")
+     */
+    private $fallback = true;
+
 
     /**
      * Set code
@@ -102,5 +109,28 @@ class Locale
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set fallback
+     *
+     * @param boolean $fallback
+     * @return Locale
+     */
+    public function setFallback($fallback)
+    {
+        $this->fallback = $fallback;
+
+        return $this;
+    }
+
+    /**
+     * Get fallback
+     *
+     * @return boolean 
+     */
+    public function getFallback()
+    {
+        return $this->fallback;
     }
 }

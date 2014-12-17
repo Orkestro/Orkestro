@@ -7,3 +7,4 @@ orkestro:
       title: Наименование
       enabled: Включен
       actions: Действия
+      fallback: По умолчанию
