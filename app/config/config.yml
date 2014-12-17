@@ -10,3 +10,5 @@ imports:
     - { resource: includes/fos_user.yml }
     - { resource: includes/hwi_oauth.yml }
     - { resource: includes/knp_paginator.yml }
+stof_doctrine_extensions:
+    default_locale: %locale%

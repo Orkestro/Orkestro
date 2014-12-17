@@ -235,7 +235,7 @@ class LocaleController extends Controller
     }
 
     /**
-     * Creates a form to delete a Locale entity by id.
+     * Creates a form to delete a Locale entity by code.
      *
      * @param mixed $code The entity code
      *

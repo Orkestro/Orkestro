@@ -8,7 +8,7 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <td>{{ entity.isoCode }}</td>
             </tr>
             <tr>
                 <th>Title</th>
@@ -28,7 +28,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ path('orkestro_backend_country_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('orkestro_backend_country_edit', { 'iso_code': entity.isoCode }) }}">
             Edit
         </a>
     </li>

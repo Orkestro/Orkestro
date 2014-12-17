@@ -2,26 +2,19 @@
 
 namespace Orkestro\Bundle\CountryBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * Country
  *
  * @ORM\Table(name="orkestro_country")
  * @ORM\Entity(repositoryClass="Orkestro\Bundle\CountryBundle\Entity\CountryRepository")
+ * @Gedmo\TranslationEntity(class="Orkestro\Bundle\CountryBundle\Entity\CountryTranslation")
  */
 class Country
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=128)
-     * @Gedmo\Translatable
-     */
-    private $title;
-
     /**
      * @var string
      *
@@ -31,32 +24,49 @@ class Country
     private $isoCode;
 
     /**
-     * @Gedmo\Locale
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=128)
+     * @Gedmo\Translatable
      */
-    private $locale;
-
+    private $title;
 
     /**
-     * Set title
+     * @var ArrayCollection
      *
-     * @param string $title
-     * @return Country
+     * @ORM\OneToMany(
+     *   targetEntity="Orkestro\Bundle\CountryBundle\Entity\CountryTranslation",
+     *   mappedBy="object",
+     *   cascade={"persist", "remove"}
+     * )
      */
-    public function setTitle($title)
-    {
-        $this->title = $title;
+    private $translations;
 
-        return $this;
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 
     /**
-     * Get title
+     * Set translations
      *
-     * @return string 
+     * @param ArrayCollection $translations
+     * @return Country
      */
-    public function getTitle()
+    public function setTranslations($translations)
     {
-        return $this->title;
+        foreach ($translations as $translation) {
+            $translation->setObject($this);
+        }
+
+        $this->translations = $translations;
+
+        return $this;
     }
 
     /**
@@ -75,15 +85,33 @@ class Country
     /**
      * Get isoCode
      *
-     * @return string 
+     * @return string
      */
     public function getIsoCode()
     {
         return $this->isoCode;
     }
 
-    public function setTranslatableLocale($locale)
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Country
+     */
+    public function setTitle($title)
     {
-        $this->locale = $locale;
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

@@ -19,6 +19,7 @@ use Knp;
 use FOS;
 use HWI;
 use Stof;
+use A2lix;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
@@ -40,6 +41,7 @@ abstract class Kernel extends BaseKernel
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
             new Orkestro\Bundle\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\Bundle\AddressingBundle\OrkestroAddressingBundle(),

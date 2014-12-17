@@ -47,7 +47,6 @@ class LocaleType extends AbstractType
                 ))
             ->add('fallback', 'checkbox', array(
                     'required' => false,
-                    'data' => false,
                 ))
         ;
     }
