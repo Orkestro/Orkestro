@@ -1,6 +1,9 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block stylesheets -%}
+    <link rel="stylesheet" href="{{ asset('bundles/orkestrocountry/css/country.css') }}" />
+{% endblock %}
 {% block body -%}
     <h3>{{ "orkestro.country.headers.countries"|trans }}</h3>
 
@@ -30,7 +33,9 @@
         </tr>
         {% for country in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ country.isoCode }}</td>
+                <td>
+                    <img class="country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/' ~ country.isoCode ~ '.svg') }}" />
+                    {{ country.isoCode }}</td>
                 <td>{{ country.title }}</td>
                 <td>
                     <ul>
