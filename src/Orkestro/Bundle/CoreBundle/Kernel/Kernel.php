@@ -18,6 +18,8 @@ use Orkestro;
 use Knp;
 use FOS;
 use HWI;
+use A2lix;
+use Prezent;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
@@ -37,6 +39,9 @@ abstract class Kernel extends BaseKernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Prezent\Doctrine\TranslatableBundle\PrezentDoctrineTranslatableBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
             new Orkestro\Bundle\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\Bundle\AddressingBundle\OrkestroAddressingBundle(),
@@ -44,6 +49,7 @@ abstract class Kernel extends BaseKernel
             new Orkestro\Bundle\CartBundle\OrkestroCartBundle(),
             new Orkestro\Bundle\CountryBundle\OrkestroCountryBundle(),
             new Orkestro\Bundle\DeliveryBundle\OrkestroDeliveryBundle(),
+            new Orkestro\Bundle\LocaleBundle\OrkestroLocaleBundle(),
             new Orkestro\Bundle\ManufacturerBundle\OrkestroManufacturerBundle(),
             new Orkestro\Bundle\OrderBundle\OrkestroOrderBundle(),
             new Orkestro\Bundle\ProductBundle\OrkestroProductBundle(),

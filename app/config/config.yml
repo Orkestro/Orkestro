@@ -9,3 +9,6 @@ imports:
     - { resource: includes/swiftmailer.yml }
     - { resource: includes/fos_user.yml }
     - { resource: includes/hwi_oauth.yml }
+    - { resource: includes/knp_paginator.yml }
+    - { resource: includes/prezent_doctrine_translatable.yml }
+    - { resource: includes/a2lix_translation_form.yml }
