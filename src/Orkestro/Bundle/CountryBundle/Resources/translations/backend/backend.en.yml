@@ -5,3 +5,4 @@ orkestro:
       new: Create Country
       iso_code: ISO Code
       title: Title
+      actions: Actions

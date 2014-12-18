@@ -112,7 +112,9 @@ class CountryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroCountryBundle:Country')->find($iso_code);
+        $entity = $em->getRepository('OrkestroCountryBundle:Country')->findOneBy(array(
+                'isoCode' => $iso_code,
+            ));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Country entity.');
@@ -137,7 +139,9 @@ class CountryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroCountryBundle:Country')->find($iso_code);
+        $entity = $em->getRepository('OrkestroCountryBundle:Country')->findOneBy(array(
+                'isoCode' => $iso_code,
+            ));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Country entity.');
@@ -183,7 +187,9 @@ class CountryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroCountryBundle:Country')->find($iso_code);
+        $entity = $em->getRepository('OrkestroCountryBundle:Country')->findOneBy(array(
+                'isoCode' => $iso_code
+            ));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Country entity.');
@@ -219,7 +225,9 @@ class CountryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OrkestroCountryBundle:Country')->find($iso_code);
+            $entity = $em->getRepository('OrkestroCountryBundle:Country')->findOneBy(array(
+                    'isoCode' => $iso_code
+                ));
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Country entity.');

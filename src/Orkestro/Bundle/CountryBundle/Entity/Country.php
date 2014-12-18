@@ -4,69 +4,97 @@ namespace Orkestro\Bundle\CountryBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Country
  *
- * @ORM\Table(name="orkestro_country")
+ * @ORM\Table(name="orkestro_country", uniqueConstraints={@ORM\UniqueConstraint(name="iso_code_idx", columns={"iso_code"})})
  * @ORM\Entity(repositoryClass="Orkestro\Bundle\CountryBundle\Entity\CountryRepository")
- * @Gedmo\TranslationEntity(class="Orkestro\Bundle\CountryBundle\Entity\CountryTranslation")
  */
-class Country
+class Country extends AbstractTranslatable
 {
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
     /**
      * @var string
      *
      * @ORM\Column(name="iso_code", type="string", length=2)
-     * @ORM\Id
      */
     private $isoCode;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=128)
-     * @Gedmo\Translatable
+     * @Prezent\Translations(targetEntity="Orkestro\Bundle\CountryBundle\Entity\CountryTranslation")
      */
-    private $title;
+    protected $translations;
 
     /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(
-     *   targetEntity="Orkestro\Bundle\CountryBundle\Entity\CountryTranslation",
-     *   mappedBy="object",
-     *   cascade={"persist", "remove"}
-     * )
+     * @Prezent\CurrentLocale
      */
-    private $translations;
+    private $currentLocale;
+
+    /**
+     * @var CountryTranslation $currentTranslation
+     */
+    private $currentTranslation;
+
 
     public function __construct()
     {
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    public function translate($locale = null)
     {
-        return $this->translations;
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new CountryTranslation();
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+
+        $this->currentTranslation = $translation;
+        return $translation;
+    }
+
+    public function getTitle()
+    {
+        return $this->translate()->getTitle();
+    }
+
+    public function setTitle($title)
+    {
+        $this->translate()->setTitle($title);
+        return $this;
     }
 
     /**
-     * Set translations
+     * Get id
      *
-     * @param ArrayCollection $translations
-     * @return Country
+     * @return integer
      */
-    public function setTranslations($translations)
+    public function getId()
     {
-        foreach ($translations as $translation) {
-            $translation->setObject($this);
-        }
-
-        $this->translations = $translations;
-
-        return $this;
+        return $this->id;
     }
 
     /**
@@ -90,28 +118,5 @@ class Country
     public function getIsoCode()
     {
         return $this->isoCode;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Country
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 }

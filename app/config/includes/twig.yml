@@ -1,6 +1,3 @@
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-      resources:
-        - "A2lixTranslationFormBundle::default.html.twig"

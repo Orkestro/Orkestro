@@ -3,26 +3,46 @@
 namespace Orkestro\Bundle\CountryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 /**
- * @ORM\Table(name="country_translation",
- *      uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
- *          "locale",
- *          "object_id",
- *          "field"
- *      })}
- * )
- * @ORM\Entity(repositoryClass="Gedmo\Translatable\Entity\Repository\TranslationRepository")
+ * @ORM\Table(name="orkestro_country_translation")
+ * @ORM\Entity
  */
-class CountryTranslation extends AbstractPersonalTranslation
+class CountryTranslation extends AbstractTranslation
 {
-    private $title;
+    /**
+     * @Prezent\Translatable(targetEntity="Orkestro\Bundle\CountryBundle\Entity\Country")
+     */
+    protected $translatable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Orkestro\Bundle\CountryBundle\Entity\Country", inversedBy="translations")
-     * @ORM\JoinColumn(name="object_id", referencedColumnName="iso_code", onDelete="CASCADE")
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    protected $object;
+    private $title;
+
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return CountryTranslation
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }

@@ -1,0 +1,2 @@
+prezent_doctrine_translatable:
+  fallback_locale: %locale%

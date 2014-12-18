@@ -4,35 +4,42 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1e1e55ca774e795015690ee07d189fa2",
+    "hash": "02323bf53d66de35e17ba95fd36ca279",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
-            "version": "1.x-dev",
+            "version": "2.0.4",
             "target-dir": "A2lix/TranslationFormBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/a2lix/TranslationFormBundle.git",
-                "reference": "b8dc383672671e502df63e90e653565924194672"
+                "reference": "390e32745ddcce5308e672e8d188b6963c41de21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/a2lix/TranslationFormBundle/zipball/b8dc383672671e502df63e90e653565924194672",
-                "reference": "b8dc383672671e502df63e90e653565924194672",
+                "url": "https://api.github.com/repos/a2lix/TranslationFormBundle/zipball/390e32745ddcce5308e672e8d188b6963c41de21",
+                "reference": "390e32745ddcce5308e672e8d188b6963c41de21",
                 "shasum": ""
             },
             "require": {
                 "symfony/symfony": ">=2.3"
             },
+            "require-dev": {
+                "doctrine/common": "~2.3",
+                "gedmo/doctrine-extensions": "dev-wip-v2.4.0",
+                "knplabs/doctrine-behaviors": "1.0.x-dev",
+                "phpunit/phpunit": "~4.1"
+            },
             "suggest": {
                 "a2lix/i18n-doctrine-bundle": "For A2lix strategy",
+                "gedmo/doctrine-extensions": "For Gedmo strategy",
                 "knplabs/doctrine-behaviors": "For Knp strategy",
-                "stof/doctrine-extensions-bundle": "For Gedmo strategy"
+                "prezent/doctrine-translatable-bundle": "For Prezent strategy"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -46,14 +53,11 @@
             ],
             "authors": [
                 {
-                    "name": "David ALLIX"
-                },
-                {
-                    "name": "A2lix",
-                    "homepage": "http://www.a2lix.fr"
+                    "name": "David ALLIX",
+                    "homepage": "http://a2lix.fr"
                 }
             ],
-            "description": "Translate your doctrine objects easily with a custom form field",
+            "description": "Translate your doctrine objects easily with some helps",
             "homepage": "https://github.com/a2lix/TranslationFormBundle",
             "keywords": [
                 "Symfony2",
@@ -66,7 +70,7 @@
                 "translatable",
                 "translation"
             ],
-            "time": "2014-08-15 15:49:37"
+            "time": "2014-12-02 12:51:30"
         },
         {
             "name": "doctrine/annotations",
@@ -743,86 +747,6 @@
             "time": "2014-12-17 16:18:07"
         },
         {
-            "name": "gedmo/doctrine-extensions",
-            "version": "v2.3.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "35adcaae1a3f50d0d5b73aa50ed8fd28ee35ce54"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/35adcaae1a3f50d0d5b73aa50ed8fd28ee35ce54",
-                "reference": "35adcaae1a3f50d0d5b73aa50ed8fd28ee35ce54",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/common": ">=2.2,<2.5-dev",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "doctrine/common": ">=2.4.0-RC3",
-                "doctrine/dbal": ">=2.4.0-RC1",
-                "doctrine/mongodb": ">=1.0.3",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA9",
-                "doctrine/orm": ">=2.4.0-RC1",
-                "symfony/yaml": "2.3.1"
-            },
-            "suggest": {
-                "doctrine/dbal": ">=2.3.2",
-                "doctrine/mongodb": ">=1.0.1",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA7",
-                "doctrine/orm": ">=2.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Gedmo\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Buchmann",
-                    "email": "david@liip.ch"
-                },
-                {
-                    "name": "Gediminas Morkevicius",
-                    "email": "gediminas.morkevicius@gmail.com"
-                },
-                {
-                    "name": "Gustavo Falco",
-                    "email": "comfortablynumb84@gmail.com"
-                }
-            ],
-            "description": "Doctrine2 behavioral extensions",
-            "homepage": "http://gediminasm.org/",
-            "keywords": [
-                "Blameable",
-                "behaviors",
-                "doctrine2",
-                "extensions",
-                "gedmo",
-                "loggable",
-                "nestedset",
-                "sluggable",
-                "sortable",
-                "timestampable",
-                "translatable",
-                "tree",
-                "uploadable"
-            ],
-            "time": "2014-01-12 16:34:06"
-        },
-        {
             "name": "hwi/oauth-bundle",
             "version": "dev-master",
             "target-dir": "HWI/Bundle/OAuthBundle",
@@ -1038,6 +962,58 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
+        },
+        {
+            "name": "jms/metadata",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/metadata.git",
+                "reference": "22b72455559a25777cfd28c4ffda81ff7639f353"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/22b72455559a25777cfd28c4ffda81ff7639f353",
+                "reference": "22b72455559a25777cfd28c4ffda81ff7639f353",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Metadata\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Class/method/property metadata management in PHP",
+            "keywords": [
+                "annotations",
+                "metadata",
+                "xml",
+                "yaml"
+            ],
+            "time": "2014-07-12 07:13:19"
         },
         {
             "name": "knplabs/knp-components",
@@ -1476,6 +1452,111 @@
             "time": "2014-09-30 13:30:58"
         },
         {
+            "name": "prezent/doctrine-translatable",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Prezent/doctrine-translatable.git",
+                "reference": "49be30d155bf7aae3bf146a1fb64b3b28ebd14a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Prezent/doctrine-translatable/zipball/49be30d155bf7aae3bf146a1fb64b3b28ebd14a2",
+                "reference": "49be30d155bf7aae3bf146a1fb64b3b28ebd14a2",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": ">=2.3,<2.6-dev",
+                "jms/metadata": "~1.1",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/orm": ">=2.3,<2.6-dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Prezent\\Doctrine\\Translatable": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Prezent Internet B.V.",
+                    "email": "github@prezent.nl"
+                }
+            ],
+            "description": "Translatable behaviour extension for Doctrine2",
+            "homepage": "http://www.prezent.nl",
+            "keywords": [
+                "doctrine2",
+                "extensions",
+                "i18n",
+                "translatable"
+            ],
+            "time": "2014-12-02 15:13:31"
+        },
+        {
+            "name": "prezent/doctrine-translatable-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Prezent/doctrine-translatable-bundle.git",
+                "reference": "adfc8496d909f483f946cfdb0fe2820e617251d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Prezent/doctrine-translatable-bundle/zipball/adfc8496d909f483f946cfdb0fe2820e617251d8",
+                "reference": "adfc8496d909f483f946cfdb0fe2820e617251d8",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "~1.2",
+                "prezent/doctrine-translatable": ">=1.0,<2.0-dev",
+                "symfony/symfony": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Prezent\\Doctrine\\TranslatableBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Prezent Internet B.V.",
+                    "email": "github@prezent.nl"
+                }
+            ],
+            "description": "Integrate the doctrine-translatable extension in Symfony2",
+            "homepage": "http://www.prezent.nl",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "doctrine2",
+                "extensions",
+                "i18n",
+                "translatable"
+            ],
+            "time": "2014-11-20 15:29:43"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1657,67 +1738,6 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2014-04-28 14:01:06"
-        },
-        {
-            "name": "stof/doctrine-extensions-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
-                "reference": "2ff8473e33e224af87dc00d48a552a35a75115af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/2ff8473e33e224af87dc00d48a552a35a75115af",
-                "reference": "2ff8473e33e224af87dc00d48a552a35a75115af",
-                "shasum": ""
-            },
-            "require": {
-                "gedmo/doctrine-extensions": "~2.3.1",
-                "php": ">=5.3.2",
-                "symfony/framework-bundle": "~2.1"
-            },
-            "suggest": {
-                "doctrine/doctrine-bundle": "to use the ORM extensions",
-                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Stof\\DoctrineExtensionsBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                }
-            ],
-            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
-            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
-            "keywords": [
-                "behaviors",
-                "doctrine2",
-                "extensions",
-                "gedmo",
-                "loggable",
-                "nestedset",
-                "sluggable",
-                "sortable",
-                "timestampable",
-                "translatable",
-                "tree"
-            ],
-            "time": "2014-09-30 08:24:40"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2169,8 +2189,7 @@
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
         "hwi/oauth-bundle": 20,
-        "stof/doctrine-extensions-bundle": 20,
-        "a2lix/translation-form-bundle": 20
+        "prezent/doctrine-translatable-bundle": 20
     },
     "prefer-stable": false,
     "platform": {

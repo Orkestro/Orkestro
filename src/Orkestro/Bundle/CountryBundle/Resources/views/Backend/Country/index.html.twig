@@ -24,21 +24,34 @@
             <th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'orkestro.country.headers.title'|trans, 'c.title') }}
             </th>
+            <th>
+                {{ "orkestro.country.headers.actions"|trans }}
+            </th>
         </tr>
         {% for country in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td>{{ country.isoCode }}</td>
                 <td>{{ country.title }}</td>
+                <td>
+                    <ul>
+                        <li>
+                           <a href="{{ path('orkestro_backend_country_show', { 'iso_code': country.isoCode }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('orkestro_backend_country_edit', { 'iso_code': country.isoCode }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
             </tr>
-        {% endfor %}
-    </table>
+                {% endfor %}
+            </table>
 
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
 
 
-    {#<h1>Country list</h1>#}
+            {#<h1>Country list</h1>#}
 
     {#<table class="records_list">#}
         {#<thead>#}

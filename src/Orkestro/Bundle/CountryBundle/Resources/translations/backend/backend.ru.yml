@@ -5,3 +5,4 @@ orkestro:
       new: Добавить страну
       iso_code: Код ISO
       title: Наименование
+      actions: Действия

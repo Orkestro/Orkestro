@@ -6,7 +6,6 @@ use Orkestro\Bundle\LocaleBundle\Entity\Locale;
 use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CountryType extends AbstractType
@@ -36,9 +35,13 @@ class CountryType extends AbstractType
         }
 
         $builder
-            ->add('translations', 'a2lix_translations_gedmo', array(
-                    'translatable_class' => 'Orkestro\Bundle\CountryBundle\Entity\Country',
+            ->add('translations', 'a2lix_translations', array(
                     'locales' => $locales,
+                    'fields' => array(
+                        'title' => array(
+                            'field_type' => 'text',
+                        )
+                    )
                 ))
             ->add('isoCode')
         ;
