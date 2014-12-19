@@ -1,0 +1,7 @@
+orkestro:
+  manufacturer:
+    headers:
+      manufacturers: Производители
+      new: Новый производитель
+      title: Наименование
+      actions: Действия

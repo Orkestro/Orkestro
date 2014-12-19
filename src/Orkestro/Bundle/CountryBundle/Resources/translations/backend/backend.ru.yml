@@ -2,7 +2,7 @@ orkestro:
   country:
     headers:
       countries: Страны
-      new: Добавить страну
+      new: Новая страна
       iso_code: Код ISO
       title: Наименование
       actions: Действия

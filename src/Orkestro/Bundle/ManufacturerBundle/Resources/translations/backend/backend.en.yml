@@ -1,0 +1,7 @@
+orkestro:
+  manufacturer:
+    headers:
+      manufacturers: Manufacturers
+      new: New Manufacturer
+      title: Title
+      actions: Actions

@@ -1,0 +1,99 @@
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
+
+{% block body -%}
+    <h3>{{ "orkestro.manufacturer.headers.manufacturers"|trans }}</h3>
+
+    <ul>
+        <li>
+            <a href="{{ path('orkestro_backend_manufacturer_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+
+    <table class="table table-condensed">
+        <tr>
+            <th{% if pagination.isSorted('m.title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.title'|trans, 'm.title') }}
+            </th>
+            <th{% if pagination.isSorted('m.country') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.country'|trans, 'm.country') }}
+            </th>
+            <th>
+                {{ "orkestro.manufacturer.headers.actions"|trans }}
+            </th>
+        </tr>
+        {% for manufacturer in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>
+                    {#<img class="country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/' ~ country.isoCode ~ '.svg') }}" />#}
+                    {{ manufacturer.title }}
+                </td>
+                <td>
+                    {#<img class="country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/' ~ manufacturer.country.isoCode ~ '.svg') }}" />#}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('orkestro_backend_manufacturer_show', { 'id': manufacturer.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('orkestro_backend_manufacturer_edit', { 'id': manufacturer.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+
+{#{% block body -%}#}
+    {#<h1>Manufacturer list</h1>#}
+
+    {#<table class="records_list">#}
+        {#<thead>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<th>Url</th>#}
+                {#<th>Enabled</th>#}
+                {#<th>Actions</th>#}
+            {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for entity in entities %}#}
+            {#<tr>#}
+                {#<td><a href="{{ path('manufacturer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                {#<td>{{ entity.url }}</td>#}
+                {#<td>{{ entity.enabled }}</td>#}
+                {#<td>#}
+                {#<ul>#}
+                    {#<li>#}
+                        {#<a href="{{ path('manufacturer_show', { 'id': entity.id }) }}">show</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#<a href="{{ path('manufacturer_edit', { 'id': entity.id }) }}">edit</a>#}
+                    {#</li>#}
+                {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+        {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('manufacturer_new') }}">#}
+                {#Create a new entry#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
+    {#{% endblock %}#}
