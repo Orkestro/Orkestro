@@ -2,24 +2,40 @@
 
 namespace Orkestro\Bundle\ManufacturerBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
+use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ManufacturerType extends AbstractType
+class ManufacturerType extends AbstractTranslatableType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations', array(
+                    'locales' => $this->getLocales(),
+                    'fields' => array(
+                        'title' => array(
+                            'field_type' => 'text',
+                        ),
+                        'shortDescription' => array(
+                            'field_type' => 'textarea',
+                        ),
+                        'fullDescription' => array(
+                            'field_type' => 'textarea',
+                        ),
+                    ),
+                ))
             ->add('url')
             ->add('enabled', 'checkbox', array(
                     'required' => false,
                 ))
-            ->add('country')
+            ->add('country', 'entity', array(
+                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country'
+                ))
         ;
     }
     
