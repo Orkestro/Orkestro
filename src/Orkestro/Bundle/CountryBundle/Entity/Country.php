@@ -119,4 +119,9 @@ class Country extends AbstractTranslatable
     {
         return $this->isoCode;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

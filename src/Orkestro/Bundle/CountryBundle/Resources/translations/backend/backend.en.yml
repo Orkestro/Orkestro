@@ -2,7 +2,7 @@ orkestro:
   country:
     headers:
       countries: Countries
-      new: Create Country
+      new: New Country
       iso_code: ISO Code
       title: Title
       actions: Actions

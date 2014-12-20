@@ -1,14 +1,13 @@
 <?php
 
-namespace Orkestro\Bundle\CountryBundle\Form;
+namespace Orkestro\Bundle\ManufacturerBundle\Form;
 
 use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CountryType extends AbstractTranslatableType
+class ManufacturerType extends AbstractTranslatableType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -22,9 +21,21 @@ class CountryType extends AbstractTranslatableType
                         'title' => array(
                             'field_type' => 'text',
                         ),
+                        'shortDescription' => array(
+                            'field_type' => 'textarea',
+                        ),
+                        'fullDescription' => array(
+                            'field_type' => 'textarea',
+                        ),
                     ),
                 ))
-            ->add('isoCode')
+            ->add('url')
+            ->add('enabled', 'checkbox', array(
+                    'required' => false,
+                ))
+            ->add('country', 'entity', array(
+                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country'
+                ))
         ;
     }
     
@@ -34,7 +45,7 @@ class CountryType extends AbstractTranslatableType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Orkestro\Bundle\CountryBundle\Entity\Country'
+            'data_class' => 'Orkestro\Bundle\ManufacturerBundle\Entity\Manufacturer'
         ));
     }
 
@@ -43,6 +54,6 @@ class CountryType extends AbstractTranslatableType
      */
     public function getName()
     {
-        return 'orkestro_bundle_countrybundle_country';
+        return 'orkestro_bundle_manufacturerbundle_manufacturer';
     }
 }

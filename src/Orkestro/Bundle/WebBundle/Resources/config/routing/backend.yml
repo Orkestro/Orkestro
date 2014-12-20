@@ -18,3 +18,8 @@ orkestro_backend_locale:
   resource: @OrkestroLocaleBundle/Controller/Backend/LocaleController.php
   type: annotation
   prefix: /locale
+
+orkestro_backend_manufacturer:
+  resource: @OrkestroManufacturerBundle/Controller/Backend/ManufacturerController.php
+  type: annotation
+  prefix: /manufacturer

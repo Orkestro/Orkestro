@@ -1,0 +1,49 @@
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
+
+{% block body -%}
+    <h1>Manufacturer</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Short Description</th>
+                <td>{{ entity.shortDescription }}</td>
+            </tr>
+            <tr>
+                <th>Full Description</th>
+                <td>{{ entity.fullDescription }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ entity.url }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('orkestro_backend_manufacturer_list') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('orkestro_backend_manufacturer_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}
