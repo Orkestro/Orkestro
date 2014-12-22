@@ -33,7 +33,8 @@
         "hwi/oauth-bundle": "0.4.*@dev",
         "knplabs/knp-paginator-bundle": "~2.4",
         "prezent/doctrine-translatable-bundle": "dev-master",
-        "a2lix/translation-form-bundle": "~2.0"
+        "a2lix/translation-form-bundle": "~2.0",
+        "symfony-cmf/routing-bundle": "1.3.*@dev"
     },
     "replace": {
         "orkestro/core-bundle": "self.version",

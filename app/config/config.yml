@@ -12,3 +12,4 @@ imports:
     - { resource: includes/knp_paginator.yml }
     - { resource: includes/prezent_doctrine_translatable.yml }
     - { resource: includes/a2lix_translation_form.yml }
+    - { resource: includes/cmf_routing.yml }

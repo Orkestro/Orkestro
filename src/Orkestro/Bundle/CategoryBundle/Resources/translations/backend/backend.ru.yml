@@ -1,0 +1,7 @@
+orkestro:
+  category:
+    headers:
+      categories: Категории
+      new: Новая категория
+      title: Наименование
+      actions: Действия

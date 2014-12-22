@@ -42,11 +42,13 @@ abstract class Kernel extends BaseKernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Prezent\Doctrine\TranslatableBundle\PrezentDoctrineTranslatableBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
 
             new Orkestro\Bundle\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\Bundle\AddressingBundle\OrkestroAddressingBundle(),
             new Orkestro\Bundle\ApiBundle\OrkestroApiBundle(),
             new Orkestro\Bundle\CartBundle\OrkestroCartBundle(),
+            new Orkestro\Bundle\CategoryBundle\OrkestroCategoryBundle(),
             new Orkestro\Bundle\CountryBundle\OrkestroCountryBundle(),
             new Orkestro\Bundle\DeliveryBundle\OrkestroDeliveryBundle(),
             new Orkestro\Bundle\LocaleBundle\OrkestroLocaleBundle(),
