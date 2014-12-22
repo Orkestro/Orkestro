@@ -20,6 +20,7 @@ use FOS;
 use HWI;
 use A2lix;
 use Prezent;
+use Stof;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
@@ -43,6 +44,7 @@ abstract class Kernel extends BaseKernel
             new Prezent\Doctrine\TranslatableBundle\PrezentDoctrineTranslatableBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 
             new Orkestro\Bundle\CoreBundle\OrkestroCoreBundle(),
             new Orkestro\Bundle\AddressingBundle\OrkestroAddressingBundle(),

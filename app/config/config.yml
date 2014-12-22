@@ -13,3 +13,4 @@ imports:
     - { resource: includes/prezent_doctrine_translatable.yml }
     - { resource: includes/a2lix_translation_form.yml }
     - { resource: includes/cmf_routing.yml }
+    - { resource: includes/stof_doctrine_extensions.yml }

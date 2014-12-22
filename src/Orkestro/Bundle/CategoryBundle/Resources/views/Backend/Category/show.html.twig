@@ -1,4 +1,5 @@
-{% extends '::base.html.twig' %}
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
 
 {% block body -%}
     <h1>Category</h1>
@@ -14,12 +15,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('category') }}">
+        <a href="{{ path('orkestro_backend_category_list') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('category_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('orkestro_backend_category_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

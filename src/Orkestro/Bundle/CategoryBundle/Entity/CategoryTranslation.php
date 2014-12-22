@@ -32,7 +32,7 @@ class CategoryTranslation extends AbstractTranslation
      * Set title
      *
      * @param string $title
-     * @return CountryTranslation
+     * @return CategoryTranslation
      */
     public function setTitle($title)
     {
