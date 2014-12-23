@@ -3,6 +3,7 @@
 namespace Orkestro\Bundle\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Orkestro\Bundle\CoreBundle\Entity\AbstractSeoTaggableTranslation;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
@@ -10,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
  * @ORM\Table(name="orkestro_category_translation")
  * @ORM\Entity
  */
-class CategoryTranslation extends AbstractTranslation
+class CategoryTranslation extends AbstractSeoTaggableTranslation
 {
     /**
      * @Prezent\Translatable(targetEntity="Orkestro\Bundle\CategoryBundle\Entity\Category")
