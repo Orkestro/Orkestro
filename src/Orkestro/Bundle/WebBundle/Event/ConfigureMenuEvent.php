@@ -26,6 +26,7 @@ class ConfigureMenuEvent extends Event
     }
 
     /**
+     * @param string $sectionName
      * @return \Knp\Menu\ItemInterface
      */
     public function getMenu($sectionName = null)
