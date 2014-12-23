@@ -5,7 +5,6 @@ namespace Orkestro\Bundle\CountryBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Orkestro\Bundle\CoreBundle\Entity\AbstractSeoTaggableTranslation;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 /**
  * @ORM\Table(name="orkestro_country_translation")
