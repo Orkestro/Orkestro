@@ -20,31 +20,46 @@ class CategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $dql = 'SELECT c FROM OrkestroCategoryBundle:Category c WHERE c.lvl = 0';
+        $query = $em->createQuery($dql);
 
-        $entities = $em->getRepository('OrkestroCategoryBundle:Category')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->get('page', 1),
+            10
+        );
+
+        $repositoryTree = $em->getRepository('OrkestroCategoryBundle:Category');
 
         return array(
-            'entities' => $entities,
+            'pagination' => $pagination,
+            'repositoryTree' => $repositoryTree,
         );
     }
+
     /**
      * Creates a new Category entity.
      *
-     * @Route("/", name="orkestro_backend_category_create")
+     * @Route("/create/{parent_category_id}", name="orkestro_backend_category_create")
      * @Method("POST")
      * @Template("OrkestroCategoryBundle:Backend/Category:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $parent_category_id)
     {
         $entity = new Category();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $parent_category_id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if ($parent_category_id) {
+                $parentCategory = $this->get('doctrine.orm.entity_manager')->getRepository('OrkestroCategoryBundle:Category')->find($parent_category_id);
+                $entity->setParent($parentCategory);
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -64,10 +79,12 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Category $entity)
+    private function createCreateForm(Category $entity, $parent_category_id)
     {
         $form = $this->createForm(new CategoryType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
-            'action' => $this->generateUrl('orkestro_backend_category_create'),
+            'action' => $this->generateUrl('orkestro_backend_category_create', array(
+                    'parent_category_id' => $parent_category_id,
+                )),
             'method' => 'POST',
         ));
 
@@ -79,14 +96,14 @@ class CategoryController extends Controller
     /**
      * Displays a form to create a new Category entity.
      *
-     * @Route("/new", name="orkestro_backend_category_new")
+     * @Route("/new/{parent_category_id}", name="orkestro_backend_category_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($parent_category_id)
     {
         $entity = new Category();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $parent_category_id);
 
         return array(
             'entity' => $entity,
@@ -169,7 +186,7 @@ class CategoryController extends Controller
      *
      * @Route("/{id}", name="orkestro_backend_category_update")
      * @Method("PUT")
-     * @Template("OrkestroCategoryBundle:Category:edit.html.twig")
+     * @Template("OrkestroCategoryBundle:Backend/Category:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -220,7 +237,7 @@ class CategoryController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('category'));
+        return $this->redirect($this->generateUrl('orkestro_backend_category_list'));
     }
 
     /**

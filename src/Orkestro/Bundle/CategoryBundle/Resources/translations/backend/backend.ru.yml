@@ -3,5 +3,6 @@ orkestro:
     headers:
       categories: Категории
       new: Новая категория
+      id: Идентификатор
       title: Наименование
       actions: Действия

@@ -1,40 +1,137 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
-{% block body -%}
-    <h1>Category list</h1>
+{#{% macro printChildren(parentCategory, repositoryTree) %}#}
+    {#{% set children = repositoryTree.children(parentCategory) %}#}
+    {#{% if children|length %}#}
+        {#<table class="table table-condensed">#}
+            {#{% for child in children %}#}
+                {#<tr>#}
+                    {#<td>#}
+                        {#{{ child.id }}#}
+                    {#</td>#}
+                    {#<td>{{ child.title }}</td>#}
+                    {#<td>#}
+                        {#<ul>#}
+                            {#<li>#}
+                                {#<a href="{{ path('orkestro_backend_category_new', { 'parent_category_id': child.id }) }}">add</a>#}
+                            {#</li>#}
+                            {#<li>#}
+                                {#<a href="{{ path('orkestro_backend_category_show', { 'id': child.id }) }}">show</a>#}
+                            {#</li>#}
+                            {#<li>#}
+                                {#<a href="{{ path('orkestro_backend_category_edit', { 'id': child.id }) }}">edit</a>#}
+                            {#</li>#}
+                        {#</ul>#}
+                    {#</td>#}
+                    {#&#123;&#35;{{ printChildren(child, repositoryTree) }}&#35;&#125;#}
+                {#</tr>#}
+            {#{% endfor %}#}
+        {#</table>#}
+    {#{% endif %}#}
+{#{% endmacro %}#}
 
-    <table class="records_list">
-        <thead>
+{% macro print_children(children, repositoryTree) %}
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                {{ 'orkestro.category.headers.id'|trans }}
+            </th>
+            <th>
+                {{ 'orkestro.category.headers.title'|trans }}
+            </th>
+            <th>
+                {{ "orkestro.category.headers.actions"|trans }}
+            </th>
+        </tr>
+        {% for category in children %}
             <tr>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('orkestro_backend_category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ category.id }}</td>
+                <td>{{ category.title }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('orkestro_backend_category_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('orkestro_backend_category_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                       <li>
+                            <a href="{{ path('orkestro_backend_category_new', { 'parent_category_id': category.id }) }}">add</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('orkestro_backend_category_show', { 'id': category.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('orkestro_backend_category_edit', { 'id': category.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
+            {% set children = repositoryTree.children(category, true) %}
+            {% if children|length %}
+                <tr>
+                    <td colspan="3" class="col-md-offset-3">
+                        <div class="col-md-1">&nbsp;</div>
+                        <div class="col-md-11">
+                            {{ _self.print_children(children, repositoryTree) }}
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
-        </tbody>
     </table>
+{% endmacro %}
 
-        <ul>
+{% import _self as macros %}
+
+{% block body -%}
+    <h3>{{ "orkestro.category.headers.categories"|trans }}</h3>
+
+    <ul>
         <li>
-            <a href="{{ path('orkestro_backend_category_new') }}">
+            <a href="{{ path('orkestro_backend_category_new', {'parent_category_id': 0}) }}">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+
+    {{ macros.print_children(pagination, repositoryTree) }}
+
+    {#<table class="table table-condensed">#}
+        {#<tr>#}
+            {#<th{% if pagination.isSorted('c.id') %} class="sorted"{% endif %}>#}
+                {#{{ knp_pagination_sortable(pagination, 'orkestro.category.headers.id'|trans, 'c.id') }}#}
+            {#</th>#}
+            {#<th{% if pagination.isSorted('c.title') %} class="sorted"{% endif %}>#}
+                {#{{ knp_pagination_sortable(pagination, 'orkestro.category.headers.title'|trans, 'c.title') }}#}
+            {#</th>#}
+            {#<th>#}
+                {#{{ "orkestro.category.headers.actions"|trans }}#}
+            {#</th>#}
+        {#</tr>#}
+        {#{% for category in pagination %}#}
+            {#<tr {% if loop.index is odd %}class="color"{% endif %}>#}
+                {#<td>#}
+                    {#{{ category.id }}#}
+                {#</td>#}
+                {#<td>{{ category.title }}</td>#}
+                {#<td>#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<a href="{{ path('orkestro_backend_category_new', { 'parent_category_id': category.id }) }}">add</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('orkestro_backend_category_show', { 'id': category.id }) }}">show</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('orkestro_backend_category_edit', { 'id': category.id }) }}">edit</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+    {#</table>#}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
