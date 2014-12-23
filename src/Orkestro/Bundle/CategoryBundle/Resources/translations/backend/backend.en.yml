@@ -1,0 +1,8 @@
+orkestro:
+  category:
+    headers:
+      categories: Categories
+      new: New Category
+      id: ID
+      title: Title
+      actions: Actions

@@ -9,6 +9,11 @@ orkestro_backend_dashboard:
   resource: @OrkestroWebBundle/Controller/Backend/DashboardController.php
   type: annotation
 
+orkestro_backend_category:
+  resource: @OrkestroCategoryBundle/Controller/Backend/CategoryController.php
+  type: annotation
+  prefix: /category
+
 orkestro_backend_country:
   resource: @OrkestroCountryBundle/Controller/Backend/CountryController.php
   type: annotation
