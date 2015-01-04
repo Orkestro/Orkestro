@@ -18,12 +18,12 @@ class ConfigureMenuListener extends AbstractMenuListener
                 'route' => 'orkestro_backend_product_list',
             ))->setLabel($this->translate('orkestro.backend.product'));
 
-        $productMenu->addChild('product_characteristic', array(
-                'route' => 'orkestro_backend_product_characteristic_list',
-            ))->setLabel($this->translate('orkestro.backend.product_characteristic'));
-
         $productMenu->addChild('product_kind', array(
                 'route' => 'orkestro_backend_product_kind_list',
             ))->setLabel($this->translate('orkestro.backend.product_kind'));
+
+        $productMenu->addChild('product_characteristic', array(
+                'route' => 'orkestro_backend_product_characteristic_list',
+            ))->setLabel($this->translate('orkestro.backend.product_characteristic'));
     }
 }

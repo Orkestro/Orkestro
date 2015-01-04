@@ -4,6 +4,7 @@ namespace Orkestro\Bundle\ProductBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -25,7 +26,20 @@ class ProductKind extends AbstractTranslatable
     protected $id;
 
     /**
-     * @Prezent\Translations(targetEntity="Orkestro\Bundle\ProductBundle\Entity\ProductTranslation")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic")
+     * @ORM\JoinTable(name="orkestro_product_kinds_product_characteristics",
+     *      joinColumns={@ORM\JoinColumn(name="product_kind_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_characteristic_id", referencedColumnName="id",
+     *          unique=true
+     *      )},
+     * )
+     */
+    private $characteristics;
+
+    /**
+     * @Prezent\Translations(targetEntity="Orkestro\Bundle\ProductBundle\Entity\ProductKindTranslation")
      */
     protected $translations;
 
@@ -53,6 +67,7 @@ class ProductKind extends AbstractTranslatable
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->characteristics = new ArrayCollection();
     }
 
     public function translate($locale = null)
@@ -89,5 +104,47 @@ class ProductKind extends AbstractTranslatable
     {
         $this->translate()->setTitle($title);
         return $this;
+    }
+
+    /**
+     * Add characteristics
+     *
+     * @param \Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic $characteristics
+     * @return ProductKind
+     */
+    public function addCharacteristic(Characteristic $characteristics)
+    {
+        $this->characteristics[] = $characteristics;
+
+        return $this;
+    }
+
+    /**
+     * Remove characteristics
+     *
+     * @param \Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic $characteristics
+     */
+    public function removeCharacteristic(Characteristic $characteristics)
+    {
+        $this->characteristics->removeElement($characteristics);
+    }
+
+    /**
+     * Get characteristics
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCharacteristics()
+    {
+        return $this->characteristics;
+    }
+
+    public function setCharacteristics(Characteristic $characteristics)
+    {
+        $a = 1;
+        $b = $a;
+        $c = $b - 1;
+        $d = $c - $a;
+//        $this->characteristics = $characteristics;
     }
 }

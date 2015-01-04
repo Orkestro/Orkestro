@@ -66,7 +66,7 @@ class ProductKindController extends Controller
      */
     private function createCreateForm(ProductKind $entity)
     {
-        $form = $this->createForm(new ProductKindType(), $entity, array(
+        $form = $this->createForm(new ProductKindType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_product_kind_create'),
             'method' => 'POST',
         ));
@@ -155,7 +155,7 @@ class ProductKindController extends Controller
     */
     private function createEditForm(ProductKind $entity)
     {
-        $form = $this->createForm(new ProductKindType(), $entity, array(
+        $form = $this->createForm(new ProductKindType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_product_kind_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

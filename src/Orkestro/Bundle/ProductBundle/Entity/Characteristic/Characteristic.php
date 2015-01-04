@@ -67,6 +67,12 @@ class Characteristic extends AbstractTranslatable
     private $currentTranslation;
 
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+
     /**
      * Get id
      *

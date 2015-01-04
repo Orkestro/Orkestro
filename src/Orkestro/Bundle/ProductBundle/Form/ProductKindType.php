@@ -1,12 +1,14 @@
 <?php
 
-namespace Orkestro\Bundle\ProductBundle\Form\Characteristic;
+namespace Orkestro\Bundle\ProductBundle\Form;
 
 use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
+use Orkestro\Bundle\ProductBundle\Form\Characteristic\CharacteristicSelectorType;
+use Orkestro\Bundle\ProductBundle\Form\Characteristic\CharacteristicType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CharacteristicType extends AbstractTranslatableType
+class ProductKindType extends AbstractTranslatableType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,24 +25,11 @@ class CharacteristicType extends AbstractTranslatableType
                         ),
                     ),
                 ))
-            ->add('type', 'choice', array(
-                    'choices' => array(
-                        0 => 'Boolean',
-                        1 => 'Number',
-                        2 => 'String',
-                        3 => 'Text',
-                    ),
-                ))
-            ->add('selectPolicy', 'choice', array(
-                    'choices' => array(
-                        0 => 'One',
-                        1 => 'Many',
-                    ),
-                ))
-            ->add('values', 'collection', array(
-                    'type' => new ValueType($this->localeRepository),
+            ->add('characteristics', 'collection', array(
+                    'type' => new CharacteristicSelectorType($this->localeRepository),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'by_reference' => false,
                 ))
         ;
     }
@@ -51,7 +40,7 @@ class CharacteristicType extends AbstractTranslatableType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic'
+            'data_class' => 'Orkestro\Bundle\ProductBundle\Entity\ProductKind'
         ));
     }
 
@@ -60,6 +49,6 @@ class CharacteristicType extends AbstractTranslatableType
      */
     public function getName()
     {
-        return 'orkestro_bundle_productbundle_characteristic_characteristic';
+        return 'orkestro_bundle_productbundle_productkind';
     }
 }

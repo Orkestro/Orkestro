@@ -1,6 +1,10 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block javascripts -%}
+    <script type="text/javascript" src="{{ asset('bundles/orkestroproduct/Backend/product_kind_characteristic-prototype.js') }}"></script>
+{% endblock %}
+
 {% block body -%}
     <h1>{{ "orkestro.product_kind.headers.new"|trans }}</h1>
 
