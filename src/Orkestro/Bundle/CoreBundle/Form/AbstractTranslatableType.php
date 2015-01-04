@@ -9,7 +9,7 @@ use Symfony\Component\Form\AbstractType;
 abstract class AbstractTranslatableType extends AbstractType
 {
     /** @var LocaleRepository $localeRepository */
-    private $localeRepository;
+    protected $localeRepository;
 
     public function __construct(LocaleRepository $localeRepository)
     {

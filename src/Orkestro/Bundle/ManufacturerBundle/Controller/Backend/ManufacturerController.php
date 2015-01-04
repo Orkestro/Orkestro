@@ -27,7 +27,6 @@ class ManufacturerController extends Controller
         $qb
             ->select('m')
             ->from('OrkestroManufacturerBundle:Manufacturer', 'm')
-//            ->join('m.country', 'c')
         ;
         $query = $qb->getQuery();
 

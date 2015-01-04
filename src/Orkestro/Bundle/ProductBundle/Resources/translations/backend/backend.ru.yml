@@ -1,0 +1,25 @@
+orkestro:
+  product:
+    headers:
+      products: Товары
+      new: Новый товар
+      title: Наименование
+      actions: Действия
+  product_characteristic:
+    headers:
+      characteristics: Характеристики товара
+      new: Новая характеристика товара
+      title: Наименование
+      actions: Действия
+  product_characteristic_value:
+    headers:
+      values: Значения характеристики товара
+      new: Новое значение характеристики товара
+      value: Значение
+      actions: Действия
+  product_kind:
+    headers:
+      product_kinds: Виды товаров
+      new: Новый вид товаров
+      title: Наименование
+      actions: Действия

@@ -1,0 +1,46 @@
+{% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
+
+{% block body -%}
+    <h1>{{ "orkestro.product_characteristic.headers.characteristics"|trans }}</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Select Policy</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('orkestro_backend_product_characteristic_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.selectPolicy }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('orkestro_backend_product_characteristic_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('orkestro_backend_product_characteristic_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('orkestro_backend_product_characteristic_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+{% endblock %}

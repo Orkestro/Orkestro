@@ -1,0 +1,25 @@
+orkestro:
+  product:
+    headers:
+      products: Products
+      new: New Product
+      title: Title
+      actions: Actions
+  product_characteristic:
+    headers:
+      characteristics: Product Characteristics
+      new: New Product Characteristic
+      title: Title
+      actions: Actions
+  product_characteristic_value:
+    headers:
+      values: Product Characteristics Values
+      new: New Product Characteristic Value
+      value: Value
+      actions: Actions
+  product_kind:
+    headers:
+      product_kinds: Product Kinds
+      new: New Product Kind
+      title: Title
+      actions: Actions

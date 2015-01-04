@@ -1,0 +1,5 @@
+orkestro:
+  backend:
+    product: Товары
+    product_characteristic: Характеристики
+    product_kind: Виды товаров
