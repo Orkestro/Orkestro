@@ -3,13 +3,22 @@
 namespace Orkestro\Bundle\ProductBundle\Form;
 
 use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
+use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
+use Orkestro\Bundle\ProductBundle\Entity\Characteristic\CharacteristicRepository;
 use Orkestro\Bundle\ProductBundle\Form\Characteristic\CharacteristicSelectorType;
-use Orkestro\Bundle\ProductBundle\Form\Characteristic\CharacteristicType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProductKindType extends AbstractTranslatableType
 {
+    protected $characteristicRepository;
+
+    public function __construct(LocaleRepository $localeRepository, CharacteristicRepository $characteristicRepository)
+    {
+        parent::__construct($localeRepository);
+        $this->characteristicRepository = $characteristicRepository;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -26,7 +35,7 @@ class ProductKindType extends AbstractTranslatableType
                     ),
                 ))
             ->add('characteristics', 'collection', array(
-                    'type' => new CharacteristicSelectorType($this->localeRepository),
+                    'type' => new CharacteristicSelectorType($this->localeRepository, $this->characteristicRepository),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,

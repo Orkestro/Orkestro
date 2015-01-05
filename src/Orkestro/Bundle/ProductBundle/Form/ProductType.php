@@ -3,11 +3,22 @@
 namespace Orkestro\Bundle\ProductBundle\Form;
 
 use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
+use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
+use Orkestro\Bundle\ProductBundle\Entity\Characteristic\CharacteristicRepository;
+use Orkestro\Bundle\ProductBundle\Form\Characteristic\CharacteristicSelectorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProductType extends AbstractTranslatableType
 {
+    protected $characteristicRepository;
+
+    public function __construct(LocaleRepository $localeRepository, CharacteristicRepository $characteristicRepository)
+    {
+        parent::__construct($localeRepository);
+        $this->characteristicRepository = $characteristicRepository;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -33,6 +44,16 @@ class ProductType extends AbstractTranslatableType
                     ),
                 ))
             ->add('sku')
+            ->add('kind', 'entity', array(
+                    'class' => 'OrkestroProductBundle:ProductKind',
+                    'required' => true,
+                ))
+            ->add('characteristics', 'collection', array(
+                    'type' => new CharacteristicSelectorType($this->localeRepository, $this->characteristicRepository),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                ))
         ;
     }
     

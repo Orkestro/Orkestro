@@ -31,9 +31,7 @@ class ProductKind extends AbstractTranslatable
      * @ORM\ManyToMany(targetEntity="Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic")
      * @ORM\JoinTable(name="orkestro_product_kinds_product_characteristics",
      *      joinColumns={@ORM\JoinColumn(name="product_kind_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="product_characteristic_id", referencedColumnName="id",
-     *          unique=true
-     *      )},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_characteristic_id", referencedColumnName="id")},
      * )
      */
     private $characteristics;
@@ -53,6 +51,11 @@ class ProductKind extends AbstractTranslatable
      */
     private $currentTranslation;
 
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * Get id
@@ -137,14 +140,5 @@ class ProductKind extends AbstractTranslatable
     public function getCharacteristics()
     {
         return $this->characteristics;
-    }
-
-    public function setCharacteristics(Characteristic $characteristics)
-    {
-        $a = 1;
-        $b = $a;
-        $c = $b - 1;
-        $d = $c - $a;
-//        $this->characteristics = $characteristics;
     }
 }

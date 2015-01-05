@@ -66,9 +66,12 @@ class ProductKindController extends Controller
      */
     private function createCreateForm(ProductKind $entity)
     {
-        $form = $this->createForm(new ProductKindType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
-            'action' => $this->generateUrl('orkestro_backend_product_kind_create'),
-            'method' => 'POST',
+        $form = $this->createForm(new ProductKindType(
+                $this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'),
+                $this->get('doctrine.orm.entity_manager')->getRepository('OrkestroProductBundle:Characteristic\Characteristic')
+            ), $entity, array(
+                'action' => $this->generateUrl('orkestro_backend_product_kind_create'),
+                'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -155,9 +158,12 @@ class ProductKindController extends Controller
     */
     private function createEditForm(ProductKind $entity)
     {
-        $form = $this->createForm(new ProductKindType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
-            'action' => $this->generateUrl('orkestro_backend_product_kind_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+        $form = $this->createForm(new ProductKindType(
+                $this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'),
+                $this->get('doctrine.orm.entity_manager')->getRepository('OrkestroProductBundle:Characteristic\Characteristic')
+            ), $entity, array(
+                'action' => $this->generateUrl('orkestro_backend_product_kind_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

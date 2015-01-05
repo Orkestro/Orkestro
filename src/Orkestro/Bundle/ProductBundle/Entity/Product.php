@@ -4,6 +4,7 @@ namespace Orkestro\Bundle\ProductBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -44,6 +45,23 @@ class Product extends AbstractTranslatable
      */
     private $sku;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Orkestro\Bundle\ProductBundle\Entity\ProductKind")
+     * @ORM\JoinColumn(name="kind_id", referencedColumnName="id")
+     */
+    private $kind;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Orkestro\Bundle\ProductBundle\Entity\Characteristic\Characteristic")
+     * @ORM\JoinTable(name="orkestro_products_product_characteristics",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_characteristic_id", referencedColumnName="id")},
+     * )
+     */
+    private $characteristics;
+
 
     /**
      * Get id
@@ -58,6 +76,7 @@ class Product extends AbstractTranslatable
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->characteristics = new ArrayCollection();
     }
 
     public function translate($locale = null)
@@ -118,6 +137,17 @@ class Product extends AbstractTranslatable
         return $this;
     }
 
+    public function getUrl()
+    {
+        return $this->translate()->getUrl();
+    }
+
+    public function setUrl($url)
+    {
+        $this->translate()->setUrl($url);
+        return $this;
+    }
+
     /**
      * Set sku
      *
@@ -139,5 +169,61 @@ class Product extends AbstractTranslatable
     public function getSku()
     {
         return $this->sku;
+    }
+
+    /**
+     * Add characteristics
+     *
+     * @param Characteristic $characteristics
+     * @return ProductKind
+     */
+    public function addCharacteristic(Characteristic $characteristics)
+    {
+        $this->characteristics[] = $characteristics;
+
+        return $this;
+    }
+
+    /**
+     * Remove characteristics
+     *
+     * @param Characteristic $characteristics
+     */
+    public function removeCharacteristic(Characteristic $characteristics)
+    {
+        $this->characteristics->removeElement($characteristics);
+    }
+
+    /**
+     * Get characteristics
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCharacteristics()
+    {
+        return $this->characteristics;
+    }
+
+    /**
+     * Set kind
+     *
+     * @param \Orkestro\Bundle\ProductBundle\Entity\ProductKind $kind
+     * @return Product
+     */
+    public function setKind(ProductKind $kind = null)
+    {
+        $this->kind = $kind;
+
+        return $this;
+    }
+
+    /**
+     * Get kind
+     *
+     * @return \Orkestro\Bundle\ProductBundle\Entity\ProductKind 
+     */
+    public function getKind()
+    {
+        return $this->kind;
     }
 }
