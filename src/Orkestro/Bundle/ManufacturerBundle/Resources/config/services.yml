@@ -1,6 +1,7 @@
 services:
   orkestro.manufacturer.configure_menu_listener:
     class: Orkestro\Bundle\ManufacturerBundle\EventListener\ConfigureMenuListener
-    arguments: ["@translator"]
+    arguments: ["@translator", "@request"]
+    scope: request
     tags:
       - { name: kernel.event_listener, event: orkestro.menu_builder.backend.main.configure, method: onMenuConfigure }

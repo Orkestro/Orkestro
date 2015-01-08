@@ -8,3 +8,7 @@ orkestro:
       enabled: Enabled
       actions: Actions
       fallback: Fallback
+    buttons:
+      add: Add new locale
+    info:
+      of: of

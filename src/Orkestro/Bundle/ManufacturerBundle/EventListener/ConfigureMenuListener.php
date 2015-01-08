@@ -11,8 +11,15 @@ class ConfigureMenuListener extends AbstractMenuListener
     {
         $menu = $event->getMenu('assortment');
 
-        $menu->addChild('manufacturer', array(
+        $menu
+            ->addChild('manufacturer', array(
                 'route' => 'orkestro_backend_manufacturer_list',
-            ))->setLabel($this->translate('orkestro.backend.manufacturer'));;
+            ))
+            ->setLabel($this->translate('orkestro.backend.manufacturer'))
+            ->setCurrent(preg_match('/^orkestro_backend_manufacturer_/', $this->currentRoute))
+            ->setChildrenAttributes(array(
+                    'icon' => 'wrench',
+                ))
+        ;
     }
 }

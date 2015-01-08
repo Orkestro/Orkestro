@@ -1,0 +1,9 @@
+orkestro:
+  backend:
+    headers:
+      dashboard: Dashboard
+    button:
+      my_account: My Account
+      log_out: Log out
+      previous: "Previous"
+      next: "Next"

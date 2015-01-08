@@ -1,6 +1,13 @@
 services:
   orkestro.locale.configure_menu_listener:
     class: Orkestro\Bundle\LocaleBundle\EventListener\ConfigureMenuListener
-    arguments: ["@translator"]
+    arguments: ["@translator", "@request"]
+    scope: request
     tags:
       - { name: kernel.event_listener, event: orkestro.menu_builder.backend.main.configure, method: onMenuConfigure }
+
+  orkestro.locale_listener:
+    class: Orkestro\Bundle\LocaleBundle\EventListener\LocaleListener
+    arguments: ["@doctrine"]
+    tags:
+      - { name: kernel.event_subscriber }

@@ -1,3 +1,6 @@
 orkestro:
   backend:
     dashboard: Dashboard
+    headers:
+      assortment: Assortment
+      configuration: Configuration

@@ -1,0 +1,9 @@
+orkestro:
+  backend:
+    headers:
+      dashboard: Обзор
+    button:
+      my_account: Мой аккаунт
+      log_out: Выйти
+      previous: "Назад"
+      next: "Вперёд"

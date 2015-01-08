@@ -1,9 +1,11 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
-{% block body -%}
-    <h3>{{ "orkestro.country.headers.countries"|trans }}</h3>
+{% block page_title -%}
+    {{ "orkestro.country.headers.countries"|trans }}
+{% endblock %}
 
+{% block body -%}
     <ul>
         <li>
             <a href="{{ path('orkestro_backend_country_new') }}">

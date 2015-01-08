@@ -2,6 +2,9 @@
 
 namespace Orkestro\Bundle\LocaleBundle\Controller\Backend;
 
+use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
+use Orkestro\Bundle\LocaleBundle\Form\LocaleEnablerType;
+use Orkestro\Bundle\LocaleBundle\Form\LocaleFallbackerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -14,6 +17,15 @@ use Symfony\Component\Intl\Intl;
 class LocaleController extends Controller
 {
     /**
+     * @Route("/set/{_locale}", name="orkestro_backend_locale_set")
+     * @Method("GET")
+     */
+    public function setLocaleAction()
+    {
+        return $this->redirect($this->generateUrl('orkestro_backend_dashboard'), 302);
+    }
+
+    /**
      * Lists all Locale entities.
      *
      * @Route("/list", name="orkestro_backend_locale_list")
@@ -23,7 +35,7 @@ class LocaleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l ORDER BY l.enabled DESC, l.fallback DESC, l.code ASC';
+        $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l';
         $query = $em->createQuery($dql);
 
         $paginator = $this->get('knp_paginator');
@@ -33,9 +45,104 @@ class LocaleController extends Controller
             10
         );
 
+        $forms = array();
+
+        /** @var Locale $locale */
+        foreach ($pagination as $locale) {
+            $forms[$locale->getCode()]['enable'] = $this->createEnableForm($locale)->createView();
+            $forms[$locale->getCode()]['fallback'] = $this->createFallbackForm($locale)->createView();
+            $forms[$locale->getCode()]['delete'] = $this->createDeleteForm($locale->getCode())->createView();
+        }
+
         return array(
             'pagination' => $pagination,
+            'forms' => $forms,
         );
+    }
+
+    /**
+     * @Route("/enable/{code}", name="orkestro_backend_locale_enable")
+     * @Method("PUT")
+     */
+    public function enableAction(Request $request, $code)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Locale entity.');
+        }
+
+        $enableForm = $this->createEnableForm($entity);
+        $enableForm->handleRequest($request);
+
+        if ($enableForm->isValid()) {
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
+    }
+
+    private function createEnableForm(Locale $entity)
+    {
+        $form = $this->createForm(new LocaleEnablerType(), $entity, array(
+                'action' => $this->generateUrl('orkestro_backend_locale_enable', array('code' => $entity->getCode())),
+                'method' => 'PUT',
+            ));
+
+        return $form;
+    }
+
+    /**
+     * @Route("/fallback/{code}", name="orkestro_backend_locale_fallback")
+     * @Method("PUT")
+     */
+    public function fallbackAction(Request $request, $code)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var LocaleRepository $localeRepository */
+        $localeRepository = $em->getRepository('OrkestroLocaleBundle:Locale');
+
+        /** @var Locale $entity */
+        $entity = $localeRepository->find($code);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Locale entity.');
+        }
+
+        $enableForm = $this->createFallbackForm($entity);
+        $enableForm->handleRequest($request);
+
+        if ($enableForm->isValid()) {
+            if ($entity->getFallback() && $entity->getEnabled()) {
+                $locales = $localeRepository->findAll();
+
+                /** @var Locale $locale */
+                foreach ($locales as $locale) {
+                    if ($locale != $entity) {
+                        $locale->setFallback(false);
+                    }
+                }
+            } else {
+                return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
+            }
+
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
+    }
+
+    private function createFallbackForm(Locale $entity)
+    {
+        $form = $this->createForm(new LocaleFallbackerType(), $entity, array(
+                'action' => $this->generateUrl('orkestro_backend_locale_fallback', array('code' => $entity->getCode())),
+                'method' => 'PUT',
+            ));
+
+        return $form;
     }
 
     /**

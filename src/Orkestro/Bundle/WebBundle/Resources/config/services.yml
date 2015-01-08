@@ -22,3 +22,10 @@ services:
     scope: request
     tags:
       - { name: knp_menu.menu, alias: frontend_main }
+
+  orkestro.twig.locale_extension:
+    class: Orkestro\Bundle\WebBundle\Twig\LocaleExtension
+    arguments: ["@doctrine"]
+    tags:
+      - { name: twig.extension }
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

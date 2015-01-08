@@ -8,3 +8,7 @@ orkestro:
       enabled: Включен
       actions: Действия
       fallback: По умолчанию
+    buttons:
+      add: Добавить новый язык
+    info:
+      of: из

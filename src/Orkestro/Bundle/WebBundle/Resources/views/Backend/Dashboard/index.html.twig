@@ -1,6 +1,9 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
+{% trans_default_domain "backend" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block page_title -%}
+    {{ "orkestro.backend.headers.dashboard"|trans }}
+{% endblock %}
 
 {% block body -%}
     Admin Dashboard
