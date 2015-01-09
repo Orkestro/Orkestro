@@ -2,24 +2,24 @@ orkestro:
   product:
     headers:
       products: Товары
-      new: Новый товар
+      new: Добавить товар
       title: Наименование
       actions: Действия
   product_characteristic:
     headers:
       characteristics: Характеристики товара
-      new: Новая характеристика товара
+      new: Добавить характеристику товара
       title: Наименование
       actions: Действия
   product_characteristic_value:
     headers:
       values: Значения характеристики товара
-      new: Новое значение характеристики товара
+      new: Добавить значение характеристики товара
       value: Значение
       actions: Действия
   product_kind:
     headers:
       product_kinds: Виды товаров
-      new: Новый вид товаров
+      new: Добавить вид товара
       title: Наименование
       actions: Действия

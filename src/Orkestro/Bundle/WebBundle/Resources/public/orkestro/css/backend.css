@@ -1,3 +1,7 @@
 .inline {
     display: inline;
 }
+
+.btn-link:hover {
+    text-decoration: none;
+}

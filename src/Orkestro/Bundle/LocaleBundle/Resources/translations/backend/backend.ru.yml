@@ -2,13 +2,24 @@ orkestro:
   locale:
     headers:
       locales: Языки
+      locale: Язык
       new: Добавить язык
+      edit: Редактирование языка
       code: Код
       title: Наименование
       enabled: Включен
       actions: Действия
       fallback: По умолчанию
     buttons:
-      add: Добавить новый язык
+      add: Добавить язык
+      apply: Подтвердить
+      cancel: Отменить
+      to_list: К списку языков
+      edit: Редактировать
+    labels:
+      code: Код
+      locale: Язык
+      enabled: Включен
+      fallback: По умолчанию
     info:
       of: из

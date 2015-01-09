@@ -1,41 +1,62 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block title %}
+    {{ "orkestro.locale.headers.new"|trans }}
+{% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_locale_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.locale.headers.locale"|trans }} <small>{{ entity.title }} &mdash; {{ entity.code }}</small>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/orkestrolocale/orkestro/js/locale-show.js') }}"></script>
+{% endblock %}
+
 {% block body -%}
-    <h1>Locale</h1>
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-body">
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.locale.labels.code"|trans }}
+                    </small>
+                    {{ entity.code }}
+                </h3>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Code</th>
-                <td>{{ entity.code }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Enabled</th>
-                <td>{{ entity.enabled }}</td>
-            </tr>
-            <tr>
-                <th>Fallback</th>
-                <td>{{ entity.fallback }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.locale.labels.locale"|trans }}
+                    </small>
+                    {{ entity.title }}
+                </h3>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('orkestro_backend_locale_list') }}">
-                Back to the list
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('orkestro_backend_locale_edit', { 'code': entity.code }) }}">
-                Edit
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.locale.labels.enabled"|trans }}
+                    </small>
+                    <input type="checkbox" class="switchery"{% if entity.enabled %} checked="checked"{% endif %} />
+                </h3>
+
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.locale.labels.fallback"|trans }}
+                    </small>
+                    <input type="checkbox" class="switchery"{% if entity.fallback %} checked="checked"{% endif %} />
+                </h3>
+
+                <hr />
+
+                <div>
+                    <a class="btn btn-warning btn-labeled fa fa-arrow-left" href="{{ path('orkestro_backend_locale_list') }}">{{ 'orkestro.locale.buttons.to_list'|trans }}</a>
+                    <a class="btn btn-primary btn-labeled fa fa-pencil" href="{{ path('orkestro_backend_locale_edit', {'code': entity.code}) }}">{{ 'orkestro.locale.buttons.edit'|trans }}</a>
+                    {{ form_start(delete_form, {'attr': {'class': 'inline'}}) }}
+                        {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'Удалить'}) }}
+                    {{ form_end(delete_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

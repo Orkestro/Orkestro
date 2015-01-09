@@ -2,13 +2,24 @@ orkestro:
   locale:
     headers:
       locales: Locales
-      new: Create Locale
+      locale: Locale
+      new: Add Locale
+      edit: Edit Locale
       code: Code
       title: Title
       enabled: Enabled
       actions: Actions
       fallback: Fallback
     buttons:
-      add: Add new locale
+      add: Add locale
+      apply: Apply
+      cancel: Cancel
+      to_list: To locales list
+      edit: Edit
+    labels:
+      code: Code
+      locale: Locale
+      enabled: Enabled
+      fallback: Fallback
     info:
       of: of

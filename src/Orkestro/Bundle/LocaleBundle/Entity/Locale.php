@@ -39,7 +39,7 @@ class Locale
      *
      * @ORM\Column(name="fallback", type="boolean")
      */
-    private $fallback = true;
+    private $fallback = false;
 
 
     /**

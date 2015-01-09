@@ -117,7 +117,9 @@ class LocaleController extends Controller
 
         if ($enableForm->isValid()) {
             if ($entity->getFallback() && $entity->getEnabled()) {
-                $locales = $localeRepository->findAll();
+                $locales = $localeRepository->findBy(array(
+                        'fallback' => true,
+                    ));
 
                 /** @var Locale $locale */
                 foreach ($locales as $locale) {
@@ -161,6 +163,23 @@ class LocaleController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setTitle(Intl::getLocaleBundle()->getLocaleName($entity->getCode(), $entity->getCode()));
+
+            if ($entity->getFallback() && $entity->getEnabled()) {
+                /** @var LocaleRepository $localeRepository */
+                $localeRepository = $em->getRepository('OrkestroLocaleBundle:Locale');
+
+                $locales = $localeRepository->findBy(array(
+                        'fallback' => true,
+                    ));
+
+                /** @var Locale $locale */
+                foreach ($locales as $locale) {
+                    $locale->setFallback(false);
+                }
+            } else {
+                return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
+            }
+
             $em->persist($entity);
             $em->flush();
 
@@ -253,12 +272,10 @@ class LocaleController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($code);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -298,7 +315,6 @@ class LocaleController extends Controller
             throw $this->createNotFoundException('Unable to find Locale entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($code);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -311,7 +327,6 @@ class LocaleController extends Controller
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 

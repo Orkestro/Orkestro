@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %} | Orkestro eCommerce</title>
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/orkestrocountry/css/country.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/nifty/css/nifty.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/orkestro/css/backend.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestrocountry/css/country.css') }}" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:500,300,700,400&subset=latin,cyrillic-ext,latin-ext,cyrillic,greek-ext,greek,vietnamese" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestroweb/nifty/css/nifty.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestroweb/orkestro/css/backend.css') }}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>

@@ -1,6 +1,9 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block title -%}
+    {{ "orkestro.locale.headers.locales"|trans }}
+{% endblock %}
 {% block page_title -%}
     {{ "orkestro.locale.headers.locales"|trans }}
 {% endblock %}
@@ -101,7 +104,6 @@
                         {{ paginationStartsWith }}&mdash;{{ paginationEndsWith }} {{ 'orkestro.locale.info.of'|trans }} {{ pagination.getTotalItemCount }}
                     </li>
                 </ul>
-                {#</span>#}
             </div>
         </div>
     </div>
