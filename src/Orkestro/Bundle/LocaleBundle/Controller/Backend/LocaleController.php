@@ -5,6 +5,7 @@ namespace Orkestro\Bundle\LocaleBundle\Controller\Backend;
 use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleEnablerType;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleFallbackerType;
+use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -34,6 +35,8 @@ class LocaleController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
+
         $em = $this->get('doctrine.orm.default_entity_manager');
         $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l';
         $query = $em->createQuery($dql);
@@ -42,7 +45,7 @@ class LocaleController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->get('page', 1),
-            10
+            $listLimit
         );
 
         $forms = array();
@@ -54,10 +57,43 @@ class LocaleController extends Controller
             $forms[$locale->getCode()]['delete'] = $this->createDeleteForm($locale->getCode())->createView();
         }
 
+        $formLimitSelector = $this->createLimitSelectorForm($listLimit)->createView();
+
         return array(
             'pagination' => $pagination,
             'forms' => $forms,
+            'formLimitSelector' => $formLimitSelector,
         );
+    }
+
+    /**
+     * @Route("/limit", name="orkestro_backend_locale_limit")
+     * @Method("PUT")
+     */
+    public function limitAction(Request $request)
+    {
+        $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
+
+        $form = $this->createLimitSelectorForm($listLimit);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $request->getSession()->set('orkestro_backend_locale_list_limit', $formData['limit']);
+        }
+
+        return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
+    }
+
+    private function createLimitSelectorForm($selectedLimit)
+    {
+        $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
+                'action' => $this->generateUrl('orkestro_backend_locale_limit'),
+                'method' => 'PUT',
+            ));
+
+        return $form;
     }
 
     /**
@@ -164,7 +200,7 @@ class LocaleController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->setTitle(Intl::getLocaleBundle()->getLocaleName($entity->getCode(), $entity->getCode()));
 
-            if ($entity->getFallback() && $entity->getEnabled()) {
+            if (($entity->getFallback() && $entity->getEnabled()) || (!$entity->getFallback())) {
                 /** @var LocaleRepository $localeRepository */
                 $localeRepository = $em->getRepository('OrkestroLocaleBundle:Locale');
 
@@ -182,6 +218,13 @@ class LocaleController extends Controller
 
             $em->persist($entity);
             $em->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans('orkestro.locale.notifications.add_success', array(
+                        '%locale_name%' => $entity->getTitle(),
+                    ), 'backend')
+            );
 
             return $this->redirect($this->generateUrl('orkestro_backend_locale_show', array('code' => $entity->getCode())));
         }

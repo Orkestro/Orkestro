@@ -11,10 +11,6 @@
     {{ "orkestro.locale.headers.new"|trans }}
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/orkestrolocale/orkestro/js/locale-edit.js') }}"></script>
-{% endblock %}
-
 {% block body -%}
     <div class="col-lg-6">
         <div class="panel">
@@ -23,7 +19,7 @@
                     <h5 class="text-thin mar-btm">
                         {{ "orkestro.locale.labels.locale"|trans }}
                     </h5>
-                    {{ form_widget(form.code, {'attr': {'class': 'chosen-select'}}) }}
+                    {{ form_widget(form.code, {'attr': {'class': 'chosen'}}) }}
 
                     <h5 class="text-thin mar-btm">
                         {{ "orkestro.locale.labels.enabled"|trans }}

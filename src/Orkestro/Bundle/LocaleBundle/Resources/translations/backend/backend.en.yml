@@ -23,3 +23,5 @@ orkestro:
       fallback: Fallback
     info:
       of: of
+    notifications:
+      add_success: The Locale %locale_name% added successfully

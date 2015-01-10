@@ -7,3 +7,5 @@ orkestro:
       log_out: Выйти
       previous: "Назад"
       next: "Вперёд"
+    info:
+      limit_to: Выводить по %limit% записей

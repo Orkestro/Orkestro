@@ -11,10 +11,6 @@
     {{ "orkestro.locale.headers.locale"|trans }} <small>{{ entity.title }} &mdash; {{ entity.code }}</small>
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/orkestrolocale/orkestro/js/locale-show.js') }}"></script>
-{% endblock %}
-
 {% block body -%}
     <div class="col-lg-6">
         <div class="panel">
@@ -37,14 +33,14 @@
                     <small>
                         {{ "orkestro.locale.labels.enabled"|trans }}
                     </small>
-                    <input type="checkbox" class="switchery"{% if entity.enabled %} checked="checked"{% endif %} />
+                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.enabled %} checked="checked"{% endif %} />
                 </h3>
 
                 <h3 class="mar-btm">
                     <small>
                         {{ "orkestro.locale.labels.fallback"|trans }}
                     </small>
-                    <input type="checkbox" class="switchery"{% if entity.fallback %} checked="checked"{% endif %} />
+                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.fallback %} checked="checked"{% endif %} />
                 </h3>
 
                 <hr />

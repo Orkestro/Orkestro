@@ -14,6 +14,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
+    {% for flashMessageType, flashMessages in app.session.flashbag.all %}
+        {% for flashMessage in flashMessages %}
+            <input type="hidden" name="flash-notification" data-type="{{ flashMessageType }}" data-contents="{{ flashMessage }}" />
+        {% endfor %}
+    {% endfor %}
     <div id="container" class="effect mainnav-lg">
         <header id="navbar">
             <div id="navbar-container" class="boxed">
@@ -105,6 +110,7 @@
     <script type="text/javascript" src="{{ asset('bundles/orkestroweb/jquery/js/jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/orkestroweb/bootstrap/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/orkestroweb/nifty/js/nifty.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/orkestro/js/backend.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </body>
 </html>

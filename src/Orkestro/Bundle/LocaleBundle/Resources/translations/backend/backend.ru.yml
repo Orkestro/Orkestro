@@ -23,3 +23,5 @@ orkestro:
       fallback: По умолчанию
     info:
       of: из
+    notifications:
+      add_success: Язык %locale_name% успешно добавлен
