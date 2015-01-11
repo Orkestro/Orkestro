@@ -5,13 +5,15 @@ orkestro:
       countries: Countries
       country: Country
       new: Add New Country
-      edit: Edit Locale
+      edit: Edit Country
       iso_code: ISO Code
       title: Title
       actions: Actions
     buttons:
       add: Add Country
       to_list: To country list
+      apply: Apply
+      cancel: Cancel
       edit: Edit
       delete: Delete
     labels:
@@ -22,6 +24,8 @@ orkestro:
       metaTitle: Meta Title
       metaDescription: Meta Description
       metaKeywords: Meta Keywords
+    info:
+      of: of
     notifications:
       add_success: The Country added successfully
       edit_success: The Country %country_name% updated successfully

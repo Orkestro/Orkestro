@@ -28,44 +28,15 @@
                         * {{ "orkestro.country.labels.iso_code"|trans }}
                     </h5>
                     {{ form_widget(form.isoCode) }}
+
+                    <hr />
+
+                    <div>
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-labeled fa fa-plus'}, 'label': 'orkestro.country.buttons.add'|trans}) }}
+                        <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_country_list') }}">{{ 'orkestro.country.buttons.cancel'|trans }}</a>
+                    </div>
                 </div>
             </div>
         {{ form_end(form) }}
-
-                {#{{ form_start(form) }}#}
-                    {#{{ form_widget(form.translations) }}#}
-                {#<h5 class="text-thin mar-btm">#}
-                {#{{ "orkestro.locale.labels.locale"|trans }}#}
-                {#</h5>#}
-                {#{{ form_widget(form.code, {'attr': {'class': 'chosen'}}) }}#}
-
-                {#<h5 class="text-thin mar-btm">#}
-                {#{{ "orkestro.locale.labels.enabled"|trans }}#}
-                {#</h5>#}
-                {#{{ form_widget(form.enabled, {'attr': {'class': 'switchery'}}) }}#}
-
-
-                {#{{ form_widget(form.fallback, {'attr': {'class': 'switchery'}}) }}#}
-
-                {#<hr />#}
-
-                {#<div>#}
-                {#{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-labeled fa fa-plus'}, 'label': 'orkestro.locale.buttons.add'|trans}) }}#}
-                {#<a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_locale_list') }}">{{ 'orkestro.locale.buttons.cancel'|trans }}</a>#}
-                {#</div>#}
-                {#{{ form_end(form) }}#}
-            {#</div>#}
-        {#</div>#}
     </div>
-
-
-    {#{{ form(form) }}#}
-
-    {#<ul class="record_actions">#}
-        {#<li>#}
-            {#<a href="{{ path('orkestro_backend_country_list') }}">#}
-                {#Back to the list#}
-            {#</a>#}
-        {#</li>#}
-    {#</ul>#}
 {% endblock %}

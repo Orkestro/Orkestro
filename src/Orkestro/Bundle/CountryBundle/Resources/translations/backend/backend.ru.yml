@@ -12,6 +12,8 @@ orkestro:
     buttons:
       add: Добавить страну
       to_list: К списку стран
+      apply: Подтвердить
+      cancel: Отменить
       edit: Редактировать
       delete: Удалить
     labels:
@@ -22,6 +24,8 @@ orkestro:
       metaTitle: Мета-тег "Title"
       metaDescription: Мета-тег "Description"
       metaKeywords: Мета-тег "Keywords"
+    info:
+      of: из
     notifications:
       add_success: Страна успешно добавлена
       edit_success: Страна %country_name% успешно обновлена
