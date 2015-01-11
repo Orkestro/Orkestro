@@ -67,7 +67,7 @@
                     </th>
                 </tr>
                 {% for locale in pagination %}
-                    <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <tr>
                         <td>{{ locale.code }}</td>
                         <td>{{ locale.title }}</td>
                         <td>

@@ -16,6 +16,7 @@ orkestro:
       cancel: Cancel
       to_list: To locales list
       edit: Edit
+      delete: Delete
     labels:
       code: Code
       locale: Locale
@@ -25,3 +26,4 @@ orkestro:
       of: of
     notifications:
       add_success: The Locale %locale_name% added successfully
+      edit_success: The Locale %locale_name% updated successfully

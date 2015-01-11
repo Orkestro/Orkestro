@@ -5,11 +5,11 @@
 
         {% if previous is defined %}
             <li>
-                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'orkestro.backend.button.previous'|trans }}</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'orkestro.buttons.previous'|trans }}</a>
             </li>
         {% else %}
             <li class="disabled">
-                <span>&laquo;&nbsp;{{ 'orkestro.backend.button.previous'|trans }}</span>
+                <span>&laquo;&nbsp;{{ 'orkestro.buttons.previous'|trans }}</span>
             </li>
         {% endif %}
 
@@ -60,11 +60,11 @@
 
         {% if next is defined %}
             <li>
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'orkestro.backend.button.next'|trans }}&nbsp;&raquo;</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'orkestro.buttons.next'|trans }}&nbsp;&raquo;</a>
             </li>
         {% else %}
             <li class="disabled">
-                <span>{{ 'orkestro.backend.button.next'|trans }}&nbsp;&raquo;</span>
+                <span>{{ 'orkestro.buttons.next'|trans }}&nbsp;&raquo;</span>
             </li>
         {% endif %}
     </ul>

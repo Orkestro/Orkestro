@@ -1,8 +1,27 @@
 orkestro:
   country:
     headers:
+      id: Идентификатор
       countries: Страны
-      new: Новая страна
+      country: Страна
+      new: Добавить новую страну
+      edit: Редактирование страны
       iso_code: Код ISO
       title: Наименование
       actions: Действия
+    buttons:
+      add: Добавить страну
+      to_list: К списку стран
+      edit: Редактировать
+      delete: Удалить
+    labels:
+      id: Идентификатор
+      title: Наименование
+      iso_code: Код ISO
+      flag: Флаг страны
+      metaTitle: Мета-тег "Title"
+      metaDescription: Мета-тег "Description"
+      metaKeywords: Мета-тег "Keywords"
+    notifications:
+      add_success: Страна успешно добавлена
+      edit_success: Страна %country_name% успешно обновлена

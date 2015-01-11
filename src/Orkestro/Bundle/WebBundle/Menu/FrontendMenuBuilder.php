@@ -11,10 +11,6 @@ class FrontendMenuBuilder extends AbstractMenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-//        $menu->addChild('dashboard', array(
-//                'route' => 'orkestro_backend_dashboard',
-//            ))->setLabel($this->translate('orkestro.backend.dashboard'));
-
         $this->eventDispatcher->dispatch(ConfigureMenuEvent::FRONTEND_MAIN, new ConfigureMenuEvent($this->factory, $menu));
 
         return $menu;

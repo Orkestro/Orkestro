@@ -87,6 +87,39 @@ class Country extends AbstractTranslatable
         return $this;
     }
 
+    public function getMetaTitle()
+    {
+        return $this->translate()->getMetaTitle();
+    }
+
+    public function setMetaTitle($metaTitle)
+    {
+        $this->translate()->setMetaTitle($metaTitle);
+        return $this;
+    }
+
+    public function getMetaDescription()
+    {
+        return $this->translate()->getMetaDescription();
+    }
+
+    public function setMetaDescription($metaDescription)
+    {
+        $this->translate()->setMetaDescription($metaDescription);
+        return $this;
+    }
+
+    public function getMetaKeywords()
+    {
+        return $this->translate()->getMetaKeywords();
+    }
+
+    public function setMetaKeywords($metaKeywords)
+    {
+        $this->translate()->setMetaKeywords($metaKeywords);
+        return $this;
+    }
+
     /**
      * Get id
      *

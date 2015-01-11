@@ -78,7 +78,7 @@ class ManufacturerController extends Controller
      */
     private function createCreateForm(Manufacturer $entity)
     {
-        $form = $this->createForm(new ManufacturerType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
+        $form = $this->createForm(new ManufacturerType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_manufacturer_create'),
             'method' => 'POST',
         ));
@@ -167,7 +167,7 @@ class ManufacturerController extends Controller
     */
     private function createEditForm(Manufacturer $entity)
     {
-        $form = $this->createForm(new ManufacturerType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
+        $form = $this->createForm(new ManufacturerType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_manufacturer_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

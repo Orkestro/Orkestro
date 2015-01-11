@@ -352,6 +352,7 @@ class LocaleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Locale $entity */
         $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
 
         if (!$entity) {
@@ -363,6 +364,13 @@ class LocaleController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans('orkestro.locale.notifications.edit_success', array(
+                        '%locale_name%' => $entity->getTitle(),
+                    ), 'backend')
+            );
 
             return $this->redirect($this->generateUrl('orkestro_backend_locale_edit', array('code' => $code)));
         }

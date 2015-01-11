@@ -1,8 +1,27 @@
 orkestro:
   country:
     headers:
+      id: ID
       countries: Countries
-      new: New Country
+      country: Country
+      new: Add New Country
+      edit: Edit Locale
       iso_code: ISO Code
       title: Title
       actions: Actions
+    buttons:
+      add: Add Country
+      to_list: To country list
+      edit: Edit
+      delete: Delete
+    labels:
+      id: ID
+      title: Title
+      iso_code: ISO Code
+      flag: Country Flag
+      metaTitle: Meta Title
+      metaDescription: Meta Description
+      metaKeywords: Meta Keywords
+    notifications:
+      add_success: The Country added successfully
+      edit_success: The Country %country_name% updated successfully

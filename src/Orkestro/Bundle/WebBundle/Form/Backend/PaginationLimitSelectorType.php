@@ -26,10 +26,10 @@ class PaginationLimitSelectorType extends AbstractType
         $builder
             ->add('limit', 'choice', array(
                     'choices' => array(
-                        10 => $this->translator->trans('orkestro.backend.info.limit_to', array('%limit%' => 10), 'backend'),
-                        25 => $this->translator->trans('orkestro.backend.info.limit_to', array('%limit%' => 25), 'backend'),
-                        50 => $this->translator->trans('orkestro.backend.info.limit_to', array('%limit%' => 50), 'backend'),
-                        100 => $this->translator->trans('orkestro.backend.info.limit_to', array('%limit%' => 100), 'backend'),
+                        10 => $this->translator->trans('orkestro.info.limit_to', array('%limit%' => 10), 'backend'),
+                        25 => $this->translator->trans('orkestro.info.limit_to', array('%limit%' => 25), 'backend'),
+                        50 => $this->translator->trans('orkestro.info.limit_to', array('%limit%' => 50), 'backend'),
+                        100 => $this->translator->trans('orkestro.info.limit_to', array('%limit%' => 100), 'backend'),
                     ),
                     'attr' => array(
                         'class' => 'selectpicker',

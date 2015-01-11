@@ -16,6 +16,7 @@ orkestro:
       cancel: Отменить
       to_list: К списку языков
       edit: Редактировать
+      delete: Удалить
     labels:
       code: Код
       locale: Язык
@@ -25,3 +26,4 @@ orkestro:
       of: из
     notifications:
       add_success: Язык %locale_name% успешно добавлен
+      edit_success: Язык %locale_name% успешно обновлён

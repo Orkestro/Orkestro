@@ -1,17 +1,55 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% import "OrkestroWebBundle:Backend/Translation:default.html.twig" as form_translations %}
+
+{% block title %}
+    {{ "orkestro.country.headers.edit"|trans }}
+{% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_country_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.country.headers.edit"|trans }} <small>{{ entity.title }} &mdash; {{ entity.isoCode }}</small>
+{% endblock %}
+
 {% block body -%}
-    <h1>Country edit</h1>
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-body">
+                {{ form_start(edit_form) }}
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.country.labels.id"|trans }}
+                    </small>
+                    {{ entity.id }}
+                </h3>
+            </div>
+        </div>
 
-    {{ form(edit_form) }}
+        <hr />
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('orkestro_backend_country_list') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <div class="tab-base mar-no">
+            {{ form_translations.partialTranslations(edit_form.translations, ['title', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+        </div>
+
+        <hr />
+
+        <div class="panel">
+            <div class="panel-body">
+                <h5 class="text-thin mar-btm">
+                    * {{ "orkestro.country.labels.iso_code"|trans }}
+                </h5>
+                {{ form_widget(edit_form.isoCode) }}
+
+                <hr />
+
+                <div>
+                    {{ form_widget(edit_form.submit, {'attr': {'class': 'btn btn-success btn-labeled fa fa-check'}, 'label': 'orkestro.locale.buttons.apply'|trans}) }}
+                    <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_locale_list') }}">{{ 'orkestro.locale.buttons.cancel'|trans }}</a>
+                </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

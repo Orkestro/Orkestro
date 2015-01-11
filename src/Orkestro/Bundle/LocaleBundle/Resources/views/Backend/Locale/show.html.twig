@@ -49,7 +49,7 @@
                     <a class="btn btn-warning btn-labeled fa fa-arrow-left" href="{{ path('orkestro_backend_locale_list') }}">{{ 'orkestro.locale.buttons.to_list'|trans }}</a>
                     <a class="btn btn-primary btn-labeled fa fa-pencil" href="{{ path('orkestro_backend_locale_edit', {'code': entity.code}) }}">{{ 'orkestro.locale.buttons.edit'|trans }}</a>
                     {{ form_start(delete_form, {'attr': {'class': 'inline'}}) }}
-                        {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'Удалить'}) }}
+                        {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'orkestro.locale.buttons.delete'|trans}) }}
                     {{ form_end(delete_form) }}
                 </div>
             </div>
