@@ -38,12 +38,12 @@ class LocaleController extends Controller
         $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
 
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $dql = 'SELECT l FROM OrkestroLocaleBundle:Locale l';
-        $query = $em->createQuery($dql);
+        $repository = $em->getRepository('OrkestroLocaleBundle:Locale');
+        $queryBuilder = $repository->createQueryBuilder('l');
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $queryBuilder,
             $request->query->get('page', 1),
             $listLimit
         );

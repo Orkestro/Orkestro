@@ -25,12 +25,20 @@ class CountryController extends Controller
         $listLimit = $request->getSession()->get('orkestro_backend_country_list_limit', 25);
 
         $em = $this->get('doctrine.orm.default_entity_manager');
-        $dql = 'SELECT c FROM OrkestroCountryBundle:Country c ORDER BY c.isoCode ASC';
-        $query = $em->createQuery($dql);
+        $repository = $em->getRepository('OrkestroCountryBundle:Country');
+        $queryBuilder = $repository->createQueryBuilder('c');
+        $queryBuilder
+            ->select('c', 'ct')
+            ->add('from', 'OrkestroCountryBundle:Country c JOIN c.translations ct WITH ct.locale = :locale')
+            ->groupBy('c')
+            ->setParameters(array(
+                    ':locale' => $request->getLocale(),
+                ))
+        ;
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $queryBuilder,
             $request->query->get('page', 1),
             $listLimit
         );
