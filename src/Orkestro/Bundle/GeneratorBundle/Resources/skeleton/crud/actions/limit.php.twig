@@ -1,0 +1,42 @@
+
+    /**
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+    * @Route("/limit", name="{{ route_name_prefix }}_limit")
+    * @Method("PUT")
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+    */
+{% block method_definition %}
+    public function limitAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $listLimit = $request->getSession()->get('{{ route_name_prefix }}_list_limit', 25);
+
+        $form = $this->createLimitSelectorForm($listLimit);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $request->getSession()->set('{{ route_name_prefix }}_list_limit', $formData['limit']);
+        }
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->redirect($this->generateUrl('{{ route_name_prefix }}_list'));
+{% endblock method_return %}
+    }
+
+{% block form %}
+    private function createLimitSelectorForm($selectedLimit)
+    {
+        $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
+            'action' => $this->generateUrl('{{ route_name_prefix }}_limit'),
+            'method' => 'PUT',
+        ));
+
+        return $form;
+    }
+{% endblock form %}

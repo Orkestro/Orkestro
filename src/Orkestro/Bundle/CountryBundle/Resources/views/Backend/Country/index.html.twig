@@ -43,8 +43,8 @@
                         {% endif %}
                     </th>
                     <th>
-                        {{ knp_pagination_sortable(pagination, 'orkestro.country.headers.title'|trans, 'c.title', {'class': 'btn-link'}) }}
-                        {% if pagination.isSorted('c.title') %}
+                        {{ knp_pagination_sortable(pagination, 'orkestro.country.headers.title'|trans, 'ct.title', {'class': 'btn-link'}) }}
+                        {% if pagination.isSorted('ct.title') %}
                             <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>

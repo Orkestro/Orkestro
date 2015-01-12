@@ -24,7 +24,7 @@ class CountryController extends Controller
     {
         $listLimit = $request->getSession()->get('orkestro_backend_country_list_limit', 25);
 
-        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('OrkestroCountryBundle:Country');
         $queryBuilder = $repository->createQueryBuilder('c');
         $queryBuilder
@@ -132,7 +132,7 @@ class CountryController extends Controller
      */
     private function createCreateForm(Country $entity)
     {
-        $form = $this->createForm(new CountryType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
+        $form = $this->createForm(new CountryType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_country_create'),
             'method' => 'POST',
         ));
@@ -223,7 +223,7 @@ class CountryController extends Controller
     */
     private function createEditForm(Country $entity)
     {
-        $form = $this->createForm(new CountryType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
+        $form = $this->createForm(new CountryType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_country_update', array('iso_code' => $entity->getIsoCode())),
             'method' => 'PUT',
         ));

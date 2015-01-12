@@ -1,0 +1,111 @@
+{% block extends %}
+{{ "{% extends '@OrkestroWeb/Backend/base.html.twig' %}" }}
+{{ "{% trans_default_domain 'backend' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block title -%}" }}
+    {{ "{{ 'orkestro." ~ entity|lower ~ ".headers." ~ entity|lower ~ "s'|trans }}" }}
+{{ "{% endblock %}" }}
+{{ "{% block page_title -%}" }}
+    {{ "{{ 'orkestro." ~ entity|lower ~ ".headers." ~ entity|lower ~ "s'|trans }}" }}
+{{ "{% endblock %}" }}
+
+{{ "{% block body -%}" }}
+    <div class="panel mar-no panel-bordered-primary">
+        <div class="panel-body">
+            <div class="pull-left">
+                {{ "{{ form(formLimitSelector) }}" }}
+            </div>
+            <div class="pull-right">
+                {% if 'new' in actions %}
+                    <a class="btn btn-primary btn-rounded btn-labeled fa fa-plus" href="{{ "path('" ~ route_name_prefix ~ "_new') }}" }}">
+                        {{ "{{ 'orkestro." ~ entity|lower ~ ".buttons.add'|trans }}" }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="panel mar-no panel-bordered-mint">
+        <div class="panel-body">
+            <table class="table table-bordered mar-no">
+                <tr>
+                    {%- for field, metadata in fields %}
+                        <th>
+                            {{ "{{ knp_pagination_sortable(pagination, 'orkestro." ~ entity|lower ~ ".headers." ~ field ~ "'|trans, '" ~ entity|first|lower ~ "." ~ field ~ "', {'class': 'btn-link'}) }}" }}
+                            {{ "{% if pagination.isSorted('" ~ entity|first|lower ~ "." ~ field ~ "') %}" }}
+                                <span class="order">
+                                    <i class="fa fa-angle-{{ "{% if pagination.getDirection() == 'asc' %}" }}up{{ "{% else %}" }}down{{ "{% endif %}" }}"></i>
+                                </span>
+                            {{ "{% endif %}" }}
+                        </th>
+                    {%- endfor %}
+                    {%- for field, metadata in translationFields if not (field in {'id': '', 'locale': ''}|keys) %}
+                        <th>
+                            {{ "{{ knp_pagination_sortable(pagination, 'orkestro." ~ entity|lower ~ ".headers." ~ field ~ "'|trans, '" ~ entity|first|lower ~ "t." ~ field ~ "', {'class': 'btn-link'}) }}" }}
+                            {{ "{% if pagination.isSorted('" ~ entity|first|lower ~ "t." ~ field ~ "') %}" }}
+                                <span class="order">
+                                    <i class="fa fa-angle-{{ "{% if pagination.getDirection() == 'asc' %}" }}up{{ "{% else %}" }}down{{ "{% endif %}" }}"></i>
+                                </span>
+                            {{ "{% endif %}" }}
+                        </th>
+                    {%- endfor %}
+                    <th>
+                        {{ "{{ 'orkestro." ~ entity|lower ~ ".headers.actions'|trans }}" }}
+                    </th>
+                </tr>
+                {{ "{% for " ~ entity|lower ~ " in pagination %}" }}
+                    <tr>
+                        {%- for field, metadata in fields %}
+                            <td>
+                                {{ "{{ " ~ entity|lower ~ "." ~ field ~ " }}" }}
+                            </td>
+                        {%- endfor %}
+                        {%- for field, metadata in translationFields if not (field in {'id': '', 'locale': ''}|keys) %}
+                            <td>
+                                {{ "{{ " ~ entity|lower ~ "." ~ field ~ " }}" }}
+                            </td>
+                        {%- endfor %}
+                        <td>
+                            <a class="btn btn-s btn-mint" href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { 'id': " ~ entity|lower ~ ".id }) }}" }}">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            <a class="btn btn-s btn-primary" href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': " ~ entity|lower ~ ".id }) }}" }}">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            {{ "{{ form_start(forms[" ~ entity|lower ~ ".id]['delete'], {'attr': {'class': 'inline'}}) }}" }}
+                                {{ "{{ form_widget(forms[" ~ entity|lower ~ ".id]['delete'].submit, {'attr': {'class': 'btn btn-s btn-danger fa fa-trash'}, 'label': ' '}) }}" }}
+                            {{ "{{ form_end(forms[" ~ entity|lower ~ ".id]['delete']) }}" }}
+                        </td>
+                    </tr>
+                {{ "{% endfor %}" }}
+            </table>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="panel panel-bordered-primary">
+        <div class="panel-body">
+            <div class="navigation pull-left">
+                {{ "{{ knp_pagination_render(pagination) }}" }}
+            </div>
+            <div class="pull-right">
+                {{ "{% set paginationStartsWith = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1 %}" }}
+                {{ "{% set paginationEndsWith = pagination.getCurrentPageNumber * pagination.getItemNumberPerPage %}" }}
+                {{ "{% if paginationEndsWith > pagination.getTotalItemCount %}" }}
+                    {{ "{% set paginationEndsWith = pagination.getTotalItemCount %}" }}
+                {{ "{% endif %}" }}
+                <ul class="list-group mar-no">
+                    <li class="list-group-item">
+                        {{ "{{ paginationStartsWith }}&mdash;{{ paginationEndsWith }} {{ 'orkestro." ~ entity|lower ~ ".info.of'|trans }} {{ pagination.getTotalItemCount }}" }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{{ "{% endblock %}" }}
+{% endblock body %}

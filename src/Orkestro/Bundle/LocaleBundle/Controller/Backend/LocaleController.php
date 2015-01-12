@@ -37,7 +37,7 @@ class LocaleController extends Controller
     {
         $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
 
-        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('OrkestroLocaleBundle:Locale');
         $queryBuilder = $repository->createQueryBuilder('l');
 
@@ -244,7 +244,7 @@ class LocaleController extends Controller
      */
     private function createCreateForm(Locale $entity)
     {
-        $form = $this->createForm(new LocaleType($this->get('doctrine.orm.entity_manager')->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
+        $form = $this->createForm(new LocaleType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_locale_create'),
             'method' => 'POST',
         ));
