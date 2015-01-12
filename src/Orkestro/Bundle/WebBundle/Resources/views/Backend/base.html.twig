@@ -94,9 +94,14 @@
                             <div class="nano-content">
                                 {{ knp_menu_render('backend_main', {'template': 'OrkestroWebBundle:Menu/Backend:knp_menu.html.twig', 'currentClass': 'active-link'}) }}
                                 <div class="mainnav-widget">
-                                    <div class="mainnav-widget-content text-center">
+                                    <div class="mainnav-widget-content text-center hide-small">
                                         <a class="btn btn-labeled btn-default fa fa-sign-out" href="{{ path('fos_user_security_logout') }}">
                                             {{ "orkestro.buttons.log_out"|trans }}
+                                        </a>
+                                    </div>
+                                    <div class="mainnav-widget-content show-small mar-no pad-no">
+                                        <a class="btn btn-default" href="{{ path('fos_user_security_logout') }}">
+                                            <i class="fa fa-sign-out text-dark"></i>
                                         </a>
                                     </div>
                                 </div>

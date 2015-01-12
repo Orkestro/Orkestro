@@ -2,7 +2,7 @@
 
 namespace Orkestro\Bundle\GeneratorBundle\Command;
 
-use Orkestro\Bundle\GeneratorBundle\Generator\OrkestroDoctrineCrudGenerator;
+use Orkestro\Bundle\GeneratorBundle\Generator\OrkestroCrudGenerator;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
 use Symfony\Component\Console\Input\InputInterface;
@@ -89,10 +89,9 @@ EOT
         $translationMetadata = $this->getEntityMetadata($translationEntityClass);
         $bundle      = $this->getContainer()->get('kernel')->getBundle($bundle);
 
-        /** @var OrkestroDoctrineCrudGenerator $generator */
+        /** @var OrkestroCrudGenerator $generator */
         $generator = $this->getGenerator($bundle);
-        $generator->setTranslationEntity($translationEntity, $translationMetadata[0]);
-        $generator->generate($bundle, $entity, $metadata[0], $format, $prefix, $withWrite, $forceOverwrite);
+        $generator->generateTranslatable($bundle, $entity, $translationEntity, $metadata[0], $translationMetadata[0], $format, $prefix, $withWrite, $forceOverwrite);
 
         $output->writeln('Generating the CRUD code: <info>OK</info>');
 
@@ -180,7 +179,7 @@ EOT
 
     protected function createGenerator($bundle = null)
     {
-        return new OrkestroDoctrineCrudGenerator($this->getContainer()->get('filesystem'));
+        return new OrkestroCrudGenerator($this->getContainer()->get('filesystem'));
     }
 
     protected function getSkeletonDirs(BundleInterface $bundle = null)

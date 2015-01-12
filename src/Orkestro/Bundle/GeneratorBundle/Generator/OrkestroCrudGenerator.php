@@ -6,15 +6,18 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
-class OrkestroDoctrineCrudGenerator extends DoctrineCrudGenerator
+class OrkestroCrudGenerator extends DoctrineCrudGenerator
 {
     protected $translationEntity;
     protected $translationMetadata;
 
-    public function setTranslationEntity($entity, ClassMetadataInfo $metadata)
+//    public function setTranslationEntity($entity, ClassMetadataInfo $metadata)
+    public function generateTranslatable(BundleInterface $bundle, $entity, $translationEntity, ClassMetadataInfo $metadata, ClassMetadataInfo $translationMetadata, $format, $routePrefix, $needWriteActions, $forceOverwrite)
     {
-        $this->translationEntity = $entity;
-        $this->translationMetadata = $metadata;
+        $this->translationEntity = $translationEntity;
+        $this->translationMetadata = $translationMetadata;
+
+        $this->generate($bundle, $entity, $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite);
     }
 
     /**
@@ -25,7 +28,7 @@ class OrkestroDoctrineCrudGenerator extends DoctrineCrudGenerator
      * @param ClassMetadataInfo $metadata               The entity class metadata
      * @param string            $format                 The configuration format (xml, yaml, annotation)
      * @param string            $routePrefix            The route name prefix
-     * @param array             $needWriteActions       Wether or not to generate write actions
+     * @param array             $needWriteActions       Whether or not to generate write actions
      * @param boolean           $forceOverwrite         Overwrite already generated stuff
      *
      * @throws \RuntimeException
