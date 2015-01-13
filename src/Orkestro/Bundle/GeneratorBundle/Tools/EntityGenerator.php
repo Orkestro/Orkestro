@@ -113,7 +113,19 @@ public function <methodName>(<methodTypeHint>$<variableName><variableDefault>)
      */
     protected function generateTranslatableEntityBody(ClassMetadataInfo $metadata, ClassMetadataInfo $translationMetadata)
     {
-        $fieldMappingProperties = $this->generateEntityFieldMappingProperties($metadata);
+        $fieldMappingProperties = '
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+';
+
+        $fieldMappingProperties .= $this->generateEntityFieldMappingProperties($metadata);
         $associationMappingProperties = $this->generateEntityAssociationMappingProperties($metadata);
         $stubMethods = $this->generateEntityStubMethods ? $this->generateTranslatableEntityStubMethods($metadata, $translationMetadata) : null;
         $lifecycleCallbackMethods = $this->generateEntityLifecycleCallbackMethods($metadata);

@@ -115,6 +115,7 @@ class OrkestroEntityGenerator extends DoctrineEntityGenerator
         }
 
         $entityGenerator = $this->getEntityGenerator();
+        $entityGenerator->setClassToExtend('Prezent\Doctrine\Translatable\Entity\AbstractTranslation');
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
             $entityCode = $entityGenerator->generateTranslationEntityClass($translationClass, $translatableClass);
