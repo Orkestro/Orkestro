@@ -293,6 +293,29 @@ EOT
             $fields[$columnName] = $data;
         }
 
+        $output->writeln('');
+        $output->write('<info>Available types:</info> ');
+
+        $types = array(
+                Type::STRING,
+                Type::TEXT,
+            );
+        $count = 20;
+        foreach ($types as $i => $type) {
+            if ($count > 50) {
+                $count = 0;
+                $output->writeln('');
+            }
+            $count += strlen($type);
+            $output->write(sprintf('<comment>%s</comment>', $type));
+            if (count($types) != $i + 1) {
+                $output->write(', ');
+            } else {
+                $output->write('.');
+            }
+        }
+        $output->writeln('');
+
         while (true) {
             $output->writeln('');
             $generator = $this->getGenerator();
@@ -313,17 +336,6 @@ EOT
             }
 
             $defaultType = 'string';
-
-            // try to guess the type by the column name prefix/suffix
-            if (substr($translatableColumnName, -3) == '_at') {
-                $defaultType = 'datetime';
-            } elseif (substr($translatableColumnName, -3) == '_id') {
-                $defaultType = 'integer';
-            } elseif (substr($translatableColumnName, 0, 3) == 'is_') {
-                $defaultType = 'boolean';
-            } elseif (substr($translatableColumnName, 0, 4) == 'has_') {
-                $defaultType = 'boolean';
-            }
 
             $type = $dialog->askAndValidate($output, $dialog->getQuestion('Field type', $defaultType), $fieldValidator, false, $defaultType, $types);
 

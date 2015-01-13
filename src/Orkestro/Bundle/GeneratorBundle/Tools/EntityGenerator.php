@@ -2,6 +2,8 @@
 
 namespace Orkestro\Bundle\GeneratorBundle\Tools;
 
+use Doctrine\Common\Inflector\Inflector;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
@@ -15,6 +17,7 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
 <namespace>
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -24,16 +27,64 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 <entityBody>
 }
 ';
+    /**
+     * @var string
+     */
+    protected static $translationClassTemplate =
+        '<?php
+
+<namespace>
+
+use Doctrine\ORM\Mapping as ORM;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+
+<entityAnnotation>
+<entityClassName>
+{
+<entityBody>
+}
+';
+
+    /**
+     * @var string
+     */
+    protected static $getTranslatableMethodTemplate =
+        '/**
+ * <description>
+ *
+ * @return <variableType>
+ */
+public function <methodName>()
+{
+<spaces>return $this->translate()-><methodName>();
+}';
+
+    /**
+     * @var string
+     */
+    protected static $setTranslatableMethodTemplate =
+        '/**
+ * <description>
+ *
+ * @param <variableType>$<variableName>
+ * @return <entity>
+ */
+public function <methodName>(<methodTypeHint>$<variableName><variableDefault>)
+{
+<spaces>$this->translate()-><methodName>($<variableName>);
+
+<spaces>return $this;
+}';
 
     /**
      * Generates a PHP5 Doctrine 2 entity class from the given ClassMetadataInfo instance.
      *
      * @param ClassMetadataInfo $metadata
-     * @param $translationClass
+     * @param ClassMetadataInfo $translationMetadata
      *
      * @return string
      */
-    public function generateTranslatableEntityClass(ClassMetadataInfo $metadata, $translationClass)
+    public function generateTranslatableEntityClass(ClassMetadataInfo $metadata, ClassMetadataInfo $translationMetadata)
     {
         $placeHolders = array(
             '<namespace>',
@@ -46,7 +97,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
             $this->generateEntityNamespace($metadata),
             $this->generateEntityDocBlock($metadata),
             $this->generateEntityClassName($metadata),
-            $this->generateTranslatableEntityBody($metadata, $translationClass)
+            $this->generateTranslatableEntityBody($metadata, $translationMetadata)
         );
 
         $code = str_replace($placeHolders, $replacements, self::$classTemplate);
@@ -56,15 +107,15 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
     /**
      * @param ClassMetadataInfo $metadata
-     * @param $translationClass
+     * @param ClassMetadataInfo $translationMetadata
      *
      * @return string
      */
-    protected function generateTranslatableEntityBody(ClassMetadataInfo $metadata, $translationClass)
+    protected function generateTranslatableEntityBody(ClassMetadataInfo $metadata, ClassMetadataInfo $translationMetadata)
     {
         $fieldMappingProperties = $this->generateEntityFieldMappingProperties($metadata);
         $associationMappingProperties = $this->generateEntityAssociationMappingProperties($metadata);
-        $stubMethods = $this->generateEntityStubMethods ? $this->generateTranslatableEntityStubMethods($metadata, $translationClass) : null;
+        $stubMethods = $this->generateEntityStubMethods ? $this->generateTranslatableEntityStubMethods($metadata, $translationMetadata) : null;
         $lifecycleCallbackMethods = $this->generateEntityLifecycleCallbackMethods($metadata);
 
         $code = array();
@@ -85,7 +136,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
      * @var %1$s $currentTranslation
      */
     private $currentTranslation;
-            ', $translationClass);
+            ', $translationMetadata->name);
 
             $code[] = $fieldMappingProperties;
         }
@@ -114,11 +165,11 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
     /**
      * @param ClassMetadataInfo $metadata
-     * @param $translationClass
+     * @param ClassMetadataInfo $translationMetadata
      *
      * @return string
      */
-    protected function generateTranslatableEntityStubMethods(ClassMetadataInfo $metadata, $translationClass)
+    protected function generateTranslatableEntityStubMethods(ClassMetadataInfo $metadata, ClassMetadataInfo $translationMetadata)
     {
         $methods = array();
 
@@ -130,6 +181,16 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
             }
 
             if ($code = $this->generateEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
+                $methods[] = $code;
+            }
+        }
+
+        foreach ($translationMetadata->fieldMappings as $fieldMapping) {
+            if ($code = $this->generateTranslatableEntityStubMethod($metadata, 'set', $fieldMapping['fieldName'], $fieldMapping['type'])) {
+                $methods[] = $code;
+            }
+
+            if ($code = $this->generateTranslatableEntityStubMethod($metadata, 'get', $fieldMapping['fieldName'], $fieldMapping['type'])) {
                 $methods[] = $code;
             }
         }
@@ -180,9 +241,62 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
         $this->currentTranslation = $translation;
         return $translation;
     }
-        ', $translationClass);
+        ', $translationMetadata->name);
 
         return implode("\n\n", $methods);
+    }
+
+    /**
+     * @param ClassMetadataInfo $metadata
+     * @param string            $type
+     * @param string            $fieldName
+     * @param string|null       $typeHint
+     * @param string|null       $defaultValue
+     *
+     * @return string
+     */
+    protected function generateTranslatableEntityStubMethod(ClassMetadataInfo $metadata, $type, $fieldName, $typeHint = null,  $defaultValue = null)
+    {
+        $methodName = $type . Inflector::classify($fieldName);
+        if (in_array($type, array("add", "remove"))) {
+            $methodName = Inflector::singularize($methodName);
+        }
+
+        if ($this->hasMethod($methodName, $metadata)) {
+            return '';
+        }
+        $this->staticReflection[$metadata->name]['methods'][] = $methodName;
+
+        $var = sprintf('%sTranslatableMethodTemplate', $type);
+        $template = self::$$var;
+
+        $methodTypeHint = null;
+        $types          = Type::getTypesMap();
+        $variableType   = $typeHint ? $this->getType($typeHint) . ' ' : null;
+
+        if ($typeHint && ! isset($types[$typeHint])) {
+            $variableType   =  '\\' . ltrim($variableType, '\\');
+            $methodTypeHint =  '\\' . $typeHint . ' ';
+        }
+
+        $replacements = array(
+            '<description>'       => ucfirst($type) . ' ' . $fieldName,
+            '<methodTypeHint>'    => $methodTypeHint,
+            '<variableType>'      => $variableType,
+            '<variableName>'      => Inflector::camelize($fieldName),
+            '<methodName>'        => $methodName,
+            '<fieldName>'         => $fieldName,
+            '<variableDefault>'   => ($defaultValue !== null ) ? (' = '.$defaultValue) : '',
+            '<entity>'            => $this->getClassName($metadata)
+        );
+
+        $method = str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $template
+        );
+
+        return $this->prefixCodeWithSpaces($method);
     }
 
     /**
@@ -209,7 +323,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
             $this->generateTranslationEntityBody($metadata, $translatableClass)
         );
 
-        $code = str_replace($placeHolders, $replacements, self::$classTemplate);
+        $code = str_replace($placeHolders, $replacements, self::$translationClassTemplate);
 
         return str_replace('<spaces>', $this->spaces, $code);
     }
@@ -220,7 +334,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
      *
      * @return string
      */
-    protected function generateTranslationEntityBody(ClassMetadataInfo $metadata, $translatableClass)
+    protected function generateTranslationEntityBody(ClassMetadataInfo $metadata, ClassMetadataInfo $translatableMetadata)
     {
         $fieldMappingProperties = $this->generateEntityFieldMappingProperties($metadata);
         $associationMappingProperties = $this->generateEntityAssociationMappingProperties($metadata);
@@ -235,7 +349,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
      * @Prezent\Translatable(targetEntity="%s")
      */
     protected $translatable;
-            ', $translatableClass);
+            ', $translatableMetadata->name);
 
             $code[] = $fieldMappingProperties;
         }
