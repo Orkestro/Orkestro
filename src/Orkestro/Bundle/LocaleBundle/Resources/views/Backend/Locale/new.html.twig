@@ -1,16 +1,44 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block title %}
+    {{ "orkestro.locale.headers.new"|trans }}
+{% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_locale_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.locale.headers.new"|trans }}
+{% endblock %}
+
 {% block body -%}
-    <h1>Locale creation</h1>
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                    <h5 class="text-thin mar-btm">
+                        {{ "orkestro.locale.labels.locale"|trans }}
+                    </h5>
+                    {{ form_widget(form.code, {'attr': {'class': 'chosen'}}) }}
 
-    {{ form(form) }}
+                    <h5 class="text-thin mar-btm">
+                        {{ "orkestro.locale.labels.enabled"|trans }}
+                    </h5>
+                    {{ form_widget(form.enabled, {'attr': {'class': 'switchery'}}) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('orkestro_backend_locale_list') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+                    <h5 class="text-thin mar-btm">
+                        {{ "orkestro.locale.labels.fallback"|trans }}
+                    </h5>
+                    {{ form_widget(form.fallback, {'attr': {'class': 'switchery'}}) }}
+
+                    <hr />
+
+                    <div>
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-labeled fa fa-plus'}, 'label': 'orkestro.locale.buttons.add'|trans}) }}
+                        <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_locale_list') }}">{{ 'orkestro.locale.buttons.cancel'|trans }}</a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

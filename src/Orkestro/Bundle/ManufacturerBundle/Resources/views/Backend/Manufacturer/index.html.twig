@@ -1,9 +1,11 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
-{% block body -%}
-    <h3>{{ "orkestro.manufacturer.headers.manufacturers"|trans }}</h3>
+{% block page_title -%}
+    {{ "orkestro.manufacturer.headers.manufacturers"|trans }}
+{% endblock %}
 
+{% block body -%}
     <ul>
         <li>
             <a href="{{ path('orkestro_backend_manufacturer_new') }}">

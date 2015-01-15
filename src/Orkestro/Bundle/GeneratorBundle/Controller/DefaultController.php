@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestro\Bundle\ProductBundle\Controller;
+namespace Orkestro\Bundle\GeneratorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

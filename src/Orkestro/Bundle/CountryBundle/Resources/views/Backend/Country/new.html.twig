@@ -1,16 +1,42 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% import "OrkestroWebBundle:Backend/Translation:default.html.twig" as form_translations %}
+
+{% block title %}
+    {{ "orkestro.country.headers.new"|trans }}
+{% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_country_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.country.headers.new"|trans }}
+{% endblock %}
+
 {% block body -%}
-    <h1>{{ "orkestro.country.headers.new"|trans }}</h1>
+    <div class="col-lg-6">
+        {{ form_start(form) }}
+            <div class="tab-base mar-no">
+                {{ form_translations.partialTranslations(form.translations, ['title', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+            </div>
 
-    {{ form(form) }}
+            <hr />
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('orkestro_backend_country_list') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+            <div class="panel">
+                <div class="panel-body">
+                    <h5 class="text-thin mar-btm">
+                        * {{ "orkestro.country.labels.iso_code"|trans }}
+                    </h5>
+                    {{ form_widget(form.isoCode) }}
+
+                    <hr />
+
+                    <div>
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-labeled fa fa-plus'}, 'label': 'orkestro.country.buttons.add'|trans}) }}
+                        <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_country_list') }}">{{ 'orkestro.country.buttons.cancel'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

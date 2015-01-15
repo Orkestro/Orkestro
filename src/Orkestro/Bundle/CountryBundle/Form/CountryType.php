@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CountryType extends AbstractTranslatableType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -18,11 +17,26 @@ class CountryType extends AbstractTranslatableType
         $builder
             ->add('translations', 'a2lix_translations', array(
                     'locales' => $this->getLocales(),
+                    'default_locale' => 'en',
                     'fields' => array(
                         'title' => array(
                             'field_type' => 'text',
+                            'locale_options' => $this->getTranslationsForFieldName('title', 'country', 'backend'),
+                        ),
+                        'metaTitle' => array(
+                            'field_type' => 'textarea',
+                            'locale_options' => $this->getTranslationsForFieldName('metaTitle', 'country', 'backend'),
+                        ),
+                        'metaDescription' => array(
+                            'field_type' => 'textarea',
+                            'locale_options' => $this->getTranslationsForFieldName('metaDescription', 'country', 'backend'),
+                        ),
+                        'metaKeywords' => array(
+                            'field_type' => 'textarea',
+                            'locale_options' => $this->getTranslationsForFieldName('metaKeywords', 'country', 'backend'),
                         ),
                     ),
+                    'label' => false,
                 ))
             ->add('isoCode')
         ;

@@ -1,0 +1,10 @@
+orkestro:
+  headers:
+    dashboard: Dashboard
+  buttons:
+    my_account: My Account
+    log_out: Log out
+    previous: "Previous"
+    next: "Next"
+  info:
+    limit_to: Limit to %limit% records

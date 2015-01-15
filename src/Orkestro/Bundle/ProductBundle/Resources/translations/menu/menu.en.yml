@@ -1,0 +1,5 @@
+orkestro:
+  backend:
+    product: Products
+    product_characteristic: Characteristics
+    product_kind: Product Kinds

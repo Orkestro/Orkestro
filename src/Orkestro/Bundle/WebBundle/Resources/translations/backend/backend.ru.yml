@@ -1,0 +1,10 @@
+orkestro:
+  headers:
+    dashboard: Обзор
+  buttons:
+    my_account: Мой аккаунт
+    log_out: Выйти
+    previous: "Назад"
+    next: "Вперёд"
+  info:
+    limit_to: Выводить по %limit% записей

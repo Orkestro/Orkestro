@@ -1,0 +1,65 @@
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/list", name="{{ route_name_prefix }}_list")
+     * @Method("GET")
+     * @Template()
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $listLimit = $request->getSession()->get('{{ route_name_prefix }}_list_limit', 25);
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('{{ bundle }}:{{ entity }}');
+        $queryBuilder = $repository->createQueryBuilder('{{ entity|first|lower }}');
+        $queryBuilder
+            ->select('{{ entity|first|lower }}', '{{ entity|first|lower }}t')
+            ->add('from', '{{ bundle }}:{{ entity }} {{ entity|first|lower }} JOIN {{ entity|first|lower }}.translations {{ entity|first|lower }}t WITH {{ entity|first|lower }}t.locale = :locale')
+            ->groupBy('{{ entity|first|lower }}')
+            ->setParameters(array(
+                ':locale' => $request->getLocale(),
+            ))
+        ;
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->get('page', 1),
+            $listLimit
+        );
+
+        $forms = array();
+
+        /** @var {{ entity }} ${{ entity|lower }} */
+        foreach ($pagination as ${{ entity|lower }}) {
+            $forms[${{ entity|lower }}->getId()]['delete'] = $this->createDeleteForm(${{ entity|lower }}->getId())->createView();
+        }
+
+        $formLimitSelector = $this->createLimitSelectorForm($listLimit)->createView();
+{% endblock method_body %}
+
+{% block method_return %}
+{% if 'annotation' == format %}
+        return array(
+            'pagination' => $pagination,
+            'forms' => $forms,
+            'formLimitSelector' => $formLimitSelector,
+        );
+{% else %}
+        return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:index.html.twig', array(
+            'pagination' => $pagination,
+            'forms' => $forms,
+            'formLimitSelector' => $formLimitSelector,
+        ));
+{% endif %}
+{% endblock method_return %}
+    }

@@ -11,8 +11,15 @@ class ConfigureMenuListener extends AbstractMenuListener
     {
         $menu = $event->getMenu('assortment');
 
-        $menu->addChild('category', array(
+        $menu
+            ->addChild('category', array(
                 'route' => 'orkestro_backend_category_list',
-            ))->setLabel($this->translate('orkestro.backend.category'));;
+            ))
+            ->setLabel($this->translate('orkestro.backend.category'))
+            ->setCurrent(preg_match('/^orkestro_backend_category_/', $this->currentRoute))
+            ->setChildrenAttributes(array(
+                    'icon' => 'sitemap',
+                ))
+        ;
     }
 }

@@ -1,21 +1,121 @@
+{% trans_default_domain "backend" %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %} | Orkestro eCommerce</title>
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/orkestrocountry/css/country.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestrocountry/css/country.css') }}" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:500,300,700,400&subset=latin,cyrillic-ext,latin-ext,cyrillic,greek-ext,greek,vietnamese" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestroweb/nifty/css/nifty.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/orkestroweb/orkestro/css/backend.css') }}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-    <div class="container">
-        {{ knp_menu_render('backend_main') }}
-        {% block body %}{% endblock %}
+    {% for flashMessageType, flashMessages in app.session.flashbag.all %}
+        {% for flashMessage in flashMessages %}
+            <input type="hidden" name="flash-notification" data-type="{{ flashMessageType }}" data-contents="{{ flashMessage }}" />
+        {% endfor %}
+    {% endfor %}
+    <div id="container" class="effect mainnav-lg">
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+                <div class="navbar-header">
+                    <a href="{{ path('orkestro_backend_index') }}" class="navbar-brand">
+                        <img alt="Orkestro" src="{{ asset('bundles/orkestroweb/orkestro/images/orkestro-logo-menu.png') }}" class="brand-icon" />
+                        <span class="brand-title">
+                            <span class="brand-text">
+                                Orkestro
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+                        <li class="tgl-menu-btn">
+                            <a id="demo-toggle-mainnav-btn" href="#">
+                                <i class="fa fa-bars fa-lg"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+                        <li class="dropdown">
+                            <a class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <span class="lang-selected">
+                                    <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="English" />
+                                    <span class="lang-id">{{ locales.current.code }}</span>
+                                    <span class="lang-name">{{ locales.current.title }}</span>
+                                </span>
+                            </a>
+                            <ul class="head-list dropdown-menu with-arrow">
+                                {% for locale in locales.other %}
+                                    <li>
+                                        <a href="{{ path('orkestro_backend_locale_set', {'_locale': locale.code}) }}">
+                                            <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="{{ locale.title }}" />
+                                            <span class="lang-id">{{ locale.code }}</span>
+                                            <span class="lang-name">{{ locale.title }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right" aria-expanded="false">
+                                <div class="username hidden-xs">
+                                    {{ "orkestro.buttons.my_account"|trans }}
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="boxed">
+            <div id="content-container">
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">{% block page_title %}{% endblock %}</h1>
+                </div>
+                {#{% if breadcrumbs is not empty %}#}
+                {#<ol class="breadcrumb">#}
+                {##}
+                {#</ol>#}
+                {#{% endif %}#}
+                <div id="page-content">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+            <nav id="mainnav-container" data-sm="mainnav-sm" data-all="mainnav-lg">
+                <div id="mainnav">
+                    {#<div id="mainnav-shortcut"></div>#}
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano">
+                            <div class="nano-content">
+                                {{ knp_menu_render('backend_main', {'template': 'OrkestroWebBundle:Menu/Backend:knp_menu.html.twig', 'currentClass': 'active-link'}) }}
+                                <div class="mainnav-widget">
+                                    <div class="mainnav-widget-content text-center hide-small">
+                                        <a class="btn btn-labeled btn-default fa fa-sign-out" href="{{ path('fos_user_security_logout') }}">
+                                            {{ "orkestro.buttons.log_out"|trans }}
+                                        </a>
+                                    </div>
+                                    <div class="mainnav-widget-content show-small mar-no pad-no">
+                                        <a class="btn btn-default" href="{{ path('fos_user_security_logout') }}">
+                                            <i class="fa fa-sign-out text-dark"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </div>
     <script type="text/javascript" src="{{ asset('bundles/orkestroweb/jquery/js/jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/orkestroweb/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/nifty/js/nifty.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/orkestro/js/backend.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </body>
 </html>

@@ -12,6 +12,7 @@ abstract class AbstractMenuBuilder extends ContainerAware
     protected $factory;
     protected $translator;
     protected $eventDispatcher;
+    protected $currentRoute;
 
     public function __construct(
         FactoryInterface $factory,

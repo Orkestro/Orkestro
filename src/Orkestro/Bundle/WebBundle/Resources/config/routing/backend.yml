@@ -28,3 +28,18 @@ orkestro_backend_manufacturer:
   resource: @OrkestroManufacturerBundle/Controller/Backend/ManufacturerController.php
   type: annotation
   prefix: /manufacturer
+
+orkestro_backend_product:
+  resource: @OrkestroProductBundle/Controller/Backend/ProductController.php
+  type: annotation
+  prefix: /product
+
+orkestro_backend_product_characteristic:
+  resource: @OrkestroProductBundle/Controller/Backend/Characteristic/CharacteristicController.php
+  type: annotation
+  prefix: /product/characteristic
+
+orkestro_backend_product_kind:
+  resource: @OrkestroProductBundle/Controller/Backend/ProductKindController.php
+  type: annotation
+  prefix: /product/kind

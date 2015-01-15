@@ -11,8 +11,15 @@ class ConfigureMenuListener extends AbstractMenuListener
     {
         $menu = $event->getMenu('configuration');
 
-        $menu->addChild('locale', array(
+        $menu
+            ->addChild('locale', array(
                 'route' => 'orkestro_backend_locale_list',
-            ))->setLabel($this->translate('orkestro.backend.locale'));;
+            ))
+            ->setLabel($this->translate('orkestro.backend.locale'))
+            ->setCurrent(preg_match('/^orkestro_backend_locale_/', $this->currentRoute))
+            ->setChildrenAttributes(array(
+                    'icon' => 'font',
+                ))
+        ;
     }
 }

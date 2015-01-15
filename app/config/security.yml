@@ -42,4 +42,4 @@ security:
   access_control:
     - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin/, role: ROLE_ORKESTRO_ADMIN }
+    - { path: ^/backend/, role: ROLE_ORKESTRO_ADMIN }
