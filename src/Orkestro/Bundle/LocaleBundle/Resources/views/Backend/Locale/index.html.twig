@@ -8,10 +8,6 @@
     {{ "orkestro.locale.headers.locales"|trans }}
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/orkestrolocale/orkestro/js/locale.js') }}"></script>
-{% endblock %}
-
 {% block body -%}
     <div class="panel mar-no panel-bordered-primary">
         <div class="panel-body">
@@ -100,6 +96,9 @@
             </div>
             <div class="pull-right">
                 {% set paginationStartsWith = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1 %}
+                {% if paginationStartsWith < 0 %}
+                    {% set paginationStartsWith = 0 %}
+                {% endif %}
                 {% set paginationEndsWith = pagination.getCurrentPageNumber * pagination.getItemNumberPerPage %}
                 {% if paginationEndsWith > pagination.getTotalItemCount %}
                     {% set paginationEndsWith = pagination.getTotalItemCount %}

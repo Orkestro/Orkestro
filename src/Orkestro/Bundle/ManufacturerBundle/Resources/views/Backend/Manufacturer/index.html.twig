@@ -1,71 +1,17 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% block title -%}
+    {{ "orkestro.manufacturer.headers.manufacturers"|trans }}
+{% endblock %}
 {% block page_title -%}
     {{ "orkestro.manufacturer.headers.manufacturers"|trans }}
 {% endblock %}
 
 {% block body -%}
-    <ul>
-        <li>
-            <a href="{{ path('orkestro_backend_manufacturer_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-
-    <div class="count">
-        {{ pagination.getTotalItemCount }}
-    </div>
-
-    <table class="table table-condensed">
-        <tr>
-            <th{% if pagination.isSorted('m.title') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.title'|trans, 'm.title') }}
-            </th>
-            <th{% if pagination.isSorted('m.country') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.country'|trans, 'm.country') }}
-            </th>
-            <th{% if pagination.isSorted('m.url') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.url'|trans, 'm.url') }}
-            </th>
-            <th{% if pagination.isSorted('m.enabled') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.enabled'|trans, 'm.enabled') }}
-            </th>
-            <th>
-                {{ "orkestro.manufacturer.headers.actions"|trans }}
-            </th>
-        </tr>
-        {% for manufacturer in pagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>
-                    {{ manufacturer.title }}
-                </td>
-                <td>
-                    <img class="country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/' ~ manufacturer.country.isoCode ~ '.svg') }}" />
-                    {{ manufacturer.country.title }}
-                </td>
-                <td>
-                    <a href="">/manufacturer/<b>{{ manufacturer.url }}</b></a> <a href="" target="_blank"><i class="fa fa-external-link-square"></i></a>
-                </td>
-                <td>
-                    {{ manufacturer.enabled }}
-                </td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('orkestro_backend_manufacturer_show', { 'id': manufacturer.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('orkestro_backend_manufacturer_edit', { 'id': manufacturer.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+    {% include('@OrkestroManufacturer/Backend/Manufacturer/index/actions.html.twig') %}
+    <hr />
+    {% include('@OrkestroManufacturer/Backend/Manufacturer/index/list.html.twig') %}
+    <hr />
+    {% include('@OrkestroManufacturer/Backend/Manufacturer/index/pagination.html.twig') %}
 {% endblock %}

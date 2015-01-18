@@ -1,7 +1,21 @@
 orkestro:
   manufacturer:
     headers:
+      manufacturer: Производитель
       manufacturers: Производители
       new: Новый производитель
+      id: Идентификатор
       title: Наименование
+      country: Страна
+      url: Ссылка
+      enabled: Включен
       actions: Действия
+    buttons:
+      add: Добавить производителя
+    labels:
+      id: Идентификатор
+      title: Наименование
+      country: Страна
+      url: Ссылка
+    info:
+      of: из

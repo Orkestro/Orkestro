@@ -1,6 +1,8 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% import "OrkestroWebBundle:Backend/Translation:show.html.twig" as form_translations %}
+
 {% block title %}
     {{ "orkestro.country.headers.country"|trans }}
 {% endblock %}
@@ -24,13 +26,6 @@
 
                 <h3 class="mar-btm">
                     <small>
-                        {{ "orkestro.country.labels.title"|trans }}
-                    </small>
-                    {{ entity.title }}
-                </h3>
-
-                <h3 class="mar-btm">
-                    <small>
                         {{ "orkestro.country.labels.iso_code"|trans }}
                     </small>
                     {{ entity.isoCode }}
@@ -42,45 +37,24 @@
                     </small>
                     <img class="country-4x3-lg" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/' ~ entity.isoCode ~ '.svg') }}" />
                 </h3>
+            </div>
+        </div>
 
-                <hr />
+        <hr />
 
-                <h3 class="mar-btm">
-                    <small>
-                        {{ "orkestro.country.labels.metaTitle"|trans }}
-                    </small>
-                </h3>
-                <p>
-                    {{ entity.metaTitle }}
-                </p>
+        <div class="tab-base mar-no">
+            {{ form_translations.partialTranslations(translation_form.translations, ['title', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+        </div>
 
-                <h3 class="mar-btm">
-                    <small>
-                        {{ "orkestro.country.labels.metaDescription"|trans }}
-                    </small>
-                </h3>
-                <p>
-                    {{ entity.metaDescription }}
-                </p>
+        <hr />
 
-                <h3 class="mar-btm">
-                    <small>
-                        {{ "orkestro.country.labels.metaKeywords"|trans }}
-                    </small>
-                </h3>
-                <p>
-                    {{ entity.metaKeywords }}
-                </p>
-
-                <hr />
-
-                <div>
-                    <a class="btn btn-warning btn-labeled fa fa-arrow-left" href="{{ path('orkestro_backend_country_list') }}">{{ 'orkestro.country.buttons.to_list'|trans }}</a>
-                    <a class="btn btn-primary btn-labeled fa fa-pencil" href="{{ path('orkestro_backend_country_edit', {'iso_code': entity.isoCode}) }}">{{ 'orkestro.country.buttons.edit'|trans }}</a>
-                    {{ form_start(delete_form, {'attr': {'class': 'inline'}}) }}
-                        {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'orkestro.country.buttons.delete'|trans}) }}
-                    {{ form_end(delete_form) }}
-                </div>
+        <div class="panel">
+            <div class="panel-body">
+                <a class="btn btn-warning btn-labeled fa fa-arrow-left" href="{{ path('orkestro_backend_country_list') }}">{{ 'orkestro.country.buttons.to_list'|trans }}</a>
+                <a class="btn btn-primary btn-labeled fa fa-pencil" href="{{ path('orkestro_backend_country_edit', {'iso_code': entity.isoCode}) }}">{{ 'orkestro.country.buttons.edit'|trans }}</a>
+                {{ form_start(delete_form, {'attr': {'class': 'inline'}}) }}
+                    {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'orkestro.country.buttons.delete'|trans}) }}
+                {{ form_end(delete_form) }}
             </div>
         </div>
     </div>

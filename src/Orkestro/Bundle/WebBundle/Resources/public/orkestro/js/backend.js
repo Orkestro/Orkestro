@@ -17,7 +17,13 @@ $(function() {
         var switchElement = switchElements[key];
         if ('object' == typeof(switchElement)) {
             var $switchElement = $(switchElement);
-            $switchElement = new Switchery(switchElement, $switchElement.data());
+            new Switchery(switchElement, $switchElement.data());
+
+            if ($switchElement.hasClass('submittable')) {
+                $switchElement.change(function() {
+                    $(this).parents('form').submit();
+                });
+            }
         }
     }
 

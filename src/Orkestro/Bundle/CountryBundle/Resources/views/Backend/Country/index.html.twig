@@ -86,6 +86,9 @@
             </div>
             <div class="pull-right">
                 {% set paginationStartsWith = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1 %}
+                {% if paginationStartsWith < 0 %}
+                    {% set paginationStartsWith = 0 %}
+                {% endif %}
                 {% set paginationEndsWith = pagination.getCurrentPageNumber * pagination.getItemNumberPerPage %}
                 {% if paginationEndsWith > pagination.getTotalItemCount %}
                     {% set paginationEndsWith = pagination.getTotalItemCount %}

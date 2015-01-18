@@ -1,49 +1,54 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
+{% import "OrkestroWebBundle:Backend/Translation:show.html.twig" as form_translations %}
+
+{% block title %}
+    {{ "orkestro.manufacturer.headers.manufacturer"|trans }}
+{% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_manufacturer_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.manufacturer.headers.manufacturer"|trans }} <small>{{ entity.title }} &mdash; {{ entity.id }}</small>
+{% endblock %}
+
 {% block body -%}
-    <h1>Manufacturer</h1>
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-body">
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.manufacturer.labels.id"|trans }}
+                    </small>
+                    {{ entity.id }}
+                </h3>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Short Description</th>
-                <td>{{ entity.shortDescription }}</td>
-            </tr>
-            <tr>
-                <th>Full Description</th>
-                <td>{{ entity.fullDescription }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ entity.url }}</td>
-            </tr>
-            <tr>
-                <th>Enabled</th>
-                <td>{{ entity.enabled }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.manufacturer.labels.country"|trans }}
+                    </small>
+                    {{ entity.country }}
+                </h3>
+            </div>
+        </div>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('orkestro_backend_manufacturer_list') }}">
-                Back to the list
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('orkestro_backend_manufacturer_edit', { 'id': entity.id }) }}">
-                Edit
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+        <hr />
+
+        <div class="tab-base mar-no">
+            {{ form_translations.partialTranslations(translation_form.translations, ['title', 'url', 'shortDescription', 'fullDescription', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+        </div>
+
+        <hr />
+
+        <div class="panel">
+            <div class="panel-body">
+                <a class="btn btn-warning btn-labeled fa fa-arrow-left" href="{{ path('orkestro_backend_manufacturer_list') }}">{{ 'orkestro.manufacturer.buttons.to_list'|trans }}</a>
+                <a class="btn btn-primary btn-labeled fa fa-pencil" href="{{ path('orkestro_backend_manufacturer_edit', {'id': entity.id}) }}">{{ 'orkestro.manufacturer.buttons.edit'|trans }}</a>
+                {{ form_start(delete_form, {'attr': {'class': 'inline'}}) }}
+                    {{ form_widget(delete_form.submit, {'attr': {'class': 'btn btn-s btn-danger btn-labeled fa fa-trash'}, 'label': 'orkestro.manufacturer.buttons.delete'|trans}) }}
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

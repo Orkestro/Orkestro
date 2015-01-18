@@ -1,0 +1,83 @@
+{% trans_default_domain "backend" %}
+<div class="panel mar-no panel-bordered-mint">
+    <div class="panel-body">
+        <table class="table table-bordered mar-no">
+            <tr>
+                <th>
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.id'|trans, 'm.id', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.id') %}
+                        <span class="order">
+                            <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
+                        </span>
+                    {% endif %}
+                </th>
+                <th>
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.title'|trans, 'mt.title', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('mt.title') %}
+                        <span class="order">
+                            <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
+                        </span>
+                    {% endif %}
+                </th>
+                <th>
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.country'|trans, 'm.country', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.country') %}
+                        <span class="order">
+                            <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
+                        </span>
+                    {% endif %}
+                </th>
+                <th>
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.url'|trans, 'm.url', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.url') %}
+                        <span class="order">
+                            <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
+                        </span>
+                    {% endif %}
+                </th>
+                <th>
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.enabled'|trans, 'm.enabled', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.enabled') %}
+                        <span class="order">
+                            <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
+                        </span>
+                    {% endif %}
+                </th>
+                <th>
+                    {{ "orkestro.manufacturer.headers.actions"|trans }}
+                </th>
+            </tr>
+            {% for manufacturer in pagination %}
+                <tr>
+                    <td>
+                        {{ manufacturer.id }}
+                    </td>
+                    <td>
+                        {{ manufacturer.title }}
+                    </td>
+                    <td>
+                        {{ manufacturer.country }}
+                    </td>
+                    <td>
+                        {{ manufacturer.url }}
+                    </td>
+                    <td>
+                        {{ form(forms[manufacturer.id]['enable']) }}
+                    </td>
+                    <td>
+                        <a class="btn btn-s btn-mint" href="{{ path('orkestro_backend_manufacturer_show', { 'id': manufacturer.id }) }}">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <a class="btn btn-s btn-primary" href="{{ path('orkestro_backend_manufacturer_edit', { 'id': manufacturer.id }) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        {{ form_start(forms[manufacturer.id]['delete'], {'attr': {'class': 'inline'}}) }}
+                            {{ form_widget(forms[manufacturer.id]['delete'].submit, {'attr': {'class': 'btn btn-s btn-danger fa fa-trash'}, 'label': ' '}) }}
+                        {{ form_end(forms[manufacturer.id]['delete']) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<hr />

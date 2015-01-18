@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestro\Bundle\LocaleBundle\Form;
+namespace Orkestro\Bundle\ManufacturerBundle\Form;
 
 use Orkestro\Bundle\LocaleBundle\Entity\Locale;
 use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LocaleEnablerType extends AbstractType
+class ManufacturerEnablerType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -34,7 +34,7 @@ class LocaleEnablerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Orkestro\Bundle\LocaleBundle\Entity\Locale'
+            'data_class' => 'Orkestro\Bundle\ManufacturerBundle\Entity\Manufacturer'
         ));
     }
 
@@ -43,6 +43,6 @@ class LocaleEnablerType extends AbstractType
      */
     public function getName()
     {
-        return 'orkestro_bundle_localebundle_locale_enabler';
+        return 'orkestro_bundle_manufacturerbundle_manufacturer_enabler';
     }
 }

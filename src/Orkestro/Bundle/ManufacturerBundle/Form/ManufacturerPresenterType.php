@@ -6,7 +6,7 @@ use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ManufacturerType extends AbstractTranslatableType
+class ManufacturerPresenterType extends AbstractTranslatableType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,11 +24,11 @@ class ManufacturerType extends AbstractTranslatableType
                         ),
                         'shortDescription' => array(
                             'field_type' => 'textarea',
-                            'locale_options' => $this->getTranslationsForFieldName('shortDescription', 'manufacturer', 'backend'),
+                            'locale_options' => $this->getTranslationsForFieldName('title', 'shortDescription', 'backend'),
                         ),
                         'fullDescription' => array(
                             'field_type' => 'textarea',
-                            'locale_options' => $this->getTranslationsForFieldName('fullDescription', 'manufacturer', 'backend'),
+                            'locale_options' => $this->getTranslationsForFieldName('title', 'fullDescription', 'backend'),
                         ),
                         'metaTitle' => array(
                             'field_type' => 'textarea',
@@ -43,13 +43,6 @@ class ManufacturerType extends AbstractTranslatableType
                             'locale_options' => $this->getTranslationsForFieldName('metaKeywords', 'manufacturer', 'backend'),
                         ),
                     ),
-                ))
-            ->add('url')
-            ->add('enabled', 'checkbox', array(
-                    'required' => false,
-                ))
-            ->add('country', 'entity', array(
-                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country'
                 ))
         ;
     }
@@ -69,6 +62,6 @@ class ManufacturerType extends AbstractTranslatableType
      */
     public function getName()
     {
-        return 'orkestro_bundle_manufacturerbundle_manufacturer';
+        return 'orkestro_bundle_manufacturerbundle_manufacturer_presenter';
     }
 }

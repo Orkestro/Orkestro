@@ -2,6 +2,9 @@
 
 namespace Orkestro\Bundle\ManufacturerBundle\Controller\Backend;
 
+use Orkestro\Bundle\ManufacturerBundle\Form\ManufacturerEnablerType;
+use Orkestro\Bundle\ManufacturerBundle\Form\ManufacturerPresenterType;
+use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,24 +25,106 @@ class ManufacturerController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->get('doctrine.orm.default_entity_manager');
-        $qb = $em->createQueryBuilder();
-        $qb
-            ->select('m')
-            ->from('OrkestroManufacturerBundle:Manufacturer', 'm')
+        $listLimit = $request->getSession()->get('orkestro_backend_country_list_limit', 25);
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('OrkestroManufacturerBundle:Manufacturer');
+        $queryBuilder = $repository->createQueryBuilder('m');
+        $queryBuilder
+            ->select('m', 'mt')
+            ->add('from', 'OrkestroManufacturerBundle:Manufacturer m JOIN m.translations mt WITH mt.locale = :locale')
+            ->groupBy('m')
+            ->setParameters(array(
+                    ':locale' => $request->getLocale(),
+                ))
         ;
-        $query = $qb->getQuery();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $queryBuilder,
             $request->query->get('page', 1),
-            10
+            $listLimit
         );
+
+        $forms = array();
+
+        /** @var Manufacturer $manufacturer */
+        foreach ($pagination as $manufacturer) {
+            $forms[$manufacturer->getId()]['enable'] = $this->createEnableForm($manufacturer)->createView();
+            $forms[$manufacturer->getId()]['delete'] = $this->createDeleteForm($manufacturer->getId())->createView();
+        }
+
+        $formLimitSelector = $this->createLimitSelectorForm($listLimit)->createView();
 
         return array(
             'pagination' => $pagination,
+            'forms' => $forms,
+            'formLimitSelector' => $formLimitSelector,
         );
+    }
+
+    /**
+     * @Route("/limit", name="orkestro_backend_manufacturer_limit")
+     * @Method("PUT")
+     */
+    public function limitAction(Request $request)
+    {
+        $listLimit = $request->getSession()->get('orkestro_backend_manufacturer_list_limit', 25);
+
+        $form = $this->createLimitSelectorForm($listLimit);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $request->getSession()->set('orkestro_backend_manufacturer_list_limit', $formData['limit']);
+        }
+
+        return $this->redirect($this->generateUrl('orkestro_backend_manufacturer_list'));
+    }
+
+    private function createLimitSelectorForm($selectedLimit)
+    {
+        $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
+                'action' => $this->generateUrl('orkestro_backend_manufacturer_limit'),
+                'method' => 'PUT',
+            ));
+
+        return $form;
+    }
+
+    /**
+     * @Route("/enable/{id}", name="orkestro_backend_manufacturer_enable")
+     * @Method("PUT")
+     */
+    public function enableAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('OrkestroManufacturerBundle:Manufacturer')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Manufacturer entity.');
+        }
+
+        $enableForm = $this->createEnableForm($entity);
+        $enableForm->handleRequest($request);
+
+        if ($enableForm->isValid()) {
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('orkestro_backend_manufacturer_list'));
+    }
+
+    private function createEnableForm(Manufacturer $entity)
+    {
+        $form = $this->createForm(new ManufacturerEnablerType(), $entity, array(
+                'action' => $this->generateUrl('orkestro_backend_manufacturer_enable', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ));
+
+        return $form;
     }
 
     /**
@@ -123,12 +208,28 @@ class ManufacturerController extends Controller
             throw $this->createNotFoundException('Unable to find Manufacturer entity.');
         }
 
+        $translationForm = $this->createShowTranslationForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'translation_form' => $translationForm->createView(),
         );
+    }
+
+    /**
+     * Creates a form to show a Manufacturer translations.
+     *
+     * @param Manufacturer $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createShowTranslationForm(Manufacturer $entity)
+    {
+        $form = $this->createForm(new ManufacturerPresenterType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity);
+
+        return $form;
     }
 
     /**

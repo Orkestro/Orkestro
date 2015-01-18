@@ -1,7 +1,21 @@
 orkestro:
   manufacturer:
     headers:
+      manufacturer: Manufacturer
       manufacturers: Manufacturers
-      new: New Manufacturer
+      new: Add New Manufacturer
+      id: ID
       title: Title
+      country: Country
+      url: URL
+      enabled: Enabled
       actions: Actions
+    buttons:
+      add: Add Manufacturer
+    labels:
+      id: ID
+      title: Title
+      country: Country
+      url: URL
+    info:
+      of: of
