@@ -8,7 +8,9 @@ $(function() {
         });
     });
 
-    $('.chosen').chosen();
+    $('.chosen').chosen({
+        width: '100%'
+    });
     $('.selectpicker').selectpicker();
 
     var switchElements = document.querySelectorAll('.switchery');
@@ -17,7 +19,13 @@ $(function() {
         var switchElement = switchElements[key];
         if ('object' == typeof(switchElement)) {
             var $switchElement = $(switchElement);
-            $switchElement = new Switchery(switchElement, $switchElement.data());
+            new Switchery(switchElement, $switchElement.data());
+
+            if ($switchElement.hasClass('submittable')) {
+                $switchElement.change(function() {
+                    $(this).parents('form').submit();
+                });
+            }
         }
     }
 

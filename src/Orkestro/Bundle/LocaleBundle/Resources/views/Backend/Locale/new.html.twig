@@ -19,17 +19,17 @@
                     <h5 class="text-thin mar-btm">
                         {{ "orkestro.locale.labels.locale"|trans }}
                     </h5>
-                    {{ form_widget(form.code, {'attr': {'class': 'chosen'}}) }}
+                    {{ form_widget(form.code) }}
 
                     <h5 class="text-thin mar-btm">
                         {{ "orkestro.locale.labels.enabled"|trans }}
                     </h5>
-                    {{ form_widget(form.enabled, {'attr': {'class': 'switchery'}}) }}
+                    {{ form_widget(form.enabled) }}
 
                     <h5 class="text-thin mar-btm">
                         {{ "orkestro.locale.labels.fallback"|trans }}
                     </h5>
-                    {{ form_widget(form.fallback, {'attr': {'class': 'switchery'}}) }}
+                    {{ form_widget(form.fallback) }}
 
                     <hr />
 

@@ -1,7 +1,34 @@
 orkestro:
   manufacturer:
     headers:
+      manufacturer: Manufacturer
       manufacturers: Manufacturers
-      new: New Manufacturer
+      new: Add New Manufacturer
+      edit: Edit Manufacturer
+      id: ID
       title: Title
+      country: Country
+      url: URL
+      enabled: Enabled
       actions: Actions
+    buttons:
+      add: Add Manufacturer
+      to_list: To manufacturers list
+      apply: Apply
+      cancel: Cancel
+      edit: Edit
+      delete: Delete
+    labels:
+      id: ID
+      title: Title
+      country: Country
+      url: URL
+      shortDescription: Short Description
+      fullDescription: Full Description
+      metaTitle: Meta Title
+      metaDescription: Meta Description
+      metaKeywords: Meta Keywords
+      enabled: Enabled
+    info:
+      of: of
+

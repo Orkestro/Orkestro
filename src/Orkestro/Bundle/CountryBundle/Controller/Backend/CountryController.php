@@ -2,6 +2,7 @@
 
 namespace Orkestro\Bundle\CountryBundle\Controller\Backend;
 
+use Orkestro\Bundle\CountryBundle\Form\CountryPresenterType;
 use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -179,12 +180,28 @@ class CountryController extends Controller
             throw $this->createNotFoundException('Unable to find Country entity.');
         }
 
+        $translationForm = $this->createShowTranslationForm($entity);
         $deleteForm = $this->createDeleteForm($iso_code);
 
         return array(
             'entity'      => $entity,
+            'translation_form' => $translationForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+    }
+
+    /**
+     * Creates a form to show a Country translations.
+     *
+     * @param Country $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createShowTranslationForm(Country $entity)
+    {
+        $form = $this->createForm(new CountryPresenterType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale'), $this->get('translator')), $entity);
+
+        return $form;
     }
 
     /**

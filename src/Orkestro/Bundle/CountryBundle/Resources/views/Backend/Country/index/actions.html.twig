@@ -1,0 +1,13 @@
+{% trans_default_domain "backend" %}
+<div class="panel mar-no panel-bordered-primary">
+    <div class="panel-body">
+        <div class="pull-left">
+            {{ form(formLimitSelector) }}
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-primary btn-rounded btn-labeled fa fa-plus" href="{{ path('orkestro_backend_country_new') }}">
+                {{ "orkestro.country.buttons.add"|trans }}
+            </a>
+        </div>
+    </div>
+</div>

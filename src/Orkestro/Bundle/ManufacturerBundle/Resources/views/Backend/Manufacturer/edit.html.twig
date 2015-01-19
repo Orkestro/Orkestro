@@ -1,17 +1,84 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
-{% block body -%}
-    <h1>Manufacturer edit</h1>
+{% import "OrkestroWebBundle:Backend/Translation:default.html.twig" as form_translations %}
 
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('orkestro_backend_manufacturer_list') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+{% block title %}
+    {{ "orkestro.manufacturer.headers.edit"|trans }}
 {% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_manufacturer_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.manufacturer.headers.edit"|trans }} <small>{{ entity.title }} &mdash; {{ entity.id }}</small>
+{% endblock %}
+
+{% block body -%}
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-body">
+                {{ form_start(edit_form) }}
+                <h3 class="mar-btm">
+                    <small>
+                        {{ "orkestro.manufacturer.labels.id"|trans }}
+                    </small>
+                    {{ entity.id }}
+                </h3>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="tab-base mar-no">
+            {{ form_translations.partialTranslations(edit_form.translations, ['title', 'url', 'shortDescription', 'fullDescription', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+        </div>
+
+        <hr />
+
+        <div class="panel">
+            <div class="panel-body">
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.country"|trans }}
+                </h5>
+                {{ form_widget(edit_form.country) }}
+
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.url"|trans }}
+                </h5>
+                {{ form_widget(edit_form.url) }}
+
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.enabled"|trans }}
+                </h5>
+                {{ form_widget(edit_form.enabled) }}
+
+                <hr />
+
+                <div>
+                    {{ form_widget(edit_form.submit, {'attr': {'class': 'btn btn-success btn-labeled fa fa-check'}, 'label': 'orkestro.country.buttons.apply'|trans}) }}
+                    <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_country_list') }}">{{ 'orkestro.country.buttons.cancel'|trans }}</a>
+                </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#{% extends "@OrkestroWeb/Backend/base.html.twig" %}#}
+{#{% trans_default_domain "backend" %}#}
+
+{#{% block body -%}#}
+    {#<h1>Manufacturer edit</h1>#}
+
+    {#{{ form(edit_form) }}#}
+
+        {#<ul class="record_actions">#}
+    {#<li>#}
+        {#<a href="{{ path('orkestro_backend_manufacturer_list') }}">#}
+            {#Back to the list#}
+        {#</a>#}
+    {#</li>#}
+    {#<li>{{ form(delete_form) }}</li>#}
+{#</ul>#}
+{#{% endblock %}#}
+

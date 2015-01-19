@@ -1,0 +1,23 @@
+{% trans_default_domain "backend" %}
+<div class="panel panel-bordered-primary">
+    <div class="panel-body">
+        <div class="navigation pull-left">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div class="pull-right">
+            {% set paginationStartsWith = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1 %}
+            {% if paginationStartsWith < 0 %}
+                {% set paginationStartsWith = 0 %}
+            {% endif %}
+            {% set paginationEndsWith = pagination.getCurrentPageNumber * pagination.getItemNumberPerPage %}
+            {% if paginationEndsWith > pagination.getTotalItemCount %}
+                {% set paginationEndsWith = pagination.getTotalItemCount %}
+            {% endif %}
+            <ul class="list-group mar-no">
+                <li class="list-group-item">
+                    {{ paginationStartsWith }}&mdash;{{ paginationEndsWith }} {{ 'orkestro.pagination.info.of'|trans }} {{ pagination.getTotalItemCount }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

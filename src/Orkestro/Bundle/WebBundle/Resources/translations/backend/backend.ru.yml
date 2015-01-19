@@ -8,3 +8,6 @@ orkestro:
     next: "Вперёд"
   info:
     limit_to: Выводить по %limit% записей
+  pagination:
+    info:
+      of: из

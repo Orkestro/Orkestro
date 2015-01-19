@@ -1,16 +1,70 @@
 {% extends "@OrkestroWeb/Backend/base.html.twig" %}
 {% trans_default_domain "backend" %}
 
-{% block body -%}
-    <h1>Manufacturer creation</h1>
+{% import "OrkestroWebBundle:Backend/Translation:default.html.twig" as form_translations %}
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('orkestro_backend_manufacturer_list') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block title %}
+    {{ "orkestro.manufacturer.headers.new"|trans }}
 {% endblock %}
+{% block page_title -%}
+    <a class="btn-link icon-wrap-sm" href="{{ path('orkestro_backend_manufacturer_list') }}">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    {{ "orkestro.manufacturer.headers.new"|trans }}
+{% endblock %}
+
+{% block body -%}
+    <div class="col-lg-6">
+        {{ form_start(form) }}
+        <div class="tab-base mar-no">
+            {{ form_translations.partialTranslations(form.translations, ['title', 'url', 'shortDescription', 'fullDescription', 'metaTitle', 'metaDescription', 'metaKeywords']) }}
+        </div>
+
+        <hr />
+
+        <div class="panel">
+            <div class="panel-body">
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.country"|trans }}
+                </h5>
+                {{ form_widget(form.country) }}
+
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.url"|trans }}
+                </h5>
+                {{ form_widget(form.url) }}
+
+                <h5 class="text-thin mar-btm">
+                    {{ "orkestro.manufacturer.labels.enabled"|trans }}
+                </h5>
+                {{ form_widget(form.enabled) }}
+
+                <hr />
+
+                <div>
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-labeled fa fa-plus'}, 'label': 'orkestro.manufacturer.buttons.add'|trans}) }}
+                    <a class="btn btn-warning btn-labeled fa fa-times" href="{{ path('orkestro_backend_manufacturer_list') }}">{{ 'orkestro.manufacturer.buttons.cancel'|trans }}</a>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+{#{% extends "@OrkestroWeb/Backend/base.html.twig" %}#}
+{#{% trans_default_domain "backend" %}#}
+
+{#{% block body -%}#}
+    {#<h1>Manufacturer creation</h1>#}
+
+    {#{{ form(form) }}#}
+
+        {#<ul class="record_actions">#}
+    {#<li>#}
+        {#<a href="{{ path('orkestro_backend_manufacturer_list') }}">#}
+            {#Back to the list#}
+        {#</a>#}
+    {#</li>#}
+{#</ul>#}
+{#{% endblock %}#}

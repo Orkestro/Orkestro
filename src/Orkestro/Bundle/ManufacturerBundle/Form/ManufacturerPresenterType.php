@@ -6,7 +6,7 @@ use Orkestro\Bundle\CoreBundle\Form\AbstractTranslatableType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ManufacturerType extends AbstractTranslatableType
+class ManufacturerPresenterType extends AbstractTranslatableType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -44,23 +44,6 @@ class ManufacturerType extends AbstractTranslatableType
                         ),
                     ),
                 ))
-            ->add('url', 'text', array(
-                    'attr' => array(
-                        'class' => 'form-control',
-                    ),
-                ))
-            ->add('enabled', 'checkbox', array(
-                    'required' => false,
-                    'attr' => array(
-                        'class' => 'switchery',
-                    ),
-                ))
-            ->add('country', 'entity', array(
-                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country',
-                    'attr' => array(
-                        'class' => 'chosen',
-                    ),
-                ))
         ;
     }
     
@@ -79,6 +62,6 @@ class ManufacturerType extends AbstractTranslatableType
      */
     public function getName()
     {
-        return 'orkestro_bundle_manufacturerbundle_manufacturer';
+        return 'orkestro_bundle_manufacturerbundle_manufacturer_presenter';
     }
 }

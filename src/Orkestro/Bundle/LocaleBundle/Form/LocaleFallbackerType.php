@@ -22,7 +22,7 @@ class LocaleFallbackerType extends AbstractType
                     'required' => false,
                     'label' => false,
                     'attr' => array(
-                        'class' => 'switchery',
+                        'class' => 'switchery submittable',
                     ),
                 ))
         ;
