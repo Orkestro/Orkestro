@@ -52,7 +52,7 @@ class Manufacturer extends AbstractTranslatable
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="Orkestro\Bundle\CountryBundle\Entity\Country")

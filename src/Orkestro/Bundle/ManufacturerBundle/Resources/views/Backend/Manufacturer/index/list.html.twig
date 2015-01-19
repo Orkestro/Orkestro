@@ -20,8 +20,8 @@
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.country'|trans, 'm.country', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('m.country') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.manufacturer.headers.country'|trans, 'ct.title', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('ct.title') %}
                         <span class="order">
                             <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                         </span>
@@ -80,4 +80,3 @@
         </table>
     </div>
 </div>
-<hr />

@@ -4,6 +4,7 @@ orkestro:
       manufacturer: Производитель
       manufacturers: Производители
       new: Новый производитель
+      edit: Редактирование производителя
       id: Идентификатор
       title: Наименование
       country: Страна
@@ -12,10 +13,21 @@ orkestro:
       actions: Действия
     buttons:
       add: Добавить производителя
+      to_list: К списку производителей
+      apply: Подтвердить
+      cancel: Отменить
+      edit: Редактировать
+      delete: Удалить
     labels:
       id: Идентификатор
       title: Наименование
       country: Страна
       url: Ссылка
+      shortDescription: Краткое описание
+      fullDescription: Полное описание
+      metaTitle: Мета-тег "Title"
+      metaDescription: Мета-тег "Description"
+      metaKeywords: Мета-тег "Keywords"
+      enabled: Включен
     info:
       of: из

@@ -8,3 +8,6 @@ orkestro:
     next: "Next"
   info:
     limit_to: Limit to %limit% records
+  pagination:
+    info:
+      of: of

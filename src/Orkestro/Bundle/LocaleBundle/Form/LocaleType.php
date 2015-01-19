@@ -37,6 +37,9 @@ class LocaleType extends AbstractType
             $builder
                 ->add('code', 'choice', array(
                         'choices' => $locales,
+                        'attr' => array(
+                            'class' => 'chosen',
+                        ),
                     ))
             ;
         }
@@ -44,9 +47,15 @@ class LocaleType extends AbstractType
         $builder
             ->add('enabled', 'checkbox', array(
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'switchery',
+                    ),
                 ))
             ->add('fallback', 'checkbox', array(
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'switchery',
+                    ),
                 ))
         ;
     }

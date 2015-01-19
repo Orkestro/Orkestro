@@ -11,7 +11,7 @@ orkestro:
       actions: Actions
     buttons:
       add: Add Country
-      to_list: To country list
+      to_list: To countries list
       apply: Apply
       cancel: Cancel
       edit: Edit

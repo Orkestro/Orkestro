@@ -24,11 +24,11 @@ class ManufacturerPresenterType extends AbstractTranslatableType
                         ),
                         'shortDescription' => array(
                             'field_type' => 'textarea',
-                            'locale_options' => $this->getTranslationsForFieldName('title', 'shortDescription', 'backend'),
+                            'locale_options' => $this->getTranslationsForFieldName('shortDescription', 'manufacturer', 'backend'),
                         ),
                         'fullDescription' => array(
                             'field_type' => 'textarea',
-                            'locale_options' => $this->getTranslationsForFieldName('title', 'fullDescription', 'backend'),
+                            'locale_options' => $this->getTranslationsForFieldName('fullDescription', 'manufacturer', 'backend'),
                         ),
                         'metaTitle' => array(
                             'field_type' => 'textarea',

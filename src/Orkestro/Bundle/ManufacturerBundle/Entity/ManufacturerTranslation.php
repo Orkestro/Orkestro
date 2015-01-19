@@ -23,14 +23,14 @@ class ManufacturerTranslation extends AbstractSeoTaggableTranslation
     private $title;
 
     /**
-     * @ORM\Column(name="short_description", type="text")
+     * @ORM\Column(name="short_description", type="text", nullable=true)
      */
-    private $shortDescription;
+    private $shortDescription = '';
 
     /**
-     * @ORM\Column(name="full_description", type="text")
+     * @ORM\Column(name="full_description", type="text", nullable=true)
      */
-    private $fullDescription;
+    private $fullDescription = '';
 
 
     /**

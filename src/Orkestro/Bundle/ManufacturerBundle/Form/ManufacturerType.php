@@ -44,12 +44,22 @@ class ManufacturerType extends AbstractTranslatableType
                         ),
                     ),
                 ))
-            ->add('url')
+            ->add('url', 'text', array(
+                    'attr' => array(
+                        'class' => 'form-control',
+                    ),
+                ))
             ->add('enabled', 'checkbox', array(
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'switchery',
+                    ),
                 ))
             ->add('country', 'entity', array(
-                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country'
+                    'class' => 'Orkestro\Bundle\CountryBundle\Entity\Country',
+                    'attr' => array(
+                        'class' => 'chosen',
+                    ),
                 ))
         ;
     }

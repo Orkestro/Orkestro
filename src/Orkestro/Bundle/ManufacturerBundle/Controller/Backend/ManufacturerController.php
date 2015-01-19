@@ -2,6 +2,7 @@
 
 namespace Orkestro\Bundle\ManufacturerBundle\Controller\Backend;
 
+use Orkestro\Bundle\ManufacturerBundle\Entity\ManufacturerRepository;
 use Orkestro\Bundle\ManufacturerBundle\Form\ManufacturerEnablerType;
 use Orkestro\Bundle\ManufacturerBundle\Form\ManufacturerPresenterType;
 use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
@@ -28,11 +29,13 @@ class ManufacturerController extends Controller
         $listLimit = $request->getSession()->get('orkestro_backend_country_list_limit', 25);
 
         $em = $this->getDoctrine()->getManager();
+
+        /** @var ManufacturerRepository $repository */
         $repository = $em->getRepository('OrkestroManufacturerBundle:Manufacturer');
         $queryBuilder = $repository->createQueryBuilder('m');
         $queryBuilder
-            ->select('m', 'mt')
-            ->add('from', 'OrkestroManufacturerBundle:Manufacturer m JOIN m.translations mt WITH mt.locale = :locale')
+            ->select('m', 'mt', 'c', 'ct')
+            ->add('from', 'OrkestroManufacturerBundle:Manufacturer m JOIN m.translations mt JOIN m.country c JOIN c.translations ct WITH mt.locale = :locale AND ct.locale = :locale')
             ->groupBy('m')
             ->setParameters(array(
                     ':locale' => $request->getLocale(),

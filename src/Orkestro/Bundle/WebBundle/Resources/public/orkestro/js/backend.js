@@ -8,7 +8,9 @@ $(function() {
         });
     });
 
-    $('.chosen').chosen();
+    $('.chosen').chosen({
+        width: '100%'
+    });
     $('.selectpicker').selectpicker();
 
     var switchElements = document.querySelectorAll('.switchery');
