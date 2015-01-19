@@ -11,7 +11,7 @@ orkestro:
       actions: Actions
       fallback: Fallback
     buttons:
-      add: Add locale
+      add: Add Locale
       apply: Apply
       cancel: Cancel
       to_list: To locales list
