@@ -51,6 +51,7 @@ abstract class Kernel extends BaseKernel
             new Orkestro\Bundle\ApiBundle\OrkestroApiBundle(),
             new Orkestro\Bundle\CartBundle\OrkestroCartBundle(),
             new Orkestro\Bundle\CategoryBundle\OrkestroCategoryBundle(),
+            new Orkestro\Bundle\ConfigBundle\OrkestroConfigBundle(),
             new Orkestro\Bundle\CountryBundle\OrkestroCountryBundle(),
             new Orkestro\Bundle\DeliveryBundle\OrkestroDeliveryBundle(),
             new Orkestro\Bundle\GeneratorBundle\OrkestroGeneratorBundle(),

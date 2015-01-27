@@ -44,7 +44,6 @@
                         <li class="dropdown">
                             <a class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                                 <span class="lang-selected">
-                                    <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="English" />
                                     <span class="lang-id">{{ locales.current.code }}</span>
                                     <span class="lang-name">{{ locales.current.title }}</span>
                                 </span>
@@ -53,7 +52,6 @@
                                 {% for locale in locales.other %}
                                     <li>
                                         <a href="{{ path('orkestro_backend_locale_set', {'_locale': locale.code}) }}">
-                                            <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="{{ locale.title }}" />
                                             <span class="lang-id">{{ locale.code }}</span>
                                             <span class="lang-name">{{ locale.title }}</span>
                                         </a>
