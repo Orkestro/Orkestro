@@ -2,8 +2,8 @@
 
 namespace Orkestro\Bundle\ConfigBundle;
 
-use Orkestro\Bundle\CoreBundle\AbstractModelBundle;
+use Orkestro\Bundle\CoreBundle\AbstractOrkestroBundle;
 
-class OrkestroConfigBundle extends AbstractModelBundle
+class OrkestroConfigBundle extends AbstractOrkestroBundle
 {
 }

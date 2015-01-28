@@ -3,10 +3,11 @@
 namespace Orkestro\Bundle\CoreBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-abstract class AbstractModelBundle extends Bundle
+abstract class AbstractOrkestroBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
@@ -30,13 +31,15 @@ abstract class AbstractModelBundle extends Bundle
             return;
         }
 
+        $bundleNameUnderscored = Container::underscore($this->getBundleBasename());
+
         $container->addCompilerPass(
             $doctrineOrmCompiler::createXmlMappingDriver(
                 $mappings,
                 array(
-                    $this->getNameUnderscored().'.model_manager_name',
+                    $bundleNameUnderscored.'.model_manager_name',
                 ),
-                $this->getNameUnderscored().'.backend_type_orm',
+                $bundleNameUnderscored.'.backend_type_orm',
                 array(
                     $this->getName() => $this->getNamespace().'\Model',
                 )
@@ -58,8 +61,14 @@ abstract class AbstractModelBundle extends Bundle
         return false;
     }
 
-    private function getNameUnderscored()
+    private function getBundleBasename()
     {
-        return strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', str_replace('Bundle', '', $this->getName())));
+        return substr($this->getName(), 0, -6);
+    }
+
+    public function getContainerExtension()
+    {
+        $extensionClassName = $this->getNamespace().'\DependencyInjection\\'.$this->getBundleBasename().'Extension';
+        return new $extensionClassName;
     }
 }

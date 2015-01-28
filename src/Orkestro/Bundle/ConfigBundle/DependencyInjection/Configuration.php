@@ -2,7 +2,7 @@
 
 namespace Orkestro\Bundle\ConfigBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Orkestro\Bundle\CoreBundle\DependencyInjection\AbstractOrkestroConfiguration;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -10,25 +10,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractOrkestroConfiguration implements ConfigurationInterface
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function getConfigTreeBuilder()
-    {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('orkestro_config');
-        $rootNode
-            ->addDefaultsIfNotSet()
-            ->children()
-                ->scalarNode('model_manager_name')
-                    ->defaultNull()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-
-        return $treeBuilder;
-    }
 }

@@ -10,14 +10,15 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
-class Configuration implements ConfigurationInterface
+class AbstractOrkestroConfiguration implements ConfigurationInterface
 {
-    public static function getSupportedDbDrivers()
+    private $bundleAlias;
+    private $defaultDbDriver;
+
+    public function __construct($bundleAlias, $defaultDbDriver)
     {
-        return array(
-            'orm',
-            'mongodb',
-        );
+        $this->bundleAlias = $bundleAlias;
+        $this->defaultDbDriver = $defaultDbDriver;
     }
 
     /**
@@ -26,9 +27,9 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('orkestro');
+        $rootNode = $treeBuilder->root($this->bundleAlias);
 
-        $supportedDbDrivers = self::getSupportedDbDrivers();
+        $supportedDbDrivers = Configuration::getSupportedDbDrivers();
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -40,7 +41,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->cannotBeOverwritten()
                     ->cannotBeEmpty()
-                    ->defaultValue($supportedDbDrivers[0])
+                    ->defaultValue($this->defaultDbDriver)
                 ->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
             ->end()
