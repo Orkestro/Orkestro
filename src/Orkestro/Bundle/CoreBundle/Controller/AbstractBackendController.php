@@ -9,9 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractBackendController extends Controller implements AbstractBackendControllerInterface
 {
+    public function getModelManager()
+    {
+        return $this->getDoctrine()->getManager();
+    }
+
     public function getModelRepository()
     {
-        return $this->getDoctrine()->getManager()->getRepository($this->getModelClass());
+        return $this->getModelManager()->getRepository($this->getModelClass());
     }
 
     public function getPaginationQuery()

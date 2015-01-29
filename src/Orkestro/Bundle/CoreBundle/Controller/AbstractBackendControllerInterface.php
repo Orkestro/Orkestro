@@ -12,4 +12,5 @@ interface AbstractBackendControllerInterface
     public function getIndexListForms(PaginationInterface $pagination);
 
     public function getModelRepository();
+    public function getModelManager();
 }
