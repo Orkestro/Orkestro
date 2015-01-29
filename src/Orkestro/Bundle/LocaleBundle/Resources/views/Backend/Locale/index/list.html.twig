@@ -4,32 +4,32 @@
         <table class="table table-bordered mar-no">
             <tr>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.code'|trans, 'l.code', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.code') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.code'|trans, 'm.code', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.code') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.title'|trans, 'l.title', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.title') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.title'|trans, 'm.title', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.title') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isEnabled'|trans, 'l.isEnabled', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.isEnabled') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isEnabled'|trans, 'm.isEnabled', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.isEnabled') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isFallback'|trans, 'l.isFallback', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.isFallback') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isFallback'|trans, 'm.isFallback', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('m.isFallback') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>

@@ -2,9 +2,79 @@
 
 namespace Orkestro\Bundle\CoreBundle\Controller;
 
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-abstract class AbstractBackendController extends Controller
+abstract class AbstractBackendController extends Controller implements AbstractBackendControllerInterface
 {
+    public function getModelRepository()
+    {
+        return $this->getDoctrine()->getManager()->getRepository($this->getModelClass());
+    }
 
+    public function getPaginationQuery()
+    {
+        return $this->getModelRepository()->createQueryBuilder('m');
+    }
+
+    public function getIndexListForms(PaginationInterface $pagination)
+    {
+        return array();
+    }
+
+    /**
+     * @param $selectedLimit
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createLimitSelectorForm($selectedLimit)
+    {
+        $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
+                'action' => $this->generateUrl($this->getNamespace().'_limit'),
+                'method' => 'PUT',
+            ));
+
+        return $form;
+    }
+
+    protected function limitAction(Request $request)
+    {
+        $listLimit = $request->getSession()->get($this->getNamespace().'_list_limit', 25);
+
+        $form = $this->createLimitSelectorForm($listLimit);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $request->getSession()->set($this->getNamespace().'_list_limit', $formData['limit']);
+        }
+
+        return $this->redirect($this->generateUrl($this->getNamespace().'_list'));
+    }
+
+    protected function indexAction(Request $request)
+    {
+        $listLimit = $request->getSession()->get($this->getNamespace().'_list_limit', 25);
+
+        $queryBuilder = $this->getPaginationQuery();
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->get('page', 1),
+            $listLimit
+        );
+
+        $forms = $this->getIndexListForms($pagination);
+
+        $formLimitSelector = $this->createLimitSelectorForm($listLimit)->createView();
+
+        return array(
+            'pagination' => $pagination,
+            'forms' => $forms,
+            'formLimitSelector' => $formLimitSelector,
+        );
+    }
 }

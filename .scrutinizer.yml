@@ -1,3 +1,10 @@
+application:
+  environment:
+    php:
+      version: 5.4.28
+  project_setup:
+    before:
+      - mysql -uroot -e "CREATE DATABASE orkestro"
 checks:
   php:
     code_rating: true

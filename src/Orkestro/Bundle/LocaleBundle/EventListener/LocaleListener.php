@@ -14,7 +14,7 @@ class LocaleListener implements EventSubscriberInterface
     private $defaultLocaleCode;
     private $availableLocales = [];
 
-    public function __construct($defaultLocale, RegistryInterface $doctrine, ContainerInterface $container)
+    public function __construct($defaultLocale, RegistryInterface $doctrine)
     {
         $locales = $doctrine
             ->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')

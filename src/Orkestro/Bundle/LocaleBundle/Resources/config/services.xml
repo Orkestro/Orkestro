@@ -19,7 +19,6 @@
                 >
             <argument>%kernel.default_locale%</argument>
             <argument type="service" id="doctrine" />
-            <argument type="service" id="service_container" />
             <tag name="kernel.event_subscriber" />
         </service>
     </services>

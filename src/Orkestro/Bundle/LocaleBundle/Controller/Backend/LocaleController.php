@@ -3,11 +3,11 @@
 namespace Orkestro\Bundle\LocaleBundle\Controller\Backend;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Orkestro\Bundle\CoreBundle\Controller\AbstractBackendController;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleEnablerType;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleFallbackerType;
 use Orkestro\Bundle\LocaleBundle\Model\Locale;
-use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,6 +18,51 @@ use Symfony\Component\Intl\Intl;
 
 class LocaleController extends AbstractBackendController
 {
+    public function getNamespace()
+    {
+        return 'orkestro_backend_locale';
+    }
+
+    public function getModelClass()
+    {
+        return 'Orkestro\Bundle\LocaleBundle\Model\Locale';
+    }
+
+    public function getIndexListForms(PaginationInterface $pagination)
+    {
+        $forms = array();
+
+        /** @var Locale $locale */
+        foreach ($pagination as $locale) {
+            $forms[$locale->getCode()]['enable'] = $this->createEnableForm($locale)->createView();
+            $forms[$locale->getCode()]['fallback'] = $this->createFallbackForm($locale)->createView();
+            $forms[$locale->getCode()]['delete'] = $this->createDeleteForm($locale->getCode())->createView();
+        }
+
+        return $forms;
+    }
+
+    /**
+     * @Route("/limit", name="orkestro_backend_locale_limit")
+     * @Method("PUT")
+     */
+    public function limitAction(Request $request)
+    {
+        return parent::limitAction($request);
+    }
+
+    /**
+     * Lists all Locale entities.
+     *
+     * @Route("/list", name="orkestro_backend_locale_list")
+     * @Method("GET")
+     * @Template()
+     */
+    public function indexAction(Request $request)
+    {
+        return parent::indexAction($request);
+    }
+
     /**
      * @Route("/set/{_locale}", name="orkestro_backend_locale_set")
      * @Method("POST")
@@ -38,77 +83,6 @@ class LocaleController extends AbstractBackendController
     }
 
     /**
-     * Lists all Locale entities.
-     *
-     * @Route("/list", name="orkestro_backend_locale_list")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction(Request $request)
-    {
-        $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
-
-        $em = $this->getDoctrine()->getManager();
-        /** @var ObjectRepository $repository */
-        $repository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
-        $queryBuilder = $repository->createQueryBuilder('l');
-
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $queryBuilder,
-            $request->query->get('page', 1),
-            $listLimit
-        );
-
-        $forms = array();
-
-        /** @var Locale $locale */
-        foreach ($pagination as $locale) {
-            $forms[$locale->getCode()]['enable'] = $this->createEnableForm($locale)->createView();
-            $forms[$locale->getCode()]['fallback'] = $this->createFallbackForm($locale)->createView();
-            $forms[$locale->getCode()]['delete'] = $this->createDeleteForm($locale->getCode())->createView();
-        }
-
-        $formLimitSelector = $this->createLimitSelectorForm($listLimit)->createView();
-
-        return array(
-            'pagination' => $pagination,
-            'forms' => $forms,
-            'formLimitSelector' => $formLimitSelector,
-        );
-    }
-
-    /**
-     * @Route("/limit", name="orkestro_backend_locale_limit")
-     * @Method("PUT")
-     */
-    public function limitAction(Request $request)
-    {
-        $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
-
-        $form = $this->createLimitSelectorForm($listLimit);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $formData = $form->getData();
-
-            $request->getSession()->set('orkestro_backend_locale_list_limit', $formData['limit']);
-        }
-
-        return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
-    }
-
-    private function createLimitSelectorForm($selectedLimit)
-    {
-        $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
-                'action' => $this->generateUrl('orkestro_backend_locale_limit'),
-                'method' => 'PUT',
-            ));
-
-        return $form;
-    }
-
-    /**
      * @Route("/enable/{code}", name="orkestro_backend_locale_enable")
      * @Method("PUT")
      */
@@ -116,7 +90,7 @@ class LocaleController extends AbstractBackendController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
+        $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -151,7 +125,7 @@ class LocaleController extends AbstractBackendController
         $em = $this->getDoctrine()->getManager();
 
         /** @var ObjectRepository $localeRepository */
-        $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
+        $localeRepository = $this->getModelRepository();
 
         /** @var Locale $entity */
         $entity = $localeRepository->find($code);
@@ -215,7 +189,7 @@ class LocaleController extends AbstractBackendController
             if ($entity->getIsFallback()) {
                 if ($entity->getIsEnabled()) {
                     /** @var ObjectRepository $localeRepository */
-                    $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
+                    $localeRepository = $this->getModelRepository();
 
                     $locales = $localeRepository->findBy(
                         array(
@@ -305,7 +279,7 @@ class LocaleController extends AbstractBackendController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
+        $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -330,7 +304,7 @@ class LocaleController extends AbstractBackendController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
+        $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -375,7 +349,7 @@ class LocaleController extends AbstractBackendController
         $em = $this->getDoctrine()->getManager();
 
         /** @var Locale $entity */
-        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
+        $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -387,7 +361,7 @@ class LocaleController extends AbstractBackendController
         if ($editForm->isValid()) {
             if ($entity->getIsFallback()) {
                 if ($entity->getIsEnabled()) {
-                    $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
+                    $localeRepository = $this->getModelRepository();
 
                     $locales = $localeRepository->findBy(
                         array(
@@ -441,7 +415,7 @@ class LocaleController extends AbstractBackendController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
+            $entity = $this->getModelRepository()->find($code);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Locale entity.');
