@@ -1,3 +1,9 @@
+orkestro_config:
+  resource: @OrkestroConfigBundle/Controller/DefaultController.php
+  type: annotation
+
+
+
 orkestro_backend_index:
   path: /
   defaults:

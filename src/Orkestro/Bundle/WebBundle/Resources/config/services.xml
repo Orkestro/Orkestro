@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service
+                id="orkestro.menu_builder.backend"
+                class="Orkestro\Bundle\WebBundle\Menu\BackendMenuBuilder"
+                >
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+        <service
+                id="orkestro.menu_builder.frontend"
+                class="Orkestro\Bundle\WebBundle\Menu\FrontendMenuBuilder"
+                >
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+        <service
+                id="orkestro.menu.backend"
+                class="Knp\Menu\MenuItem"
+                factory-service="orkestro.menu_builder.backend"
+                factory-method="createMainMenu"
+                scope="request"
+                >
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="backend_main" />
+        </service>
+        <service
+                id="orkestro.menu.frontend"
+                class="Knp\Menu\MenuItem"
+                factory-service="orkestro.menu_builder.frontend"
+                factory-method="createMainMenu"
+                scope="request"
+                >
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="frontend_main" />
+        </service>
+        <service
+                id="orkestro.twig.locale_extension"
+                class="Orkestro\Bundle\WebBundle\Twig\LocaleExtension"
+                >
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+        </service>
+    </services>
+</container>

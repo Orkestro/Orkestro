@@ -32,4 +32,19 @@ $(function() {
     $('select#orkestro_bundle_webbundle_backend_pagination_limit_selector_limit').change(function() {
         $(this).parents('form').submit();
     });
+
+    $('ul#locale-selector li a').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('href'),
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if (0 == data.status) {
+                    location.reload();
+                }
+            }
+        });
+    });
 });

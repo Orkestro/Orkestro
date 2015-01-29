@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service
+                id="orkestro.locale.configure_menu_listener"
+                class="Orkestro\Bundle\LocaleBundle\EventListener\ConfigureMenuListener"
+                scope="request"
+                >
+            <argument type="service" id="translator" />
+            <argument type="service" id="request" />
+            <tag name="kernel.event_listener" event="orkestro.menu_builder.backend.main.configure" method="onMenuConfigure" />
+        </service>
+        <service
+                id="orkestro.locale_listener"
+                class="Orkestro\Bundle\LocaleBundle\EventListener\LocaleListener"
+                >
+            <argument>%kernel.default_locale%</argument>
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</container>

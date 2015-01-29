@@ -1,18 +1,79 @@
 <!doctype html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body>
-    {{ knp_menu_render('frontend_main') }}
-    {% block body %}{% endblock %}
-    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/jquery/js/jquery-2.1.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/orkestroweb/bootstrap/js/bootstrap.min.js') }}"></script>
-    {% block javascripts %}{% endblock %}
-</body>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/css/skin.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/css/animate.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/owl-carousel/css/owl.carousel.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/owl-carousel/css/owl.theme.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/ion-checkRadio/css/ion.checkRadio.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/ion-checkRadio/css/ion.checkRadio.cloudy.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/orkestroweb/frontend/jQuery-mCustomScrollbar/css/jquery.mCustomScrollbar.css') }}" />
+
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+
+        {{ knp_menu_render('frontend_main') }}
+        {% block body %}{% endblock %}
+    </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#<!doctype html>#}
+{#<html>#}
+{#<head>#}
+    {#<meta charset="UTF-8" />#}
+    {#<title>{% block title %}{% endblock %}</title>#}
+    {#<link rel="stylesheet" href="{{ asset("bundles/orkestroweb/bootstrap/css/bootstrap.min.css") }}" />#}
+    {#<link rel="stylesheet" href="{{ asset("bundles/orkestroweb/font-awesome/css/font-awesome.min.css") }}" />#}
+    {#{% block stylesheets %}{% endblock %}#}
+    {#<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
+{#</head>#}
+{#<body>#}
+    {#{{ knp_menu_render('frontend_main') }}#}
+    {#{% block body %}{% endblock %}#}
+    {#<script type="text/javascript" src="{{ asset('bundles/orkestroweb/jquery/js/jquery-2.1.1.min.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/orkestroweb/bootstrap/js/bootstrap.min.js') }}"></script>#}
+    {#{% block javascripts %}{% endblock %}#}
+{#</body>#}
+{#</html>#}

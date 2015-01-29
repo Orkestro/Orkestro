@@ -18,7 +18,7 @@ class LocaleEnablerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('enabled', 'checkbox', array(
+            ->add('isEnabled', 'checkbox', array(
                     'required' => false,
                     'label' => false,
                     'attr' => array(
@@ -34,7 +34,7 @@ class LocaleEnablerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Orkestro\Bundle\LocaleBundle\Entity\Locale'
+            'data_class' => 'Orkestro\Bundle\LocaleBundle\Model\Locale'
         ));
     }
 

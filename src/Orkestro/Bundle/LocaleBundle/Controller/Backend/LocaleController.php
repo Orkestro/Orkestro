@@ -2,28 +2,39 @@
 
 namespace Orkestro\Bundle\LocaleBundle\Controller\Backend;
 
-use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Orkestro\Bundle\CoreBundle\Controller\AbstractBackendController;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleEnablerType;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleFallbackerType;
+use Orkestro\Bundle\LocaleBundle\Model\Locale;
 use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Orkestro\Bundle\LocaleBundle\Entity\Locale;
 use Orkestro\Bundle\LocaleBundle\Form\LocaleType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
-class LocaleController extends Controller
+class LocaleController extends AbstractBackendController
 {
     /**
      * @Route("/set/{_locale}", name="orkestro_backend_locale_set")
-     * @Method("GET")
+     * @Method("POST")
      */
-    public function setLocaleAction()
+    public function setLocaleAction(Request $request)
     {
-        return $this->redirect($this->generateUrl('orkestro_backend_dashboard'), 302);
+        if ($request->isXMLHttpRequest()) {
+            return new Response(
+                json_encode(
+                    array(
+                        'status' => 0,
+                    )
+                )
+            );
+        }
+
+        throw $this->createNotFoundException();
     }
 
     /**
@@ -38,7 +49,8 @@ class LocaleController extends Controller
         $listLimit = $request->getSession()->get('orkestro_backend_locale_list_limit', 25);
 
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('OrkestroLocaleBundle:Locale');
+        /** @var ObjectRepository $repository */
+        $repository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
         $queryBuilder = $repository->createQueryBuilder('l');
 
         $paginator = $this->get('knp_paginator');
@@ -104,7 +116,7 @@ class LocaleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -138,8 +150,8 @@ class LocaleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        /** @var LocaleRepository $localeRepository */
-        $localeRepository = $em->getRepository('OrkestroLocaleBundle:Locale');
+        /** @var ObjectRepository $localeRepository */
+        $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
 
         /** @var Locale $entity */
         $entity = $localeRepository->find($code);
@@ -152,15 +164,15 @@ class LocaleController extends Controller
         $enableForm->handleRequest($request);
 
         if ($enableForm->isValid()) {
-            if ($entity->getFallback() && $entity->getEnabled()) {
+            if ($entity->getIsFallback() && $entity->getIsEnabled()) {
                 $locales = $localeRepository->findBy(array(
-                        'fallback' => true,
+                        'isFallback' => true,
                     ));
 
                 /** @var Locale $locale */
                 foreach ($locales as $locale) {
                     if ($locale != $entity) {
-                        $locale->setFallback(false);
+                        $locale->setIsFallback(false);
                     }
                 }
             } else {
@@ -200,20 +212,30 @@ class LocaleController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->setTitle(Intl::getLocaleBundle()->getLocaleName($entity->getCode(), $entity->getCode()));
 
-            if (($entity->getFallback() && $entity->getEnabled()) || (!$entity->getFallback())) {
-                /** @var LocaleRepository $localeRepository */
-                $localeRepository = $em->getRepository('OrkestroLocaleBundle:Locale');
+            if ($entity->getIsFallback()) {
+                if ($entity->getIsEnabled()) {
+                    /** @var ObjectRepository $localeRepository */
+                    $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
 
-                $locales = $localeRepository->findBy(array(
-                        'fallback' => true,
-                    ));
+                    $locales = $localeRepository->findBy(
+                        array(
+                            'isFallback' => true,
+                        )
+                    );
 
-                /** @var Locale $locale */
-                foreach ($locales as $locale) {
-                    $locale->setFallback(false);
+                    /** @var Locale $locale */
+                    foreach ($locales as $locale) {
+                        $locale->setIsFallback(false);
+                    }
+                } else {
+                    $request->getSession()->getFlashBag()->add(
+                        'danger',
+                        $this->get('translator')->trans('orkestro.locale.notifications.add_fallback_enabled_problem', array(
+                                '%locale_name%' => $entity->getTitle(),
+                            ), 'backend')
+                    );
+                    return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
                 }
-            } else {
-                return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
             }
 
             $em->persist($entity);
@@ -244,7 +266,7 @@ class LocaleController extends Controller
      */
     private function createCreateForm(Locale $entity)
     {
-        $form = $this->createForm(new LocaleType($this->getDoctrine()->getManager()->getRepository('OrkestroLocaleBundle:Locale')), $entity, array(
+        $form = $this->createForm(new LocaleType($this->getDoctrine()->getManager()->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_locale_create'),
             'method' => 'POST',
         ));
@@ -283,7 +305,7 @@ class LocaleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -308,7 +330,7 @@ class LocaleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -353,7 +375,7 @@ class LocaleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /** @var Locale $entity */
-        $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+        $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Locale entity.');
@@ -363,6 +385,31 @@ class LocaleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            if ($entity->getIsFallback()) {
+                if ($entity->getIsEnabled()) {
+                    $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
+
+                    $locales = $localeRepository->findBy(
+                        array(
+                            'isFallback' => true,
+                        )
+                    );
+
+                    /** @var Locale $locale */
+                    foreach ($locales as $locale) {
+                        $locale->setIsFallback(false);
+                    }
+                } else {
+                    $request->getSession()->getFlashBag()->add(
+                        'danger',
+                        $this->get('translator')->trans('orkestro.locale.notifications.edit_fallback_enabled_problem', array(
+                                '%locale_name%' => $entity->getTitle(),
+                            ), 'backend')
+                    );
+                    return $this->redirect($this->generateUrl('orkestro_backend_locale_edit', array('code' => $code)));
+                }
+            }
+
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
@@ -372,7 +419,7 @@ class LocaleController extends Controller
                     ), 'backend')
             );
 
-            return $this->redirect($this->generateUrl('orkestro_backend_locale_edit', array('code' => $code)));
+            return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
         }
 
         return array(
@@ -394,7 +441,7 @@ class LocaleController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OrkestroLocaleBundle:Locale')->find($code);
+            $entity = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')->find($code);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Locale entity.');

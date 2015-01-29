@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:prezent="prezent"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Orkestro\Bundle\ConfigBundle\Model\ConfigTranslation" table="orkestro_config_translation">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="locale" column="locale" type="string" length="2">
+            <prezent:locale />
+        </field>
+
+        <prezent:translatable />
+
+        <field name="test" column="test" type="string" length="200" />
+    </entity>
+</doctrine-mapping>

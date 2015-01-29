@@ -31,16 +31,16 @@
 
                 <h3 class="mar-btm">
                     <small>
-                        {{ "orkestro.locale.labels.enabled"|trans }}
+                        {{ "orkestro.locale.labels.isEnabled"|trans }}
                     </small>
-                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.enabled %} checked="checked"{% endif %} />
+                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.isEnabled %} checked="checked"{% endif %} />
                 </h3>
 
                 <h3 class="mar-btm">
                     <small>
-                        {{ "orkestro.locale.labels.fallback"|trans }}
+                        {{ "orkestro.locale.labels.isFallback"|trans }}
                     </small>
-                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.fallback %} checked="checked"{% endif %} />
+                    <input type="checkbox" class="switchery" data-disabled="true" data-disabled-opacity="1"{% if entity.isFallback %} checked="checked"{% endif %} />
                 </h3>
 
                 <hr />

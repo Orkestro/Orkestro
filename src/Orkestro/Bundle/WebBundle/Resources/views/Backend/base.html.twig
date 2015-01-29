@@ -41,26 +41,35 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links pull-right">
-                        <li class="dropdown">
-                            <a class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                <span class="lang-selected">
-                                    <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="English" />
-                                    <span class="lang-id">{{ locales.current.code }}</span>
-                                    <span class="lang-name">{{ locales.current.title }}</span>
-                                </span>
-                            </a>
-                            <ul class="head-list dropdown-menu with-arrow">
-                                {% for locale in locales.other %}
-                                    <li>
-                                        <a href="{{ path('orkestro_backend_locale_set', {'_locale': locale.code}) }}">
-                                            <img class="lang-flag country-4x3" src="{{ asset('bundles/orkestrocountry/flag-icon-css/flags/4x3/us.svg') }}" alt="{{ locale.title }}" />
-                                            <span class="lang-id">{{ locale.code }}</span>
-                                            <span class="lang-name">{{ locale.title }}</span>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
+                        {% if locales.other|length %}
+                            <li class="dropdown">
+                                <a class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="lang-selected">
+                                        <span class="lang-id">{{ locales.current.code }}</span>
+                                        <span class="lang-name">{{ locales.current.title }}</span>
+                                    </span>
+                                </a>
+                                <ul id="locale-selector" class="head-list dropdown-menu with-arrow">
+                                    {% for locale in locales.other %}
+                                        <li>
+                                            <a href="{{ path('orkestro_backend_locale_set', {'_locale': locale.code}) }}">
+                                                <span class="lang-id">{{ locale.code }}</span>
+                                                <span class="lang-name">{{ locale.title }}</span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a>
+                                    <span class="lang-selected">
+                                        <span class="lang-id">{{ locales.current.code }}</span>
+                                        <span class="lang-name">{{ locales.current.title }}</span>
+                                    </span>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right" aria-expanded="false">
                                 <div class="username hidden-xs">

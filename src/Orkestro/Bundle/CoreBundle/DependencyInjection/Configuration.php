@@ -12,17 +12,39 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    public static function getSupportedDbDrivers()
+    {
+        return array(
+            'orm',
+            'mongodb',
+        );
+    }
+
     /**
      * {@inheritDoc}
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('orkestro_core');
+        $rootNode = $treeBuilder->root('orkestro');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $supportedDbDrivers = self::getSupportedDbDrivers();
+
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('db_driver')
+                    ->validate()
+                        ->ifNotInArray($supportedDbDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDbDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                    ->cannotBeEmpty()
+                    ->defaultValue($supportedDbDrivers[0])
+                ->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
