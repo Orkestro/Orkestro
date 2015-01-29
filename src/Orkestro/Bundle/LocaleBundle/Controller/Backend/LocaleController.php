@@ -88,8 +88,6 @@ class LocaleController extends AbstractBackendController
      */
     public function enableAction(Request $request, $code)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
@@ -100,7 +98,7 @@ class LocaleController extends AbstractBackendController
         $enableForm->handleRequest($request);
 
         if ($enableForm->isValid()) {
-            $em->flush();
+            $this->getModelManager()->flush();
         }
 
         return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
@@ -122,8 +120,6 @@ class LocaleController extends AbstractBackendController
      */
     public function fallbackAction(Request $request, $code)
     {
-        $em = $this->getDoctrine()->getManager();
-
         /** @var ObjectRepository $localeRepository */
         $localeRepository = $this->getModelRepository();
 
@@ -153,7 +149,7 @@ class LocaleController extends AbstractBackendController
                 return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
             }
 
-            $em->flush();
+            $this->getModelManager()->flush();
         }
 
         return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
@@ -183,7 +179,7 @@ class LocaleController extends AbstractBackendController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getModelManager();
             $entity->setTitle(Intl::getLocaleBundle()->getLocaleName($entity->getCode(), $entity->getCode()));
 
             if ($entity->getIsFallback()) {
@@ -240,7 +236,7 @@ class LocaleController extends AbstractBackendController
      */
     private function createCreateForm(Locale $entity)
     {
-        $form = $this->createForm(new LocaleType($this->getDoctrine()->getManager()->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')), $entity, array(
+        $form = $this->createForm(new LocaleType($this->getModelManager()->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')), $entity, array(
             'action' => $this->generateUrl('orkestro_backend_locale_create'),
             'method' => 'POST',
         ));
@@ -277,8 +273,6 @@ class LocaleController extends AbstractBackendController
      */
     public function showAction($code)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
@@ -302,8 +296,6 @@ class LocaleController extends AbstractBackendController
      */
     public function editAction($code)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $entity = $this->getModelRepository()->find($code);
 
         if (!$entity) {
@@ -346,8 +338,6 @@ class LocaleController extends AbstractBackendController
      */
     public function updateAction(Request $request, $code)
     {
-        $em = $this->getDoctrine()->getManager();
-
         /** @var Locale $entity */
         $entity = $this->getModelRepository()->find($code);
 
@@ -384,7 +374,7 @@ class LocaleController extends AbstractBackendController
                 }
             }
 
-            $em->flush();
+            $this->getModelManager()->flush();
 
             $request->getSession()->getFlashBag()->add(
                 'success',
@@ -414,7 +404,7 @@ class LocaleController extends AbstractBackendController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getModelManager();
             $entity = $this->getModelRepository()->find($code);
 
             if (!$entity) {
