@@ -1,7 +1,7 @@
 application:
   environment:
     php:
-      version: 5.3.3
+      version: 5.4.28
   project_setup:
     before:
       - mysql -uroot -e "CREATE DATABASE orkestro"
