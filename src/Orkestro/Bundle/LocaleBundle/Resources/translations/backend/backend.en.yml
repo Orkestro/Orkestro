@@ -26,5 +26,6 @@ orkestro:
       of: of
     notifications:
       add_fallback_enabled_problem: The Fallback Locale must be enabled
+      edit_fallback_enabled_problem: The Fallback Locale must be enabled
       add_success: The Locale %locale_name% added successfully
       edit_success: The Locale %locale_name% updated successfully

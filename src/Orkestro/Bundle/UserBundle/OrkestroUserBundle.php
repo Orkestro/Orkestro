@@ -2,9 +2,9 @@
 
 namespace Orkestro\Bundle\UserBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Orkestro\Bundle\CoreBundle\AbstractOrkestroBundle;
 
-class OrkestroUserBundle extends Bundle
+class OrkestroUserBundle extends AbstractOrkestroBundle
 {
     public function getParent()
     {

@@ -26,5 +26,6 @@ orkestro:
       of: из
     notifications:
       add_fallback_enabled_problem: Язык по умолчанию должен быть включен
+      edit_fallback_enabled_problem: The Fallback Locale must be enabled
       add_success: Язык %locale_name% успешно добавлен
       edit_success: Язык %locale_name% успешно обновлён

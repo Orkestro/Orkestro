@@ -25,9 +25,13 @@ class LocaleController extends AbstractBackendController
     public function setLocaleAction(Request $request)
     {
         if ($request->isXMLHttpRequest()) {
-            return new Response(json_encode(array(
+            return new Response(
+                json_encode(
+                    array(
                         'status' => 0,
-                    )));
+                    )
+                )
+            );
         }
 
         throw $this->createNotFoundException();
@@ -381,6 +385,31 @@ class LocaleController extends AbstractBackendController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            if ($entity->getIsFallback()) {
+                if ($entity->getIsEnabled()) {
+                    $localeRepository = $em->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale');
+
+                    $locales = $localeRepository->findBy(
+                        array(
+                            'isFallback' => true,
+                        )
+                    );
+
+                    /** @var Locale $locale */
+                    foreach ($locales as $locale) {
+                        $locale->setIsFallback(false);
+                    }
+                } else {
+                    $request->getSession()->getFlashBag()->add(
+                        'danger',
+                        $this->get('translator')->trans('orkestro.locale.notifications.edit_fallback_enabled_problem', array(
+                                '%locale_name%' => $entity->getTitle(),
+                            ), 'backend')
+                    );
+                    return $this->redirect($this->generateUrl('orkestro_backend_locale_edit', array('code' => $code)));
+                }
+            }
+
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
@@ -390,7 +419,7 @@ class LocaleController extends AbstractBackendController
                     ), 'backend')
             );
 
-            return $this->redirect($this->generateUrl('orkestro_backend_locale_edit', array('code' => $code)));
+            return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
         }
 
         return array(

@@ -1,41 +1,21 @@
 <?php
 
-namespace Orkestro\Bundle\UserBundle\Entity;
+namespace Orkestro\Bundle\UserBundle\Model;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="orkestro_fos_user")
- */
 class User extends BaseUser
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     protected $id;
 
-    /**
-     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
-     */
+    protected $realName;
+
     protected $facebookId;
 
-    /**
-     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
-     */
     protected $facebookAccessToken;
 
-    /**
-     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
-     */
     protected $googleId;
 
-    /**
-     * @ORM\Column(name="google_access_token", type="string", length=255, nullable=true)
-     */
     protected $googleAccessToken;
 
     public function __construct()
@@ -54,6 +34,29 @@ class User extends BaseUser
     }
 
     /**
+     * Set realName
+     *
+     * @param string $realName
+     * @return User
+     */
+    public function setRealName($realName)
+    {
+        $this->realName = $realName;
+
+        return $this;
+    }
+
+    /**
+     * Get realName
+     *
+     * @return string 
+     */
+    public function getRealName()
+    {
+        return $this->realName;
+    }
+
+    /**
      * Set facebookId
      *
      * @param string $facebookId
@@ -69,7 +72,7 @@ class User extends BaseUser
     /**
      * Get facebookId
      *
-     * @return string 
+     * @return string
      */
     public function getFacebookId()
     {

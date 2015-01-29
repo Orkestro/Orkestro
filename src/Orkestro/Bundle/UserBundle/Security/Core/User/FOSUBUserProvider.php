@@ -4,6 +4,7 @@ namespace Orkestro\Bundle\UserBundle\Security\Core\User;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
+use Orkestro\Bundle\UserBundle\Model\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseClass
@@ -36,6 +37,9 @@ class FOSUBUserProvider extends BaseClass
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $username = $response->getUsername();
+        $realName = $response->getRealName();
+
+        /** @var User $user */
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
 
         if (null === $user) {
@@ -48,7 +52,10 @@ class FOSUBUserProvider extends BaseClass
             $user->$setterId($username);
             $user->$setterToken($response->getAccessToken());
 
+            $username = sprintf('%s_%s', $service, $username);
+
             $user->setUsername($username);
+            $user->setRealName($realName);
             $user->setEmail($username);
             $user->setPassword($username);
             $user->setEnabled(true);
