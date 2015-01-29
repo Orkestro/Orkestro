@@ -7,9 +7,9 @@ orkestro:
       edit: Редактирование языка
       code: Код
       title: Наименование
-      enabled: Включен
+      isEnabled: Включен
       actions: Действия
-      fallback: По умолчанию
+      isFallback: По умолчанию
     buttons:
       add: Добавить язык
       apply: Подтвердить
@@ -20,10 +20,11 @@ orkestro:
     labels:
       code: Код
       locale: Язык
-      enabled: Включен
-      fallback: По умолчанию
+      isEnabled: Включен
+      isFallback: По умолчанию
     info:
       of: из
     notifications:
+      add_fallback_enabled_problem: Язык по умолчанию должен быть включен
       add_success: Язык %locale_name% успешно добавлен
       edit_success: Язык %locale_name% успешно обновлён

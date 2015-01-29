@@ -2,8 +2,8 @@
 
 namespace Orkestro\Bundle\LocaleBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Orkestro\Bundle\CoreBundle\AbstractOrkestroBundle;
 
-class OrkestroLocaleBundle extends Bundle
+class OrkestroLocaleBundle extends AbstractOrkestroBundle
 {
 }

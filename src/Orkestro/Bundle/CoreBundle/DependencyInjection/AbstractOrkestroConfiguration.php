@@ -10,7 +10,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
-class AbstractOrkestroConfiguration implements ConfigurationInterface
+abstract class AbstractOrkestroConfiguration implements ConfigurationInterface
 {
     private $bundleAlias;
     private $defaultDbDriver;

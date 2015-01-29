@@ -7,9 +7,9 @@ orkestro:
       edit: Edit Locale
       code: Code
       title: Title
-      enabled: Enabled
+      isEnabled: Enabled
       actions: Actions
-      fallback: Fallback
+      isFallback: Fallback
     buttons:
       add: Add Locale
       apply: Apply
@@ -20,10 +20,11 @@ orkestro:
     labels:
       code: Code
       locale: Locale
-      enabled: Enabled
-      fallback: Fallback
+      isEnabled: Enabled
+      isFallback: Fallback
     info:
       of: of
     notifications:
+      add_fallback_enabled_problem: The Fallback Locale must be enabled
       add_success: The Locale %locale_name% added successfully
       edit_success: The Locale %locale_name% updated successfully

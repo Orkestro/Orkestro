@@ -1,45 +1,28 @@
 <?php
 
-namespace Orkestro\Bundle\LocaleBundle\Entity;
+namespace Orkestro\Bundle\LocaleBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Locale
- *
- * @ORM\Table(name="orkestro_locale")
- * @ORM\Entity(repositoryClass="Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository")
- */
 class Locale
 {
     /**
      * @var string
-     *
-     * @ORM\Id
-     * @ORM\Column(name="code", type="string", length=100)
      */
     private $code;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enabled = true;
+    private $isEnabled = true;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="fallback", type="boolean")
      */
-    private $fallback = false;
+    private $isFallback = false;
 
 
     /**
@@ -91,12 +74,12 @@ class Locale
     /**
      * Set enabled
      *
-     * @param boolean $enabled
+     * @param boolean $isEnabled
      * @return Locale
      */
-    public function setEnabled($enabled)
+    public function setIsEnabled($isEnabled)
     {
-        $this->enabled = $enabled;
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
@@ -106,20 +89,20 @@ class Locale
      *
      * @return boolean 
      */
-    public function getEnabled()
+    public function getIsEnabled()
     {
-        return $this->enabled;
+        return $this->isEnabled;
     }
 
     /**
      * Set fallback
      *
-     * @param boolean $fallback
+     * @param boolean $isFallback
      * @return Locale
      */
-    public function setFallback($fallback)
+    public function setIsFallback($isFallback)
     {
-        $this->fallback = $fallback;
+        $this->isFallback = $isFallback;
 
         return $this;
     }
@@ -129,8 +112,8 @@ class Locale
      *
      * @return boolean 
      */
-    public function getFallback()
+    public function getIsFallback()
     {
-        return $this->fallback;
+        return $this->isFallback;
     }
 }

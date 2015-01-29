@@ -20,16 +20,16 @@
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.enabled'|trans, 'l.enabled', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.enabled') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isEnabled'|trans, 'l.isEnabled', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('l.isEnabled') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>
                     {% endif %}
                 </th>
                 <th>
-                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.fallback'|trans, 'l.fallback', {'class': 'btn-link'}) }}
-                    {% if pagination.isSorted('l.fallback') %}
+                    {{ knp_pagination_sortable(pagination, 'orkestro.locale.headers.isFallback'|trans, 'l.isFallback', {'class': 'btn-link'}) }}
+                    {% if pagination.isSorted('l.isFallback') %}
                         <span class="order">
                                 <i class="fa fa-angle-{% if pagination.getDirection() == 'asc' %}up{% else %}down{% endif %}"></i>
                             </span>

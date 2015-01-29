@@ -2,8 +2,8 @@
 
 namespace Orkestro\Bundle\LocaleBundle\Form;
 
-use Orkestro\Bundle\LocaleBundle\Entity\Locale;
-use Orkestro\Bundle\LocaleBundle\Entity\LocaleRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Orkestro\Bundle\LocaleBundle\Model\Locale;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Intl;
@@ -13,7 +13,7 @@ class LocaleType extends AbstractType
 {
     private $localeRepository;
 
-    public function __construct(LocaleRepository $localeRepository = null)
+    public function __construct(ObjectRepository $localeRepository = null)
     {
         $this->localeRepository = $localeRepository;
     }
@@ -45,13 +45,13 @@ class LocaleType extends AbstractType
         }
 
         $builder
-            ->add('enabled', 'checkbox', array(
+            ->add('isEnabled', 'checkbox', array(
                     'required' => false,
                     'attr' => array(
                         'class' => 'switchery',
                     ),
                 ))
-            ->add('fallback', 'checkbox', array(
+            ->add('isFallback', 'checkbox', array(
                     'required' => false,
                     'attr' => array(
                         'class' => 'switchery',
@@ -66,7 +66,7 @@ class LocaleType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Orkestro\Bundle\LocaleBundle\Entity\Locale'
+            'data_class' => 'Orkestro\Bundle\LocaleBundle\Model\Locale'
         ));
     }
 
