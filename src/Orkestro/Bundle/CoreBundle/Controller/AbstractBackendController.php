@@ -5,6 +5,7 @@ namespace Orkestro\Bundle\CoreBundle\Controller;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Orkestro\Bundle\WebBundle\Form\Backend\PaginationLimitSelectorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractBackendController extends Controller implements AbstractBackendControllerInterface
@@ -29,10 +30,6 @@ abstract class AbstractBackendController extends Controller implements AbstractB
         return array();
     }
 
-    /**
-     * @param $selectedLimit
-     * @return \Symfony\Component\Form\Form
-     */
     protected function createLimitSelectorForm($selectedLimit)
     {
         $form = $this->createForm(new PaginationLimitSelectorType($this->get('translator'), $selectedLimit), null, array(
@@ -81,5 +78,27 @@ abstract class AbstractBackendController extends Controller implements AbstractB
             'forms' => $forms,
             'formLimitSelector' => $formLimitSelector,
         );
+    }
+
+    protected function createCreateForm($type, $model)
+    {
+        $form = $this->createForm($type, $model, array(
+                'action' => $this->generateUrl($this->getNamespace().'_create'),
+                'method' => 'POST',
+            ));
+
+        $form->add('submit', 'submit');
+
+        return $form;
+    }
+
+    protected function createDeleteForm($action)
+    {
+        return $this->createFormBuilder()
+            ->setAction($action)
+            ->setMethod('DELETE')
+            ->add('submit', 'submit')
+            ->getForm()
+        ;
     }
 }
