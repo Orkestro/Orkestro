@@ -36,7 +36,9 @@ class LocaleController extends AbstractBackendController
         foreach ($pagination as $locale) {
             $forms[$locale->getCode()]['enable'] = $this->createEnableForm($locale)->createView();
             $forms[$locale->getCode()]['fallback'] = $this->createFallbackForm($locale)->createView();
-            $forms[$locale->getCode()]['delete'] = $this->createDeleteForm($locale->getCode())->createView();
+            $forms[$locale->getCode()]['delete'] = $this->createDeleteForm(
+                $this->generateUrl('orkestro_backend_locale_delete', array('code' => $locale->getCode()))
+            )->createView();
         }
 
         return $forms;
@@ -175,7 +177,10 @@ class LocaleController extends AbstractBackendController
     public function createAction(Request $request)
     {
         $entity = new Locale();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm(
+            new LocaleType($this->getModelRepository()),
+            $entity
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -228,25 +233,6 @@ class LocaleController extends AbstractBackendController
     }
 
     /**
-     * Creates a form to create a Locale entity.
-     *
-     * @param Locale $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Locale $entity)
-    {
-        $form = $this->createForm(new LocaleType($this->getModelManager()->getRepository('Orkestro\Bundle\LocaleBundle\Model\Locale')), $entity, array(
-            'action' => $this->generateUrl('orkestro_backend_locale_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
      * Displays a form to create a new Locale entity.
      *
      * @Route("/new", name="orkestro_backend_locale_new")
@@ -256,7 +242,10 @@ class LocaleController extends AbstractBackendController
     public function newAction()
     {
         $entity = new Locale();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm(
+            new LocaleType($this->getModelRepository()),
+            $entity
+        );
 
         return array(
             'entity' => $entity,
@@ -279,7 +268,9 @@ class LocaleController extends AbstractBackendController
             throw $this->createNotFoundException('Unable to find Locale entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($code);
+        $deleteForm = $this->createDeleteForm(
+            $this->generateUrl('orkestro_backend_locale_delete', array('code' => $code))
+        );
 
         return array(
             'entity'      => $entity,
@@ -400,7 +391,9 @@ class LocaleController extends AbstractBackendController
      */
     public function deleteAction(Request $request, $code)
     {
-        $form = $this->createDeleteForm($code);
+        $form = $this->createDeleteForm(
+            $this->generateUrl('orkestro_backend_locale_delete', array('code' => $code))
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -416,22 +409,5 @@ class LocaleController extends AbstractBackendController
         }
 
         return $this->redirect($this->generateUrl('orkestro_backend_locale_list'));
-    }
-
-    /**
-     * Creates a form to delete a Locale entity by code.
-     *
-     * @param mixed $code The entity code
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($code)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('orkestro_backend_locale_delete', array('code' => $code)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }
